@@ -105,7 +105,7 @@ def getglobalevents(request):
 @csrf_exempt
 def getlikedevents(request):
     global events
-    sql="SELECT * FROM events WHERE user='"+email+"' AND isliked='true'"
+    sql="SELECT * FROM events WHERE isliked='true'"
     cursor.execute(sql)
     likedevents=cursor.fetchall()
     response = JsonResponse({'events': likedevents}) 
