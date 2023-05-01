@@ -9,6 +9,7 @@ import "./NavbarComponent.css";
 
 export default function NavbarComponent() {
   const [email,setEmail]=useState("");
+  //fetch email id for navbar display
   fetch("http://127.0.0.1:8000/getmail")
     .then((response) => response.json())
     .then((data) => {

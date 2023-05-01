@@ -6,6 +6,7 @@ import { AiFillHeart } from "react-icons/ai";
 
 export default function YourEvent() {
   const [data, setData] = useState([]);
+  // add like for the event to database
   const like = (name) => {
     fetch("http://127.0.0.1:8000/addlike", {
       method: 'POST',
@@ -18,6 +19,7 @@ export default function YourEvent() {
     })
     window.location.reload();
   };
+  // remove like for the event to database
   const removelike = (name) => {
     fetch("http://127.0.0.1:8000/removelike", {
       method: 'POST',
@@ -30,6 +32,7 @@ export default function YourEvent() {
     })
     window.location.reload();
   };
+  // get your events from database
   useEffect(()=>{
     fetch("http://127.0.0.1:8000/getyourevents")
     .then((response) => response.json())

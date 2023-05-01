@@ -8,6 +8,7 @@ export default function Login() {
   const putUserData = () => {
     var email=document.getElementById('email').value;
     var pass=document.getElementById('pass').value;
+    // get form data and check for exist or not
     fetch("http://127.0.0.1:8000/", {
       method: 'POST',
       body: JSON.stringify({

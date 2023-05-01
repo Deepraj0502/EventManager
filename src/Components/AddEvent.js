@@ -8,6 +8,7 @@ export default function AddEvent() {
     var loc = document.getElementById("loc").value;
     var time = document.getElementById("time").value;
     var image = document.getElementById("image").value;
+    // add event data to database
     fetch("http://127.0.0.1:8000/addevent", {
       method: "POST",
       body: JSON.stringify({

@@ -9,6 +9,7 @@ export default function Registration() {
     var name=document.getElementById('name').value;
     var email=document.getElementById('email').value;
     var pass=document.getElementById('pass').value;
+    //POST form data to user_info table
     fetch("http://127.0.0.1:8000/reg", {
       method: 'POST',
       body: JSON.stringify({
