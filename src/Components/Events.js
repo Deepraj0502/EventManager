@@ -43,7 +43,7 @@ export default function Events() {
   }, []);
   return (
     <div>
-      <h1 className="event-head-name">Global Events</h1>
+      <h2 className="event-head-name">Global Events</h2>
       {data.map((value) => (
         <div className="event-outer-box">
           <div className="event-inner-box">
