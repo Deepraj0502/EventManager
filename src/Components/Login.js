@@ -1,15 +1,15 @@
 import React from "react";
 import './login.css';
-import {AiOutlineUser} from 'react-icons/ai'
-import {FiLock} from 'react-icons/fi'
-import {FaUserCircle} from 'react-icons/fa'
+import {HiOutlineMail} from 'react-icons/hi'
+import {RiLockPasswordLine} from 'react-icons/ri'
+
 
 export default function Login() {
   const putUserData = () => {
     var email=document.getElementById('email').value;
     var pass=document.getElementById('pass').value;
     // get form data and check for exist or not
-    fetch("http://127.0.0.1:8000/", {
+    fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/login", {
       method: 'POST',
       body: JSON.stringify({
         "email":email,
@@ -21,70 +21,47 @@ export default function Login() {
     })
     .then((response) => response.json())
     .then((data) => {
-      if(data['login']=="success"){
+      if(data['login']==="Success"){
         window.location.href="/globalevents";
       }
       else{
-        alert("Invalid Credentials");
+        document.getElementById('invalid').style.display="block";
+        document.getElementById('invalid').style.animationName="popup";
       }
     });
     
   }
   return (
-    <div className="outer-body">
-      <div className="container">
-        <div className="form-box"  style={{textAlign:"center"}}>
-          <div className="header-form">
-            <h4 className="text-primary text-center">
-              <i
-                className="fa fa-user-circle"
-                style={{ fontSize: "110px" }}
-              ></i>
-            </h4>
-            <div className="image"><FaUserCircle style={{width:"80px",height:"80px",margin:"auto"}}/></div>
-            <h1>Login</h1>
+    <div className="login-outer-box">
+      <div className="login-box">
+        <div className="left-login-box">
+          <h1 className="login-wel-text">WELCOME TO</h1>
+          <div style={{display:"flex"}}>
+          <img src="https://ik.imagekit.io/ok2wgebfs/evento/logo-removebg-preview__4_.png?updatedAt=1684140911523" alt="" className="left-logo"/>
+          <img src="https://ik.imagekit.io/ok2wgebfs/evento/logo-name-removebg-preview.png?updatedAt=1684140911522" alt="" className="left-logo-text"/>
           </div>
-          <div className="body-form">
-            <form onSubmit={putUserData} name="LoginForm">
-              <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">
-                    <i className="fa fa-user"><AiOutlineUser/></i>
-                  </span>
-                </div>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Email ID"
-                  id="email"
-                  required
-                />
-              </div>
-              <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">
-                    <i class="fa fa-lock"><FiLock/></i>
-                  </span>
-                </div>
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="Password"
-                  id="pass"
-                  required
-                />
-              </div>
-              <button type="submit" className="log-button btn btn-secondary btn-block">
-                LOGIN
-              </button>
-              <hr/>
-              <a href="/register">
-              <p className="btn btn-secondary btn-block" style={{marginTop:"0px",width:"100%"}}>
-                REGISTER
-              </p>
-              </a>
-            </form>
-          </div>
+          <p className="login-para">Log in to attend your favorite events.</p>
+          <form style={{width:"100%",marginLeft:"20px"}}>
+            
+            <div style={{marginTop:"-10px"}}>
+              <HiOutlineMail className="email-icon"/>
+            <input type="text" name="email" placeholder="Email Id" className="login-input" id="email"/>
+            </div>
+            <div>
+              <RiLockPasswordLine className="email-icon"/>
+            <input type="password" name="password" placeholder="Password" className="login-input" id="pass"/>
+            </div>
+            <div style={{display:"flex"}}>
+            <a href="/" style={{textDecoration:"none"}}><p className="forgot-pass">Forgot Password ?</p></a>
+            <p className="invalid" id="invalid">Invalid Credentials</p>
+            </div>
+            <input type="button"value="SIGN IN" className="signin-btn" onClick={putUserData}/>
+          </form>
+          <p className="register-here">Don't have an account ?<a href="/" className="register-here-a"> Sign Up Now</a></p>
+        </div>
+        <div className="right-login-box">
+          <img src="https://ik.imagekit.io/ok2wgebfs/evento/logo-removebg-preview__4_.png?updatedAt=1684140911523" alt="" className="right-logo"/>
+          <img src="https://ik.imagekit.io/ok2wgebfs/evento/login-logo-removebg-preview.png?updatedAt=1684140911481" alt="" className="right-logo-name"/>
         </div>
       </div>
     </div>

@@ -1,56 +1,148 @@
-.outer-body{
-    background:linear-gradient(to left, chocolate, white);
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    color:white;
-  }
-  
-  .container{
-    display:flex;
-      align-items:center;
-      justify-content:center;
-      height:100vh;
-      width:100%;
-  }
-    .form-box{
-        width:380px;
-        height:auto;
-        background-color:black;
-        padding:20px;
-        display:flex;
-        flex-direction:column;
-        justify-content:flex-start;
-        opacity:0.5;
-        border-radius:2%;
-    }
-  .header-form{
-    margin-bottom:15px;
-  }
-  .log-button{
-    margin-top:20px;
-    width: 100%;
-  }
-  .message{
-    display:flex;
-    justify-content:space-between
-  }
-  .social{
-    display: flex;
-    justify-content: space-around;
-    padding: 0;
-    border-top: 2px solid;
-    margin-top: 30px;
-  }
-  
-  .social i{
-    font-size:35px;
-  }
-  
-  .social i:hover{
-    color:red;
-    cursor:pointer;
-  }
-  
-  
-  
+.login-outer-box{
+  background: url("../Images/login_bg.jpg");
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+}
+.login-box{
+  display: flex;
+  width: 80%;
+  border-radius: 15px;
+  margin: auto;
+  position: relative;
+  top: 8%;
+  background: white;
+  box-shadow: 0px 2px 10px 0px #5a5858;
+}
+.left-login-box{
+  width: 45%;
+  border-right: 2px solid black;
+  padding: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.right-login-box{
+  width: 55%;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px; 
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.right-login-box::before{
+  content: "";
+  background: url(https://st2.depositphotos.com/3944627/8210/i/450/depositphotos_82105954-stock-photo-abstract-blurred-event-with-people.jpg);
+      background-size: cover;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      border-top-right-radius: 15px;
+      border-bottom-right-radius: 15px; 
+      opacity: 0.60;
+}
+.right-logo{
+  position: relative;
+  z-index: 2;
+  width: 150px;
+}
+.right-logo-name{
+  position: relative;
+  z-index: 2;
+  width: 350px;
+}
+.login-wel-text{
+  font-size: 1.2rem;
+  color: gray;
+  margin-left: -5px;
+}
+.left-logo{
+  width: 50px;
+  height: fit-content;
+  margin-left: -5px;
+}
+.left-logo-text{
+  width: 180px;
+  height: fit-content;
+  position: relative;
+  top: 2px;
+}
+.login-para{
+  font-size: 1.1rem;
+    color: gray;
+    position: relative;
+}
+.login-input{
+  width: 100%;
+  height: 0;
+  border-radius: 20px;
+  border: 1px solid gray;
+  font-size: 18px;
+  padding: 22px;
+  padding-left: 50px;
+  padding-bottom: 24px;
+}
+.login-input:hover{
+  outline: none;
+}
+.email-icon{
+  width: 30px;
+  height: 30px;
+  margin-bottom: -67px;
+  position: relative;
+  margin-left: 10px;
+}
+.signin-btn{
+  width: 100%;
+  background-color: red;
+  color: white;
+  padding: 12px;
+  border-radius: 20px;
+  border: none;
+  margin-top: 20px;
+  box-shadow: 0px 3px 10px 0px gray;
+}
+.signin-btn:hover{
+  background-color: #f7293e;
+}
+.register-here{
+  margin-top: 8px;
+  color: gray;
+}
+.register-here-a{
+  color: #f7293e;
+  font-weight: bold;
+  text-decoration: none;
+}
+.register-here-a:hover{
+  color: orange;
+}
+.forgot-pass{
+  color: black;
+  font-size: 14px;
+  position: relative;
+  top: 5px;
+  left: 5px;
+  font-weight: bold;
+}
+@keyframes popup {
+  0% {transform: scale(0);}
+  100% {transform: scale(1);}
+}
+.invalid{
+  color: red;
+  font-size: 14px;
+    font-weight: 700;
+    text-align: right;
+    width: 62%;
+    position: relative;
+    top: 5px;
+    display: none;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+}
