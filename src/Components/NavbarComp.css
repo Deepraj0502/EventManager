@@ -1,0 +1,53 @@
+.rs-sidenav-default, .rs-sidenav-default .rs-dropdown-toggle, .rs-sidenav-default .rs-sidenav-item, .rs-sidenav-default .rs-sidenav-toggle-button{
+    background: none !important;
+}
+.rs-sidenav-body{
+    background: #141533;
+    color: #a3a3a3;
+    height: 100vh;
+    position: fixed;
+    transition: width 1s;
+    width: 300px;
+}
+.rs-sidenav-toggle{
+    background: #2b2d42;
+    color: white;
+    height: 7vh;
+    display: none;
+    position: relative;
+    top: 93vh;
+}
+.rs-sidenav-default.rs-sidenav-collapse-in .rs-dropdown-menu>.rs-dropdown-item.rs-dropdown-item-active, .rs-sidenav-default.rs-sidenav-collapse-in .rs-sidenav-item.rs-sidenav-item-active, .rs-sidenav-default.rs-sidenav-collapsing .rs-dropdown-menu>.rs-dropdown-item.rs-dropdown-item-active, .rs-sidenav-default.rs-sidenav-collapsing .rs-sidenav-item.rs-sidenav-item-active{
+    text-decoration: none;
+    color: white;
+}
+.rs-sidenav-default, .rs-sidenav-default .rs-dropdown-toggle, .rs-sidenav-default .rs-sidenav-item, .rs-sidenav-default .rs-sidenav-toggle-button{
+    text-decoration: none;
+}
+.nav-logo{
+    width: 35px;
+    height: 35px;
+    margin-top: -3px;
+}
+.nav-name{
+    width: 120px;
+    height: 30px;
+    margin-left: 5px;
+}
+@keyframes expand {
+    0% {width: 56px;}
+    100% {width: 300px;}
+}
+@keyframes contrast {
+    0% {width: 300px;}
+    100% {width: 56px;}
+}
+@media (max-width:600px) {
+    .rs-sidenav-toggle{
+        display: block;
+    }
+    .rs-sidenav-body{
+        height: 93vh;
+        animation-duration: 0.305s;
+    }
+}

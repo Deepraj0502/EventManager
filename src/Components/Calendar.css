@@ -1,0 +1,46 @@
+.mbsc-ios.mbsc-datepicker-inline {
+    width: 100%;
+    border: none;
+}
+.mbsc-calendar-day-inner{
+    background-color: white;
+}
+.mbsc-ios.mbsc-calendar-button.mbsc-button{
+    color: black !important;
+    font-weight: bolder;
+}
+.calendar-div{
+    width: 100%;
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: -1px 2px 8px 0px gray;
+    margin-left: 5px;
+}
+.calendar-label{
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: -10px !important;
+    color: #141533;
+}
+.mbsc-calendar-controls {
+    background: #6671ff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.mbsc-ios.mbsc-calendar-button.mbsc-button {
+    color: white !important;
+    font-weight: 500;
+}
+.mbsc-ios.mbsc-datepicker-inline{
+    border: none !important;
+}
+.mbsc-grid .mbsc-col-md-4{
+    max-width: 100% !important;
+}
+.mbsc-ios.mbsc-page{
+    background: transparent;
+}
+.mbsc-row{
+    justify-content: center;
+}
