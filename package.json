@@ -3,18 +3,40 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@fullcalendar/core": "^6.1.7",
+    "@fullcalendar/daygrid": "^6.1.7",
+    "@fullcalendar/interaction": "^6.1.7",
+    "@fullcalendar/react": "^6.1.7",
+    "@fullcalendar/timegrid": "^6.1.7",
+    "@headlessui/react": "^1.7.14",
+    "@heroicons/react": "^2.0.18",
+    "@mobiscroll/react": "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.24.1.tgz",
+    "@mui/material": "^5.13.1",
+    "@mui/styled-engine-sc": "^5.12.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "aos": "^2.3.4",
     "bootstrap": "^5.2.3",
+    "firebase": "^9.22.0",
+    "flowbite": "^1.6.5",
+    "flowbite-react": "^0.4.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
+    "react-fontawesome": "^1.7.1",
     "react-google-button": "^0.7.2",
     "react-icons": "^4.8.0",
     "react-responsive": "^9.0.2",
     "react-router-dom": "^6.11.0",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
+    "rsuite": "^5.34.0",
+    "styled-components": "^6.0.0-rc.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -40,5 +62,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.2"
   }
 }

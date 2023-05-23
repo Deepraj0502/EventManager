@@ -1,0 +1,217 @@
+.home-outer{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+.home-inner{
+    margin-left: 15%;
+    width: 85%;
+    height: 100vh;
+    background: #eaf0fe;
+    border-radius: 30px;
+    z-index: 23;
+    display: flex;
+    position: relative;
+}
+.home-main-div{
+    width:70%;
+    border-radius: 30px;
+    background-color: white;
+    overflow-y: scroll;
+    padding: 40px;
+}
+.home-side-div{
+    width: 30%;
+    background-color: #eaf0fe;
+}
+.home-recent-outer{
+    width: 80%;
+    height: 50px;
+    margin: auto;
+    padding-left: 10px;
+    margin-top: -10px;
+}
+.recent-text{
+    font-weight: 600;
+    font-size: 22px;
+}
+.recent-card{
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 8px gray;
+    background-color: white;
+    display: flex;
+}
+.recent-card-left{
+    width: 3%;
+    background-color: orange;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.recent-card-right{
+    width: 97%;
+    padding: 10px;
+}
+.recent-event-name{
+    font-weight: 600;
+}
+.recent-event-info{
+    display: flex;
+    font-size: 14px;
+    justify-content: space-between;
+    width: 63%;
+    margin-top: -14px;
+    color: gray;
+}
+.recent-event-location{
+    display: flex;
+    font-size: 14px;
+    margin-top: -10px;
+    color: gray;
+    margin-bottom: -10px;
+}
+.home-search-div{
+    display: flex;
+}
+.home-search-bar{
+    border-radius: 10px;
+    width: 60%;
+    background-color: #dbe4fa;
+    border: none;
+    padding: 10px;
+    padding-left: 60px;
+    font-size: 18px;
+}
+.home-search-bar:focus{
+    border: none;
+    outline: none;
+}
+.home-search-button{
+    border-radius: 10px;
+    position: relative;
+    top: 0;
+    width: 25px;
+    height: 25px;
+    color: white;
+}
+.home-search-button-div{
+    padding: 10px;
+    background: #6671ff;
+    width: 45px;
+    border-radius: 10px;
+    margin-right: -45px;
+    z-index: 2;
+}
+.home-left-user-div{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: right;
+    padding: 10px;
+    padding-right: 30px;
+}
+.home-left-username{
+    font-weight: 600;
+    padding-top: 6px;
+}
+.home-dash-outer{
+    border-radius: 20px;
+    background-color: #dbe4fa;
+    padding: 20px;
+}
+.home-dash-text{
+    font-weight: 600;
+    font-size: 22px;
+    margin-top: 30px;
+}
+.home-dash-inner{
+    display: flex;
+    width: 100%;
+}
+.home-dash-inner-left{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.home-dash-inner-right{
+    width: 40%;
+}
+.home-dash-img{
+    width: 100%;
+}
+.home-dash-wel{
+    font-family: emoji;
+    font-size: 2rem;
+    font-weight: 600;
+}
+.home-dash-button{
+    background:#6671ff;
+    padding: 10px;
+    width: 140px;
+    border-radius: 10px;
+    color: white;
+}
+.home-card-name{
+    font-size: 1.3rem;
+}
+.home-card-info{
+    position: relative;
+    top: 2px;
+    left: 8px;
+}
+.home-card-outer{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+    height: 380px;
+}
+.carousel-control-prev-icon{
+    background-image: url("https://www.svgrepo.com/show/97099/left-arrow.svg");
+    margin-left: -135px;
+}
+.carousel-control-next-icon{
+    background-image: url("https://www.svgrepo.com/show/55208/right-arrow.svg");
+    margin-right: -135px;
+}
+.carousel-indicators{
+    display: none;
+}
+.home-browse-outer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.home-browse-card{
+    padding: 15px;
+    display: flex;
+    box-shadow: 0px 0px 8px gray;
+    border-radius: 5px;
+}
+.home-browse-image{
+    width: 100%;
+    border-radius: 5px;
+}
+.home-browse-card-left{
+    width: 50%;
+}
+.home-browse-card-right{
+    padding-left: 30px;
+}
+.home-browse-name{
+    font-size: 22px;
+}
+@media (max-width:600px) {
+    .home-inner{
+        z-index: -1;
+    }
+    .home-side-div{
+        display: none;
+    }
+    .home-main-div{
+        width: 100%;
+    }
+    .home-outer{
+        height: auto;
+    }
+}
