@@ -29,7 +29,7 @@ export default function Homepage() {
   });
   return (
     <div className="home-outer">
-      <NavbarComp />
+      <NavbarComp active="1"/>
       <div className="home-inner">
         <div className="home-main-div">
           <form>

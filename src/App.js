@@ -20,11 +20,6 @@ function App() {
           <Route path="/" element={[<Login />]} />
           <Route path="/home" element={[<Homepage />]} />
           <Route path="/type" element={[<Type />]} />
-        </Routes>
-      </BrowserRouter>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={[<Login />]} />
           <Route path="/profile" element={[<Profile />]} />
         </Routes>
       </BrowserRouter>

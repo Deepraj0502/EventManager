@@ -103,12 +103,13 @@
     z-index: 2;
 }
 .home-left-user-div{
-    width: 100%;
+    width: 95%;
     height: 50px;
     display: flex;
     justify-content: right;
     padding: 10px;
     padding-right: 30px;
+    margin-bottom: -10px;
 }
 .home-left-username{
     font-weight: 600;
@@ -166,13 +167,19 @@
     margin-bottom: 10px;
     height: 380px;
 }
+.carousel-control-prev{
+    width: 4%;
+    margin-left: -10px;
+}
+.carousel-control-next{
+    width: 4%;
+    margin-right: -10px;
+}
 .carousel-control-prev-icon{
     background-image: url("https://www.svgrepo.com/show/97099/left-arrow.svg");
-    margin-left: -135px;
 }
 .carousel-control-next-icon{
     background-image: url("https://www.svgrepo.com/show/55208/right-arrow.svg");
-    margin-right: -135px;
 }
 .carousel-indicators{
     display: none;
@@ -200,6 +207,18 @@
 }
 .home-browse-name{
     font-size: 22px;
+}
+.mbsc-datepicker-tab-wrapper{
+    margin-top: -8px;
+}
+.mbsc-datepicker .mbsc-calendar-slide{
+    padding: 0 !important;
+}
+.mbsc-datepicker .mbsc-calendar{
+    padding: 0 !important;
+}
+.calendar-div{
+    padding: 15px !important;
 }
 @media (max-width:600px) {
     .home-inner{

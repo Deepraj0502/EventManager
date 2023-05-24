@@ -9,16 +9,15 @@ import LogoutIcon from '@rsuite/icons/legacy/User';
 import "./NavbarComp.css";
 import MediaQuery from "react-responsive";
 
-export default function NavbarComp() {
+export default function NavbarComp(props) {
     const [expanded, setExpanded] = React.useState(false);
-    const [activeKey, setActiveKey] = React.useState("1");
     return (
       <div style={{ width: 300 }}>
         <MediaQuery maxWidth={600}>
           <Sidenav expanded={expanded}>
             {expanded && (
               <Sidenav.Body style={{ animationName: "expand"}}>
-                <Nav activeKey={activeKey} onSelect={setActiveKey}>
+                <Nav activeKey={props.active}>
                   <Nav.Item>
                     <div
                       style={{
@@ -68,7 +67,7 @@ export default function NavbarComp() {
             )}
             {!expanded && (
               <Sidenav.Body style={{ width: "56px",animationName:"contrast",animationDuration:"0.05" }}>
-                <Nav activeKey={activeKey} onSelect={setActiveKey}>
+                <Nav activeKey={props.active}>
                   <Nav.Item>
                     <div
                       style={{
@@ -121,7 +120,7 @@ export default function NavbarComp() {
         <MediaQuery minWidth={900}>
           <Sidenav expanded={true}>
             <Sidenav.Body>
-              <Nav activeKey={activeKey} onSelect={setActiveKey}>
+              <Nav activeKey={props.active}>
                 <Nav.Item>
                   <div
                     style={{
