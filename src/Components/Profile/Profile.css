@@ -1,0 +1,22 @@
+.Profile {
+  /* display: flex;
+  flex-direction: row; */
+}
+.Profile-cards {
+  /* display: flex; */
+  /* margin-left: 100px;
+  position: relative;
+  top: 380px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 50px;
+  height: 317px; */
+}
+
+.navs {
+  background: #1d3557;
+  width: 300px;
+  height: 713px;
+  position: relative;
+  /* display: flex; */
+}

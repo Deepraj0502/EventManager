@@ -1,0 +1,15 @@
+.Graph {
+  width: 320px;
+  height: 310px;
+  border-radius: 2%;
+  border: 5px solid white;
+  /* box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8); */
+  /* box-shadow: 0 25px 50px rgba(0, 0, 0, 0.55); */
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+  transition: 0.4s ease-out;
+}
+
+.Graph:hover {
+  border-color: #457b9d;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
+}
