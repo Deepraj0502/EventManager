@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Sidenav, Nav } from "rsuite";
 import GroupIcon from "@rsuite/icons/legacy/Dashboard";

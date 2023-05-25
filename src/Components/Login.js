@@ -5,7 +5,6 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { BiUser } from "react-icons/bi";
 import MediaQuery from "react-responsive";
 import { useNavigate } from "react-router-dom";
-import { CircularProgress } from "@mui/material";
 import { auth, provider } from "./FirebaseConfig";
 import { signInWithPopup } from "firebase/auth";
 import ReactLoading from "react-loading";
@@ -15,7 +14,6 @@ export default function Login() {
   const [forgot, setForgot] = useState("none");
   const [loading,setLoading] = useState(false);
   const [regloading,setRegLoading] = useState(false);
-  const [otploading,setOtpLoading] = useState(false);
   const navigate = useNavigate();
   const navigateToHome = (email,name) => {
     navigate("/home", {
@@ -352,8 +350,7 @@ export default function Login() {
                 className="signin-btn"
                 onClick={putUserData}
               >
-                {!otploading && <p>SEND OTP</p> }
-                {otploading && <ReactLoading type="bars" color="white" height={30} width={50} className="login-btn-loading"/> }
+                <p>Send OTP</p>
               </button>
             </form>
             <p className="register-here">
