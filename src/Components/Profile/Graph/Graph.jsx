@@ -13,8 +13,8 @@ export default function Graph({ data }) {
   return (
     <div className="Graph">
       <LineChart
-        width={310}
-        height={300}
+        width={296}
+        height={250}
         cursor={"pointer"}
         data={data}
         margin={{ top: 15, right: 30, left: 20, bottom: 5 }}
