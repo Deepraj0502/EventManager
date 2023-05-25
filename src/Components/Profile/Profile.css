@@ -1,17 +1,3 @@
-body {
-  background-color: #e9ecef;
-}
-.Profile {
-  /* display: flex;
-  flex-direction: row; */
-}
-.Profile-cards {
-  /* display: flex;
-  justify-content: space-around; */
-  position: relative;
-  top: 90px;
-}
-
 .profile-outer-div {
   width: 85%;
   margin-left: 15%;

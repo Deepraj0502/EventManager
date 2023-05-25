@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Sidenav, Nav } from "rsuite";
 import GroupIcon from "@rsuite/icons/legacy/Dashboard";
 import MagicIcon from "@rsuite/icons/legacy/Magic";
@@ -8,9 +9,26 @@ import ProfileIcon from '@rsuite/icons/legacy/Profile';
 import LogoutIcon from '@rsuite/icons/legacy/User';
 import "./NavbarComp.css";
 import MediaQuery from "react-responsive";
+import { useLocation } from "react-router-dom";
 
 export default function NavbarComp(props) {
     const [expanded, setExpanded] = React.useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
+  const navigateToHome = () => {
+    navigate("/home", {
+      state: {
+        email: location.state.email
+      },
+    });
+  };
+  const navigateToProfile = () => {
+    navigate("/profile", {
+      state: {
+        email: location.state.email
+      },
+    });
+  };
     return (
       <div style={{ width: 300 }}>
         <MediaQuery maxWidth={600}>
@@ -38,10 +56,10 @@ export default function NavbarComp(props) {
                       />
                     </div>
                   </Nav.Item>
-                  <Nav.Item eventKey="1" icon={<GroupIcon />}>
+                  <Nav.Item eventKey="1" icon={<GroupIcon />} onClick={navigateToHome}>
                   Dashboard
                 </Nav.Item>
-                <Nav.Item eventKey="2" icon={<ProfileIcon />}>
+                <Nav.Item eventKey="2" icon={<ProfileIcon />} onClick={navigateToProfile}>
                   Profile
                 </Nav.Item>
                 <Nav.Menu
@@ -84,10 +102,10 @@ export default function NavbarComp(props) {
                       />
                     </div>
                   </Nav.Item>
-                  <Nav.Item eventKey="1" icon={<GroupIcon />}>
+                  <Nav.Item eventKey="1" icon={<GroupIcon />} onClick={navigateToHome}>
                   Dashboard
                 </Nav.Item>
-                <Nav.Item eventKey="2" icon={<ProfileIcon />}>
+                <Nav.Item eventKey="2" icon={<ProfileIcon />} onClick={navigateToProfile}>
                   Profile
                 </Nav.Item>
                 <Nav.Menu
@@ -141,10 +159,10 @@ export default function NavbarComp(props) {
                     />
                   </div>
                 </Nav.Item>
-                <Nav.Item eventKey="1" icon={<GroupIcon />}>
+                <Nav.Item eventKey="1" icon={<GroupIcon />} onClick={navigateToHome}>
                   Dashboard
                 </Nav.Item>
-                <Nav.Item eventKey="2" icon={<ProfileIcon />}>
+                <Nav.Item eventKey="2" icon={<ProfileIcon />} onClick={navigateToProfile}>
                   Profile
                 </Nav.Item>
                 <Nav.Menu

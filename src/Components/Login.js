@@ -8,10 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 import { auth, provider } from "./FirebaseConfig";
 import { signInWithPopup } from "firebase/auth";
+import ReactLoading from "react-loading";
 
 export default function Login() {
   const [login, setLogin] = useState("flex");
   const [forgot, setForgot] = useState("none");
+  const [loading,setLoading] = useState(false);
+  const [regloading,setRegLoading] = useState(false);
+  const [otploading,setOtpLoading] = useState(false);
   const navigate = useNavigate();
   const navigateToHome = (email,name) => {
     navigate("/home", {
@@ -38,7 +42,7 @@ export default function Login() {
       document.getElementById("invalid").style.animationName = "popup";
       return;
     }
-    document.getElementById("login-loading").style.display = "block";
+    setLoading(true);
     // get form data and check for exist or not
     fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/login", {
       method: "POST",
@@ -58,7 +62,6 @@ export default function Login() {
           document.getElementById("invalid").style.display = "block";
           document.getElementById("invalid").innerHTML = "Invalid Credentials";
           document.getElementById("invalid").style.animationName = "popup";
-          document.getElementById("login-loading").style.display = "none";
         }
       });
   };
@@ -78,7 +81,7 @@ export default function Login() {
       document.getElementById("reginvalid").style.animationName = "popup";
       return;
     }
-    document.getElementById("reg-loading").style.display = "block";
+    setRegLoading(true);
     fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/check", {
       method: "POST",
       body: JSON.stringify({
@@ -95,7 +98,6 @@ export default function Login() {
           document.getElementById("reginvalid").innerHTML =
             "Email Id Already Registered";
           document.getElementById("reginvalid").style.animationName = "popup";
-          document.getElementById("reg-loading").style.display = "none";
         } else {
           navigateToNext(name, email, pass);
         }
@@ -144,7 +146,6 @@ export default function Login() {
     document.getElementById("left-login-box").style.transform = "rotateY(0deg)";
   };
   const mobileReg = () => {
-    setLogin("none");
     document.getElementById("register-box").style.display = "flex";
     document.getElementById("left-box").style.width = "0%";
   };
@@ -273,10 +274,8 @@ export default function Login() {
                 className="signin-btn"
                 onClick={putUserData}
               >
-                SIGN IN
-                <p className="login-loading" id="login-loading">
-                  <CircularProgress />
-                </p>
+                {!loading && <p>SIGN IN</p> }
+                {loading && <ReactLoading type="bars" color="white" height={30} width={50} className="login-btn-loading"/> }
               </button>
             </form>
             <p className="register-here">
@@ -353,14 +352,8 @@ export default function Login() {
                 className="signin-btn"
                 onClick={putUserData}
               >
-                SEND OTP
-                <p
-                  className="otp-loading"
-                  id="otp-loading"
-                  style={{ left: "70px" }}
-                >
-                  <CircularProgress />
-                </p>
+                {!otploading && <p>SEND OTP</p> }
+                {otploading && <ReactLoading type="bars" color="white" height={30} width={50} className="login-btn-loading"/> }
               </button>
             </form>
             <p className="register-here">
@@ -449,10 +442,8 @@ export default function Login() {
               onClick={putRegData}
               style={{ marginTop: "10px" }}
             >
-              SIGN UP
-              <p className="reg-loading" id="reg-loading">
-                <CircularProgress />
-              </p>
+              {!regloading && <p>SIGN UP</p> }
+              {regloading && <ReactLoading type="bars" color="white" height={30} width={50} className="login-btn-loading"/> }
             </button>
           </form>
           <p className="register-here">
