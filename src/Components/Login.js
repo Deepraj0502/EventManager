@@ -7,7 +7,7 @@ import MediaQuery from "react-responsive";
 import { useNavigate } from "react-router-dom";
 import { auth, provider } from "./FirebaseConfig";
 import { signInWithPopup } from "firebase/auth";
-import ReactLoading from "react-loading";
+import ReactLoading from "react-loading"; 
 
 export default function Login() {
   const [login, setLogin] = useState("flex");

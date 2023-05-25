@@ -14,12 +14,14 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import { storage } from "../FirebaseConfig";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import MobileNumber from "./MobileNumber";
+import ReactLoading from "react-loading";
 
 export default function App() {
   const location = useLocation();
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(true);
+  const [proloading, setProLoading] = useState(false);
   useEffect(() => {
     fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/getname", {
       method: "POST",
@@ -102,6 +104,7 @@ export default function App() {
     );
   };
   const handleImageChange = (e) => {
+    setProLoading(true);
     console.log(e.target.files[0]);
     const imageRef = ref(storage, name);
     uploadBytes(imageRef, e.target.files[0]).then(() => {
@@ -126,6 +129,7 @@ export default function App() {
           console.log(error);
         });
     });
+    setProLoading(false);
   };
   return (
     <>
@@ -141,7 +145,10 @@ export default function App() {
       <NavbarComp active="2" />
       <div className="profile-outer-div">
         <div className="profile-info-div">
-          {url === "" && (
+          {url === "" && proloading && (
+            <ReactLoading type="bars" color="white" height={30} width={50}/>
+          )}
+          {url === "" && !proloading && (
             <FaUserCircle className="profile-image" id="profile-image" />
           )}
           {url !== "" && (
