@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation} from "react-router-dom";
 import NavbarComp from "./NavbarComp";
 import "./Homepage.css";
 import Calendar from "./Calendar";
@@ -12,6 +12,7 @@ import CardComp from "./CardComp";
 export default function Homepage() {
   const location = useLocation();
   const [name,setName]=useState("");
+  const [url, setUrl] = useState("");
   useEffect(()=>{
     fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/getname", {
       method: "POST",
@@ -26,9 +27,25 @@ export default function Homepage() {
       .then((data) => {
         setName(data['name']);
       });
+      fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/getpropic", {
+      method: "POST",
+      body: JSON.stringify({
+        email: location.state.email,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setUrl(data["propic"]);
+      });
   });
   return (
     <div className="home-outer">
+      {/* <div className="loading-background">
+      <img src="https://ik.imagekit.io/ok2wgebfs/evento/image-processing20210904-26665-unscreen.gif?updatedAt=1684985103292" alt="" style={{position:"absolute",zIndex:"99"}}/>
+      </div> */}
       <NavbarComp active="1"/>
       <div className="home-inner">
         <div className="home-main-div">
@@ -123,7 +140,8 @@ export default function Homepage() {
         </div>
         <div className="home-side-div">
           <div className="home-left-user-div">
-            <FaUserCircle style={{ width: "45px", height: "35px" }} />
+            { url==="" && <FaUserCircle style={{ width: "45px", height: "35px" }} />}
+            { url!=="" && <img src={url} alt="" style={{ width: "35px", height: "35px",borderRadius:"50%",marginRight:"5px" }}/>}
             <p className="home-left-username">{name}</p>
           </div>
           <Calendar />

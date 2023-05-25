@@ -1,14 +1,52 @@
 import "./Profile.css";
-import React from "react";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import React, { useState } from "react";
 import NavbarComp from "../NavbarComp";
 import Graph from "./Graph/Graph";
 import FlippableCard from "./FlippableCard/FlippableCard";
 import FlippableCard2 from "./FlippableCard/FlippableCard2";
-import {FaUserCircle} from 'react-icons/fa';
-import {HiMail} from 'react-icons/hi';
-import {BsTelephoneFill} from 'react-icons/bs';
+import { FaUserCircle } from "react-icons/fa";
+import { HiMail } from "react-icons/hi";
+import { BsTelephoneFill } from "react-icons/bs";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import { storage } from "../FirebaseConfig";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import MobileNumber from "./MobileNumber";
 
 export default function App() {
+  const location = useLocation();
+  const [name, setName] = useState("");
+  const [url, setUrl] = useState("");
+  useEffect(() => {
+    fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/getname", {
+      method: "POST",
+      body: JSON.stringify({
+        email: location.state.email,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setName(data["name"]);
+      });
+    fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/getpropic", {
+      method: "POST",
+      body: JSON.stringify({
+        email: location.state.email,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setUrl(data["propic"]);
+      });
+  });
   const month = [
     "January",
     "February",
@@ -42,31 +80,104 @@ export default function App() {
       events: 2,
     },
   ];
+  const deleteProfilePic = () =>{
+    setUrl("");
+    fetch(
+      "https://event-manager-api-git-main-deepraj0502.vercel.app/setpropic",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          email: location.state.email,
+          url: ""
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  };
+  const handleImageChange = (e) => {
+    console.log(e.target.files[0]);
+    const imageRef = ref(storage, name);
+    uploadBytes(imageRef, e.target.files[0]).then(() => {
+      getDownloadURL(imageRef)
+        .then((url) => {
+          setUrl(url);
+          fetch(
+            "https://event-manager-api-git-main-deepraj0502.vercel.app/setpropic",
+            {
+              method: "POST",
+              body: JSON.stringify({
+                email: location.state.email,
+                url: url
+              }),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  };
   return (
     <>
-    <NavbarComp active="2"/>
-    <div className="profile-outer-div">
-      <div className="profile-info-div">
-        <FaUserCircle className="profile-image" />
-        <div className="profile-inner-info">
-          <p className="profile-name">Deepraj Pagare</p>
-          <div style={{display:"flex"}}>
-            <HiMail style={{width:"30px",height:"30px",color:"#6671ff"}}/>
-            <p className="profile-details">pagaredeepraj05@gmail.com</p>
+      <NavbarComp active="2" />
+      <div className="profile-outer-div">
+        <div className="profile-info-div">
+          {url === "" && (
+            <FaUserCircle className="profile-image" id="profile-image" />
+          )}
+          {url !== "" && (
+            <img
+              src={url}
+              alt=""
+              className="profile-upload-image"
+              id="profile-upload-image"
+            />
+          )}
+          <div className="profile-inner-info">
+            <p className="profile-name">{name}</p>
+            <div style={{ display: "flex", marginTop: "-5px" }}>
+              <HiMail style={{ width: "30px", height: "30px" }} />
+              <p className="profile-details">{location.state.email}</p>
+            </div>
+            <div style={{ display: "flex", marginTop: "-5px" }}>
+              <BsTelephoneFill style={{ width: "30px", height: "24px" }} />
+              <p className="profile-details"><MobileNumber/></p>
+            </div>
+            <DropdownButton id="dropdown-basic-button" title="Profile Photo">
+              <Dropdown.Item href="#/action-1">
+                <input type="file" onChange={handleImageChange} />
+              </Dropdown.Item>
+              <Dropdown.Item
+                style={{
+                  paddingLeft: "20px",
+                  height: "50px",
+                  display: "flex",
+                  alignItems: "center",
+                  color: "red",
+                }}
+                onClick={deleteProfilePic}
+              >
+                Delete Profile Photo
+              </Dropdown.Item>
+            </DropdownButton>
           </div>
-          <div style={{display:"flex"}}>
-            <BsTelephoneFill style={{width:"30px",height:"24px",color:"#6671ff"}}/>
-            <p className="profile-details">8879869667</p>
-          </div>
+          <img
+            src="https://ik.imagekit.io/ok2wgebfs/evento/21207-removebg-preview.png?updatedAt=1684923957895"
+            alt=""
+            className="profile-vector"
+          />
         </div>
-        <img src="https://ik.imagekit.io/ok2wgebfs/evento/21207-removebg-preview.png?updatedAt=1684923957895" alt="" className="profile-vector"/>
+        <div className="profile-card-div">
+          <FlippableCard />
+          <FlippableCard2 />
+          <Graph data={data} />
+        </div>
       </div>
-      <div className="profile-card-div">
-        <FlippableCard />
-        <FlippableCard2 />
-        <Graph data={data} />
-      </div>
-    </div>
     </>
   );
 }

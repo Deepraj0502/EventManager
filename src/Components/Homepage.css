@@ -156,6 +156,17 @@
 .home-card-name{
     font-size: 1.3rem;
 }
+.loading-background{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:#dbe4fa;
+    z-index: 99;
+    opacity: 80%;
+}
 .home-card-info{
     position: relative;
     top: 2px;

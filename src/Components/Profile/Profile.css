@@ -1,18 +1,3 @@
-.Profile {
-  /* display: flex;
-  flex-direction: row; */
-}
-.Profile-cards {
-  /* display: flex; */
-  /* margin-left: 100px;
-  position: relative;
-  top: 380px;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 50px;
-  height: 317px; */
-}
-
 .profile-outer-div{
   width: 85%;
   margin-left: 15%;
@@ -41,6 +26,11 @@
   height: 200px;
   color: gray;
 }
+.profile-upload-image{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
 .profile-inner-info{
   width: 100%;
   height: 200px;
@@ -49,7 +39,7 @@
 }
 .profile-name{
   font-size: 3rem;
-  font-weight:600;
+  font-weight:700;
 }
 .profile-vector{
   width: 400px;
@@ -58,5 +48,22 @@
   font-weight: 500;
   margin-left: 10px;
   font-size: 18px;
-  color: #6671ff;
+  color: black;
+}
+.dropdown-toggle{
+  background-color: #6671ff !important;
+  border: none;
+}
+.mobile-button{
+  background-color:#dbe4fa;
+  border: none;
+  color: black;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: -5px;
+}
+.mobile-button:hover{
+  background-color: #dbe4fa !important;
+  color: #6671ff !important;
 }
