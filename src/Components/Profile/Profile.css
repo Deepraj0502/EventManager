@@ -1,4 +1,4 @@
-.profile-outer-div {
+.profile-outer-div{
   width: 85%;
   margin-left: 15%;
   background: white;
@@ -8,7 +8,7 @@
   border-radius: 30px;
   padding: 30px;
 }
-.profile-info-div {
+.profile-info-div{
   background-color: #dbe4fa;
   height: 300px;
   border-radius: 30px;
@@ -16,36 +16,54 @@
   display: flex;
   align-items: center;
 }
-.profile-card-div {
+.profile-card-div{
   display: flex;
   margin-top: 50px;
-  justify-content: space-evenly;
-  /* border: 1px solid black; */
-  padding: 21px 0px;
-  border-radius: 40px;
-  /* box-shadow: 0 0 8px gray; */
+  justify-content: space-between;
 }
-.profile-image {
+.profile-image{
   width: 350px;
   height: 200px;
   color: gray;
 }
-.profile-inner-info {
+.profile-upload-image{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+.profile-inner-info{
   width: 100%;
   height: 200px;
   padding: 5px;
   padding-left: 50px;
 }
-.profile-name {
+.profile-name{
   font-size: 3rem;
-  font-weight: 600;
+  font-weight:700;
 }
-.profile-vector {
+.profile-vector{
   width: 400px;
 }
-.profile-details {
+.profile-details{
   font-weight: 500;
   margin-left: 10px;
   font-size: 18px;
-  color: #6671ff;
+  color: black;
+}
+.dropdown-toggle{
+  background-color: #6671ff !important;
+  border: none;
+}
+.mobile-button{
+  background-color:#dbe4fa;
+  border: none;
+  color: black;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: -5px;
+}
+.mobile-button:hover{
+  background-color: #dbe4fa !important;
+  color: #6671ff !important;
 }
