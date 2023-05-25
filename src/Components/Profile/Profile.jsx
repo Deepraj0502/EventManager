@@ -19,6 +19,7 @@ export default function App() {
   const location = useLocation();
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/getname", {
       method: "POST",
@@ -46,6 +47,7 @@ export default function App() {
       .then((data) => {
         setUrl(data["propic"]);
       });
+      setTimeout(() => setLoading(false), 1000);
   });
   const month = [
     "January",
@@ -124,6 +126,15 @@ export default function App() {
   };
   return (
     <>
+    {loading && (
+        <div className="loading-background">
+          <img
+            src="https://ik.imagekit.io/ok2wgebfs/evento/image-processing20210904-26665-unscreen.gif?updatedAt=1684985103292"
+            alt=""
+            style={{ position: "absolute", zIndex: "99" }}
+          />
+        </div>
+      )}
       <NavbarComp active="2" />
       <div className="profile-outer-div">
         <div className="profile-info-div">

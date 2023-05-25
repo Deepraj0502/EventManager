@@ -163,9 +163,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background:#dbe4fa;
+    background: rgba(219, 228, 250, 0.85);
     z-index: 99;
-    opacity: 80%;
 }
 .home-card-info{
     position: relative;
