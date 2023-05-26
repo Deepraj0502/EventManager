@@ -62,6 +62,7 @@ export default function Login() {
           document.getElementById("invalid").style.animationName = "popup";
         }
       });
+      setLoading(false);
   };
   const putRegData = () => {
     var name = document.getElementById("rname").value;
@@ -100,6 +101,7 @@ export default function Login() {
           navigateToNext(name, email, pass);
         }
       });
+      setRegLoading(false);
   };
   const slideReg = () => {
     document
