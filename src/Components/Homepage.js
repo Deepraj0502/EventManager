@@ -8,11 +8,14 @@ import { MdLocationOn } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { BsCalendarDate } from "react-icons/bs";
 import CardComp from "./CardComp";
+import Heart from "react-heart";
+import MediaQuery from "react-responsive";
 
 export default function Homepage() {
   const location = useLocation();
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
+  const [active, setActive] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/getname", {
@@ -97,6 +100,7 @@ export default function Homepage() {
           </div>
           <p className="home-dash-text">Latest Events</p>
           <CardComp />
+          <MediaQuery maxWidth={600}><Calendar /></MediaQuery>
           <p className="home-dash-text">Browse Events</p>
           <div className="home-browse-outer">
             <div className="home-browse-card">
@@ -149,6 +153,16 @@ export default function Homepage() {
                 >
                   Know More
                 </button>
+              </div>
+              <div style={{ width: "100%",marginTop:"3px" }}>
+                <Heart
+                  isActive={active}
+                  onClick={() => setActive(!active)}
+                  animationScale={1.2}
+                  animationTrigger="both"
+                  animationDuration={0.2}
+                  className={`customHeart${active ? " active" : ""} browseHeart`}
+                />
               </div>
             </div>
           </div>

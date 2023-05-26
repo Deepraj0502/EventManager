@@ -48,6 +48,10 @@
     }
     .rs-sidenav-body{
         height: 93vh;
-        animation-duration: 0.305s;
+        animation-duration: 0.5s;
+    }
+    .css-1drdsge-MuiPaper-root-MuiCard-root{
+        width: 98% !important;
+        box-shadow: 0px 0px 10px gray !important;
     }
 }
