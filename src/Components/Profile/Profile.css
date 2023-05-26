@@ -30,6 +30,8 @@
   width: 200px;
   height: 200px;
   border-radius: 50%;
+  z-index: 99;
+  background-color: #dbe4fa;
 }
 .profile-inner-info{
   width: 100%;

@@ -14,14 +14,12 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import { storage } from "../FirebaseConfig";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import MobileNumber from "./MobileNumber";
-import ReactLoading from "react-loading";
 
 export default function App() {
   const location = useLocation();
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(true);
-  const [proloading, setProLoading] = useState(false);
   useEffect(() => {
     fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/getname", {
       method: "POST",
@@ -104,32 +102,25 @@ export default function App() {
     );
   };
   const handleImageChange = (e) => {
-    setProLoading(true);
-    console.log(e.target.files[0]);
     const imageRef = ref(storage, name);
     uploadBytes(imageRef, e.target.files[0]).then(() => {
-      getDownloadURL(imageRef)
-        .then((url) => {
-          setUrl(url);
-          fetch(
-            "https://event-manager-api-git-main-deepraj0502.vercel.app/setpropic",
-            {
-              method: "POST",
-              body: JSON.stringify({
-                email: location.state.email,
-                url: url,
-              }),
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      getDownloadURL(imageRef).then((url) => {
+        setUrl(url);
+        fetch(
+          "https://event-manager-api-git-main-deepraj0502.vercel.app/setpropic",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              email: location.state.email,
+              url: url,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+      });
     });
-    setProLoading(false);
   };
   return (
     <>
@@ -145,10 +136,7 @@ export default function App() {
       <NavbarComp active="2" />
       <div className="profile-outer-div">
         <div className="profile-info-div">
-          {url === "" && proloading && (
-            <ReactLoading type="bars" color="white" height={30} width={50}/>
-          )}
-          {url === "" && !proloading && (
+          {url === "" && (
             <FaUserCircle className="profile-image" id="profile-image" />
           )}
           {url !== "" && (
@@ -168,7 +156,7 @@ export default function App() {
             <div style={{ display: "flex", marginTop: "-5px" }}>
               <BsTelephoneFill style={{ width: "30px", height: "24px" }} />
               <p className="profile-details">
-                <MobileNumber />
+                <MobileNumber email={location.state.email}/>
               </p>
             </div>
             <DropdownButton id="dropdown-basic-button" title="Profile Photo">

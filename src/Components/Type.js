@@ -27,7 +27,6 @@ export default function Type() {
     else if(organizer===false && member===true){
       cat="member";
     }
-    alert(cat);
     document.getElementById("loading").style.display="block";
     // get form data and check for exist or not
     fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/register", {
