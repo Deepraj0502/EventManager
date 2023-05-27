@@ -98,9 +98,9 @@ export default function Homepage() {
               </div>
             </div>
           </div>
+          <MediaQuery maxWidth={600}><Calendar /></MediaQuery>
           <p className="home-dash-text">Latest Events</p>
           <CardComp />
-          <MediaQuery maxWidth={600}><Calendar /></MediaQuery>
           <p className="home-dash-text">Browse Events</p>
           <div className="home-browse-outer">
             <div className="home-browse-card">
@@ -154,7 +154,7 @@ export default function Homepage() {
                   Know More
                 </button>
               </div>
-              <div style={{ width: "100%",marginTop:"3px" }}>
+              <div style={{ width: "16%",marginTop:"3px" }} className="heart-outer-div">
                 <Heart
                   isActive={active}
                   onClick={() => setActive(!active)}

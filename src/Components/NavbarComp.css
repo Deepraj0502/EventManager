@@ -2,7 +2,7 @@
     background: none !important;
 }
 .rs-sidenav-body{
-    background: #141533;
+    background: #141533 !important;
     color: #a3a3a3;
     height: 100vh;
     position: fixed;
@@ -10,7 +10,7 @@
     width: 300px;
 }
 .rs-sidenav-toggle{
-    background: #2b2d42;
+    background: #141533 !important;
     color: white;
     height: 7vh;
     display: none;
@@ -45,13 +45,10 @@
 @media (max-width:600px) {
     .rs-sidenav-toggle{
         display: block;
+        top: -2px;
     }
     .rs-sidenav-body{
-        height: 93vh;
+        height: 100vh;
         animation-duration: 0.5s;
-    }
-    .css-1drdsge-MuiPaper-root-MuiCard-root{
-        width: 98% !important;
-        box-shadow: 0px 0px 10px gray !important;
     }
 }

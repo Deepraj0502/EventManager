@@ -35,6 +35,10 @@ export default function NavbarComp(props) {
           <Sidenav expanded={expanded}>
             {expanded && (
               <Sidenav.Body style={{ animationName: "expand"}}>
+                <Sidenav.Toggle
+              expanded={expanded}
+              onToggle={(expanded) => setExpanded(expanded)}
+            />
                 <Nav activeKey={props.active}>
                   <Nav.Item>
                     <div
@@ -85,6 +89,10 @@ export default function NavbarComp(props) {
             )}
             {!expanded && (
               <Sidenav.Body style={{ width: "56px",animationName:"contrast",animationDuration:"0.05" }}>
+                <Sidenav.Toggle
+              expanded={expanded}
+              onToggle={(expanded) => setExpanded(expanded)}
+            />
                 <Nav activeKey={props.active}>
                   <Nav.Item>
                     <div
@@ -129,10 +137,6 @@ export default function NavbarComp(props) {
                 </Nav>
               </Sidenav.Body>
             )}
-            <Sidenav.Toggle
-              expanded={expanded}
-              onToggle={(expanded) => setExpanded(expanded)}
-            />
           </Sidenav>
         </MediaQuery>
         <MediaQuery minWidth={900}>
