@@ -234,7 +234,7 @@ export default function CardComp() {
       <Carousel>
         <Carousel.Item>
           <div className="home-card-outer">
-            <Card sx={{ width: '100%',height:"220px" }}>
+            <Card sx={{ width: '98%',height:"200px",backgroundColor:"#4895ef" }}>
               <CardActionArea>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
@@ -242,11 +242,11 @@ export default function CardComp() {
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     <div style={{ display: "flex" }}>
-                      <BiTimeFive style={{ width: "18px", height: "22px" }} />
+                      <BiTimeFive style={{ width: "18px", height: "22px" }} className="home-card-icon" />
                       <p className="home-card-info">10:00 AM</p>
                     </div>
                     <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <MdLocationOn style={{ width: "18px", height: "22px" }} />
+                      <MdLocationOn style={{ width: "18px", height: "22px" }} className="home-card-icon" />
                       <p className="home-card-info">
                         Jio World Convention Centre
                       </p>
@@ -254,6 +254,7 @@ export default function CardComp() {
                     <div style={{ display: "flex", marginTop: "-5px" }}>
                       <BsCalendarDate
                         style={{ width: "18px", height: "22px" }}
+                        className="home-card-icon"
                       />
                       <p className="home-card-info">Sat, Aug 12</p>
                     </div>
@@ -273,6 +274,7 @@ export default function CardComp() {
                   size="small"
                   color="primary"
                   style={{ marginTop: "-35px" }}
+                  className="home-card-btn"
                 >
                   Know More
                 </Button>
@@ -282,7 +284,7 @@ export default function CardComp() {
         </Carousel.Item>
         <Carousel.Item>
           <div className="home-card-outer">
-          <Card sx={{ width: '100%',height:"220px" }}>
+          <Card sx={{ width: '98%',height:"200px",backgroundColor:"#fb8500"  }}>
               <CardActionArea>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
@@ -290,18 +292,67 @@ export default function CardComp() {
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     <div style={{ display: "flex" }}>
-                      <BiTimeFive style={{ width: "18px", height: "22px" }} />
+                      <BiTimeFive style={{ width: "18px", height: "22px",color:"white" }} />
                       <p className="home-card-info">10:00 AM</p>
                     </div>
                     <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <MdLocationOn style={{ width: "18px", height: "22px" }} />
+                      <MdLocationOn style={{ width: "18px", height: "22px",color:"white" }} />
                       <p className="home-card-info">
                         Jio World Convention Centre
                       </p>
                     </div>
                     <div style={{ display: "flex", marginTop: "-5px" }}>
                       <BsCalendarDate
-                        style={{ width: "18px", height: "22px" }}
+                        style={{ width: "18px", height: "22px",color:"white" }}
+                      />
+                      <p className="home-card-info">Sat, Aug 12</p>
+                    </div>
+                    <Heart
+                      isActive={active}
+                      onClick={() => setActive(!active)}
+                      animationScale={1.2}
+                      animationTrigger="both"
+                      animationDuration={0.2}
+                      className={`customHeart${active ? " active" : ""}`}
+                    />
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button
+                  size="small"
+                  color="primary"
+                  className="home-card-btn"
+                  style={{ marginTop: "-35px" }}
+                >
+                  Know More
+                </Button>
+              </CardActions>
+            </Card>
+          </div>
+        </Carousel.Item>
+        <Carousel.Item>
+          <div className="home-card-outer">
+          <Card sx={{  width: '98%',height:"200px",backgroundColor:"#76c893"  }}>
+              <CardActionArea>
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    <p className="home-card-name">Money Expo India 2023</p>
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    <div style={{ display: "flex" }}>
+                      <BiTimeFive style={{ width: "18px", height: "22px",color:"white" }} />
+                      <p className="home-card-info">10:00 AM</p>
+                    </div>
+                    <div style={{ display: "flex", marginTop: "-5px" }}>
+                      <MdLocationOn style={{ width: "18px", height: "22px",color:"white" }} />
+                      <p className="home-card-info">
+                        Jio World Convention Centre
+                      </p>
+                    </div>
+                    <div style={{ display: "flex", marginTop: "-5px" }}>
+                      <BsCalendarDate
+                        style={{ width: "18px", height: "22px",color:"white" }}
                       />
                       <p className="home-card-info">Sat, Aug 12</p>
                     </div>
@@ -321,6 +372,7 @@ export default function CardComp() {
                   size="small"
                   color="primary"
                   style={{ marginTop: "-35px" }}
+                  className="home-card-btn"
                 >
                   Know More
                 </Button>
@@ -330,7 +382,7 @@ export default function CardComp() {
         </Carousel.Item>
         <Carousel.Item>
           <div className="home-card-outer">
-          <Card sx={{  width: '100%',height:"220px"  }}>
+          <Card sx={{  width: '98%',height:"200px",backgroundColor:"#ff4d6d"  }}>
               <CardActionArea>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
@@ -338,18 +390,18 @@ export default function CardComp() {
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     <div style={{ display: "flex" }}>
-                      <BiTimeFive style={{ width: "18px", height: "22px" }} />
+                      <BiTimeFive style={{ width: "18px", height: "22px",color:"white" }} />
                       <p className="home-card-info">10:00 AM</p>
                     </div>
                     <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <MdLocationOn style={{ width: "18px", height: "22px" }} />
+                      <MdLocationOn style={{ width: "18px", height: "22px",color:"white" }} />
                       <p className="home-card-info">
                         Jio World Convention Centre
                       </p>
                     </div>
                     <div style={{ display: "flex", marginTop: "-5px" }}>
                       <BsCalendarDate
-                        style={{ width: "18px", height: "22px" }}
+                        style={{ width: "18px", height: "22px",color:"white" }}
                       />
                       <p className="home-card-info">Sat, Aug 12</p>
                     </div>
@@ -368,54 +420,7 @@ export default function CardComp() {
                 <Button
                   size="small"
                   color="primary"
-                  style={{ marginTop: "-35px" }}
-                >
-                  Know More
-                </Button>
-              </CardActions>
-            </Card>
-          </div>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className="home-card-outer">
-          <Card sx={{  width: '100%',height:"220px"  }}>
-              <CardActionArea>
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    <p className="home-card-name">Money Expo India 2023</p>
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    <div style={{ display: "flex" }}>
-                      <BiTimeFive style={{ width: "18px", height: "22px" }} />
-                      <p className="home-card-info">10:00 AM</p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <MdLocationOn style={{ width: "18px", height: "22px" }} />
-                      <p className="home-card-info">
-                        Jio World Convention Centre
-                      </p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <BsCalendarDate
-                        style={{ width: "18px", height: "22px" }}
-                      />
-                      <p className="home-card-info">Sat, Aug 12</p>
-                    </div>
-                    <Heart
-                      isActive={active}
-                      onClick={() => setActive(!active)}
-                      animationScale={1.2}
-                      animationTrigger="both"
-                      animationDuration={0.2}
-                      className={`customHeart${active ? " active" : ""}`}
-                    />
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button
-                  size="small"
-                  color="primary"
+                  className="home-card-btn"
                   style={{ marginTop: "-35px" }}
                 >
                   Know More
