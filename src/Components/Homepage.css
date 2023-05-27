@@ -150,7 +150,7 @@
     background:#6671ff;
     padding: 10px;
     width: 140px;
-    border-radius: 10px;
+    border-radius: 5px;
     color: white;
 }
 .home-card-name{
@@ -234,6 +234,9 @@
     width: 30px;
     float: right;
 }
+.css-1knaqv7-MuiButtonBase-root-MuiButton-root{
+    color: #6671ff !important;
+}
 @keyframes expand {
     0% {width: 56px;}
     100% {width: 300px;}
@@ -249,6 +252,9 @@
     }
     .home-side-div{
         display: none;
+    }
+    .home-dash-outer{
+        border-radius: 15px;
     }
     .home-main-div{
         width: 100%;
@@ -290,7 +296,7 @@
     .carousel-indicators [data-bs-target]{
         background-color: gray;
         position: relative;
-        top: 20px;
+        top: 30px;
     }
     .customHeart{
         width: 1.8rem;
@@ -316,6 +322,8 @@
     }
     .calendar-div{
         margin-left: 0 !important;
+        margin-top: 40px;
+        margin-bottom: -20px;
     }
     .home-browse-card{
         flex-direction: column;
@@ -330,5 +338,13 @@
     }
     .browseHeart{
         margin-top: -38px;
+    }
+    .heart-outer-div{
+        width: 100% !important;
+    }
+    .css-1drdsge-MuiPaper-root-MuiCard-root{
+        width: 98% !important;
+        box-shadow: 0px 1px 5px gray !important;
+        margin-top: 10px;
     }
 }
