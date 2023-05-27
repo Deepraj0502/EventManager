@@ -4,8 +4,8 @@ import { useLocation } from "react-router-dom";
 import React, { useState } from "react";
 import NavbarComp from "../NavbarComp";
 import Graph from "./Graph/Graph";
-import FlippableCard from "./FlippableCard/FlippableCard";
-import FlippableCard2 from "./FlippableCard/FlippableCard2";
+import Card from "./Card/Card";
+import Card2 from "./Card/Card2";
 import { FaUserCircle } from "react-icons/fa";
 import { HiMail } from "react-icons/hi";
 import { BsTelephoneFill } from "react-icons/bs";
@@ -14,6 +14,7 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import { storage } from "../FirebaseConfig";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import MobileNumber from "./MobileNumber";
+import MediaQuery from "react-responsive";
 
 export default function App() {
   const location = useLocation();
@@ -133,60 +134,107 @@ export default function App() {
           />
         </div>
       )}
-      <NavbarComp active="2" />
       <div className="profile-outer-div">
-        <div className="profile-info-div">
-          {url === "" && (
-            <FaUserCircle className="profile-image" id="profile-image" />
-          )}
-          {url !== "" && (
+        <NavbarComp active="2" />
+
+        <div className="profile-inner-div">
+          {/* <MediaQuery maxWidth={600}>
             <img
-              src={url}
+              src="https://www.htmlcsscolor.com/preview/gallery/DBE4FA.png"
               alt=""
-              className="profile-upload-image"
-              id="profile-upload-image"
+              style={{
+                width: "100%",
+                height: "60%",
+                borderBottomRightRadius: "60px",
+                borderBottomLeftRadius: "60px",
+              }}
             />
-          )}
-          <div className="profile-inner-info">
-            <p className="profile-name">{name}</p>
-            <div style={{ display: "flex", marginTop: "-5px" }}>
-              <HiMail style={{ width: "30px", height: "30px" }} />
-              <p className="profile-details">{location.state.email}</p>
+          </MediaQuery> */}
+          <div className="profile-info-div">
+            <div className="user-profile-div">
+              {url === "" && (
+                <FaUserCircle className="profile-image" id="profile-image" />
+              )}
+              {url !== "" && (
+                <img
+                  src={url}
+                  alt=""
+                  className="profile-upload-image"
+                  id="profile-upload-image"
+                />
+              )}
+              <MediaQuery maxWidth={600}>
+                <DropdownButton id="dropdown-basic-button" title="">
+                  <Dropdown.Item href="#/action-1">
+                    <input type="file" onChange={handleImageChange} />
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    style={{
+                      paddingLeft: "20px",
+                      height: "50px",
+                      display: "flex",
+                      alignItems: "center",
+                      color: "red",
+                    }}
+                    onClick={deleteProfilePic}
+                  >
+                    Delete Profile Photo
+                  </Dropdown.Item>
+                </DropdownButton>
+              </MediaQuery>
             </div>
-            <div style={{ display: "flex", marginTop: "-5px" }}>
-              <BsTelephoneFill style={{ width: "30px", height: "24px" }} />
-              <p className="profile-details">
-                <MobileNumber email={location.state.email}/>
-              </p>
+            <div className="profile-inner-info">
+              <p className="profile-name">{name}</p>
+              <div style={{ display: "flex", marginTop: "-5px" }}>
+                <HiMail
+                  style={{ width: "30px", height: "30px", color: "#6671FF" }}
+                  className="user-info-logo"
+                />
+                <p className="profile-details">{location.state.email}</p>
+              </div>
+              <div style={{ display: "flex", marginTop: "-5px" }}>
+                <BsTelephoneFill
+                  style={{ width: "30px", height: "24px", color: "#6671FF" }}
+                  className="user-info-logo"
+                />
+                <p className="profile-details">
+                  <MobileNumber email={location.state.email} />
+                </p>
+              </div>
+              <MediaQuery minWidth={601}>
+                <DropdownButton
+                  id="dropdown-basic-button"
+                  title="Profile Photo"
+                >
+                  <Dropdown.Item href="#/action-1">
+                    <input type="file" onChange={handleImageChange} />
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    style={{
+                      paddingLeft: "20px",
+                      height: "50px",
+                      display: "flex",
+                      alignItems: "center",
+                      color: "red",
+                    }}
+                    onClick={deleteProfilePic}
+                  >
+                    Delete Profile Photo
+                  </Dropdown.Item>
+                </DropdownButton>
+              </MediaQuery>
             </div>
-            <DropdownButton id="dropdown-basic-button" title="Profile Photo">
-              <Dropdown.Item href="#/action-1">
-                <input type="file" onChange={handleImageChange} />
-              </Dropdown.Item>
-              <Dropdown.Item
-                style={{
-                  paddingLeft: "20px",
-                  height: "50px",
-                  display: "flex",
-                  alignItems: "center",
-                  color: "red",
-                }}
-                onClick={deleteProfilePic}
-              >
-                Delete Profile Photo
-              </Dropdown.Item>
-            </DropdownButton>
+            <img
+              src="https://ik.imagekit.io/ok2wgebfs/evento/21207-removebg-preview.png?updatedAt=1684923957895"
+              alt=""
+              className="profile-vector"
+            />
           </div>
-          <img
-            src="https://ik.imagekit.io/ok2wgebfs/evento/21207-removebg-preview.png?updatedAt=1684923957895"
-            alt=""
-            className="profile-vector"
-          />
-        </div>
-        <div className="profile-card-div">
-          <FlippableCard />
-          <FlippableCard2 />
-          <Graph data={data} />
+          <div className="profile-card-div">
+            <Card />
+            <Card2 />
+            <Graph data={data} />
+          </div>
         </div>
       </div>
     </>
