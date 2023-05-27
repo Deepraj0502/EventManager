@@ -60,9 +60,9 @@ export default function Login() {
           document.getElementById("invalid").style.display = "block";
           document.getElementById("invalid").innerHTML = "Invalid Credentials";
           document.getElementById("invalid").style.animationName = "popup";
+          setLoading(false);
         }
       });
-      setLoading(false);
   };
   const putRegData = () => {
     var name = document.getElementById("rname").value;
@@ -97,11 +97,11 @@ export default function Login() {
           document.getElementById("reginvalid").innerHTML =
             "Email Id Already Registered";
           document.getElementById("reginvalid").style.animationName = "popup";
+          setRegLoading(false);
         } else {
           navigateToNext(name, email, pass);
         }
       });
-      setRegLoading(false);
   };
   const slideReg = () => {
     document
@@ -147,10 +147,11 @@ export default function Login() {
   };
   const mobileReg = () => {
     document.getElementById("register-box").style.display = "flex";
+    document.getElementById("left-box").style.display = "none";
     document.getElementById("left-box").style.width = "0%";
   };
   const mobileLog = () => {
-    setLogin("flex");
+    document.getElementById("left-box").style.display = "flex";
     document.getElementById("register-box").style.display = "none";
     document.getElementById("left-box").style.width = "100%";
   };
