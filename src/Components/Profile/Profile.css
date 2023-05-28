@@ -40,7 +40,7 @@
   color: gray;
 }
 .profile-upload-image {
-  width: 445px;
+  width: 450px;
   height: 200px;
   border-radius: 50%;
   z-index: 99;
@@ -111,18 +111,20 @@
   }
 
   .profile-info-div {
-    height: 395px;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    border-radius: 35px;
+    border-radius: 15px;
     padding: 20px 0px;
     position: relative;
     top: 40px;
     margin: 0px 30px;
     background-image: url("https://www.htmlcsscolor.com/preview/gallery/DBE4FA.png");
     gap: 15px;
+    width: 80%;
+    margin: auto;
   }
 
   .user-profile-div {
@@ -158,12 +160,12 @@
   .dropdown-toggle {
     width: 34px;
     border-radius: 19px;
-    background-color: black !important;
+    background-color: #6671ff !important;
   }
 
   .profile-upload-image {
     height: 185px;
-    width: 175px;
+    width: 185px;
   }
 
   .profile-card-div {
@@ -184,18 +186,37 @@
     left: 137px;
     bottom: 48px;
   }
+  .profile-details{
+    font-size: 14px;
+    color: #6671ff;
+    width: 88%;
+  }
+  .mobile-button{
+    font-size: 14px;
+    color: #6671ff;
+    text-align: left;
+  }
+  .profile-inner-info{
+    height: max-content;
+  }
+  .dropdown-toggle::after{
+    font-size: 25px;
+    position: relative;
+    top: 5px;
+    left: -2px;
+  }
 }
 
 @media (max-width: 500px) {
   .profile-name {
-    font-size: 1.6rem;
-    font-weight: 700;
+    font-size: 1.8rem;
+    font-weight: 900;
   }
 }
 
 @media (max-width: 400px) {
   .profile-name {
-    font-size: 18px;
+    font-size: 1.8rem;
     font-weight: 900;
   }
 
@@ -224,25 +245,14 @@
   }
 
   .profile-info-div {
-    height: 350px;
-    top: 25px;
+    height: auto;
     margin: 0px 15px;
     gap: 0;
-  }
-
-  .user-info-logo {
-    /* width: 25px;
-    height: 25px; */
-    display: none;
+    width: 280px;
+    margin: auto;
   }
 
   .profile-card-div {
     top: 65px;
-  }
-}
-
-@media (max-width: 450px) {
-  .user-info-logo {
-    display: none;
   }
 }

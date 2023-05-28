@@ -4,12 +4,12 @@
   border-radius: 20px;
   transition: 0.5s ease-out;
   box-shadow: 0 0 8px gray;
-  border-top: 7px solid blueviolet;
+  border-top: 7px solid #6671ff;
 }
 
 .Graph:hover {
   transform: scale(1.01);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
+  box-shadow: 1px 5px 10px gray;
 }
 
 .recharts-surface {
@@ -19,23 +19,12 @@
 
 @media (max-width: 600px) {
   .Graph {
-    width: 260px;
+    width: 280px;
     height: 255px;
+    margin-bottom: 50px;
   }
 
   .recharts-surface {
     width: 265px;
-  }
-}
-
-@media (max-width: 400px) {
-  .Graph {
-    width: 225px;
-    height: 235px;
-  }
-
-  .recharts-surface {
-    width: 226px;
-    height: 226px;
   }
 }

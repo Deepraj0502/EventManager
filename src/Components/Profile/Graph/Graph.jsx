@@ -23,7 +23,6 @@ export default function Graph({ data }) {
         <XAxis
           dataKey="monthName"
           label={{
-            value: "Month",
             position: "insideBottom",
             textAnchor: "middle",
             offset: -5,
@@ -32,10 +31,9 @@ export default function Graph({ data }) {
         <YAxis
           dataKey="events"
           label={{
-            value: "Event Attain",
-            position: "insideLeft",
+            value: "Event Attained",
+            textAnchor: "middle",
             angle: -90,
-            offset: 20,
           }}
         />
         <Tooltip />
