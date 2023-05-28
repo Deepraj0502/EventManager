@@ -138,22 +138,10 @@ export default function App() {
         <NavbarComp active="2" />
 
         <div className="profile-inner-div">
-          {/* <MediaQuery maxWidth={600}>
-            <img
-              src="https://www.htmlcsscolor.com/preview/gallery/DBE4FA.png"
-              alt=""
-              style={{
-                width: "100%",
-                height: "60%",
-                borderBottomRightRadius: "60px",
-                borderBottomLeftRadius: "60px",
-              }}
-            />
-          </MediaQuery> */}
           <div className="profile-info-div">
             <div className="user-profile-div">
               {url === "" && (
-                <FaUserCircle className="profile-image" id="profile-image" />
+                <FaUserCircle className="profile-image" id="profile-image" color="gray" />
               )}
               {url !== "" && (
                 <img
@@ -185,21 +173,23 @@ export default function App() {
             </div>
             <div className="profile-inner-info">
               <p className="profile-name">{name}</p>
-              <div style={{ display: "flex", marginTop: "-5px" }}>
-                <HiMail
-                  style={{ width: "30px", height: "30px", color: "#6671FF" }}
-                  className="user-info-logo"
-                />
-                <p className="profile-details">{location.state.email}</p>
-              </div>
-              <div style={{ display: "flex", marginTop: "-5px" }}>
-                <BsTelephoneFill
-                  style={{ width: "30px", height: "24px", color: "#6671FF" }}
-                  className="user-info-logo"
-                />
-                <p className="profile-details">
-                  <MobileNumber email={location.state.email} />
-                </p>
+              <div style={{textAlign:"left"}}>
+                <div style={{ display: "flex", marginTop: "-5px" }}>
+                  <HiMail
+                    style={{ width: "20px", height: "22px", color: "#6671FF" }}
+                    className="user-info-logo"
+                  />
+                  <p className="profile-details">{location.state.email}</p>
+                </div>
+                <div style={{ display: "flex", marginTop: "-5px" }}>
+                  <BsTelephoneFill
+                    style={{ width: "18px", height: "20px", color: "#6671FF" }}
+                    className="user-info-logo"
+                  />
+                  <p className="profile-details">
+                    <MobileNumber email={location.state.email} />
+                  </p>
+                </div>
               </div>
               <MediaQuery minWidth={601}>
                 <DropdownButton

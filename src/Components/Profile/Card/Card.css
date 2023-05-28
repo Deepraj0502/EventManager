@@ -13,7 +13,7 @@
 } */
 .card-front:hover {
   transform: scale(1.01);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
+  box-shadow: 1px 5px 10px gray;
 }
 
 .card-front,
@@ -30,10 +30,10 @@
   box-shadow: 0 0 8px gray;
   /* background-color: #76f2d9; */
   border-radius: 20px;
-  border-top: 7px solid blueviolet;
+  border-top: 7px solid #6671ff;
 }
 .card-event-number {
-  color: blueviolet;
+  color:#6671ff;
   position: relative;
   font-size: 106px;
   /* top: 13px; */
@@ -68,7 +68,9 @@
 
   .card-front {
     height: 245px;
-    width: 250px;
+    width: 280px;
+    padding: 10px;
+    padding-top: 0px;
   }
 
   .card-event-number {
@@ -79,55 +81,11 @@
 
   .card-event-icon {
     position: relative;
-    left: 184px;
-    bottom: 20px;
+    left: 190px;
+    bottom: 30px;
   }
 
   .card-event {
     left: 10px;
-  }
-}
-
-@media (max-width: 400px) {
-  .card {
-    height: 235px;
-    width: 225px;
-  }
-
-  .card-front {
-    height: 225px;
-    width: 218px;
-    font-size: 23px;
-  }
-
-  .card-event {
-    color: #161a1d;
-    margin: 0;
-    position: relative;
-    top: 19px;
-    display: flex;
-    justify-content: flex-start;
-    left: 20px;
-  }
-
-  .card-event-icon {
-    position: relative;
-    top: -10px;
-    left: 163px;
-  }
-
-  .card-event-number {
-    /* bottom: 14px; */
-    top: 2px;
-    left: 13px;
-    font-size: 90px;
-  }
-
-  .card-event-icon-bs {
-    width: 42px !important;
-  }
-
-  .card-event-icon-md {
-    width: 50px !important;
   }
 }

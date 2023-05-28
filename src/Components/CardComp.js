@@ -233,7 +233,7 @@ export default function CardComp() {
       <Carousel>
         <Carousel.Item>
           <div className="home-card-outer">
-            <Card sx={{ width: '98%',height:"200px",backgroundColor:"#4895ef" }}>
+            <Card sx={{ width: '98%',height:"200px",background:"linear-gradient(243deg, #4361ee, #4895ef)" }}>
               <CardActionArea>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
@@ -263,7 +263,7 @@ export default function CardComp() {
                       animationScale={1.2}
                       animationTrigger="both"
                       animationDuration={0.2}
-                      className={`customHeart${active ? " active" : ""}`}
+                      className={`customHeart${active ? " customHeart-active" : ""} latest-heart`}
                     />
                   </Typography>
                 </CardContent>
@@ -283,7 +283,7 @@ export default function CardComp() {
         </Carousel.Item>
         <Carousel.Item>
           <div className="home-card-outer">
-          <Card sx={{ width: '98%',height:"200px",backgroundColor:"#fb8500"  }}>
+          <Card sx={{ width: '98%',height:"200px",background:"linear-gradient(243deg, #e85d04, #f48c06)"  }}>
               <CardActionArea>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
@@ -312,7 +312,7 @@ export default function CardComp() {
                       animationScale={1.2}
                       animationTrigger="both"
                       animationDuration={0.2}
-                      className={`customHeart${active ? " active" : ""}`}
+                      className={`customHeart${active ? " customHeart-active" : ""} latest-heart`}
                     />
                   </Typography>
                 </CardContent>
@@ -332,7 +332,7 @@ export default function CardComp() {
         </Carousel.Item>
         <Carousel.Item>
           <div className="home-card-outer">
-          <Card sx={{  width: '98%',height:"200px",backgroundColor:"#76c893"  }}>
+          <Card sx={{  width: '98%',height:"200px",background:"linear-gradient(243deg, #55a630, #80b918)"  }}>
               <CardActionArea>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
@@ -361,7 +361,7 @@ export default function CardComp() {
                       animationScale={1.2}
                       animationTrigger="both"
                       animationDuration={0.2}
-                      className={`customHeart${active ? " active" : ""}`}
+                      className={`customHeart${active ? " customHeart-active" : ""} latest-heart`}
                     />
                   </Typography>
                 </CardContent>
@@ -381,7 +381,7 @@ export default function CardComp() {
         </Carousel.Item>
         <Carousel.Item>
           <div className="home-card-outer">
-          <Card sx={{  width: '98%',height:"200px",backgroundColor:"#ff4d6d"  }}>
+          <Card sx={{  width: '98%',height:"200px",background:"linear-gradient(243deg, #9d4edd, #c77dff)"  }}>
               <CardActionArea>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
@@ -410,7 +410,7 @@ export default function CardComp() {
                       animationScale={1.2}
                       animationTrigger="both"
                       animationDuration={0.2}
-                      className={`customHeart${active ? " active" : ""}`}
+                      className={`customHeart${active ? " customHeart-active" : ""} latest-heart`}
                     />
                   </Typography>
                 </CardContent>
