@@ -1,4 +1,4 @@
-.card {
+/* .card {
   height: 270px;
   width: 300px;
   transform-style: preserve-3d;
@@ -10,8 +10,8 @@
   user-select: none;
   cursor: pointer;
   transition: 0.5s ease-out;
-}
-.card:hover {
+} */
+.card-front:hover {
   transform: scale(1.01);
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
 }
@@ -21,28 +21,27 @@
   height: 261px;
   width: 296px;
   backface-visibility: hidden;
-  position: absolute;
-  /* display: flex; */
-  flex-direction: row;
+  position: relative;
   font-family: inherit;
   font-weight: 700;
   font-size: 30px;
-  border-radius: 54px 16px;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: space-evenly;
-  align-items: center;
+  cursor: pointer;
+  transition: 0.5s ease-out;
+  box-shadow: 0 0 8px gray;
+  /* background-color: #76f2d9; */
+  border-radius: 20px;
+  border-top: 7px solid blueviolet;
 }
-
 .card-event-number {
-  color: #6671ff;
+  color: blueviolet;
   position: relative;
   font-size: 106px;
-  top: 13px;
+  /* top: 13px; */
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  margin-right: 40px;
+  justify-content: flex-start;
+  left: 25px;
+  /* margin-right: 40px; */
 }
 
 .card-event {
@@ -51,13 +50,14 @@
   position: relative;
   top: 19px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  left: 25px;
 }
 
 .card-event-icon {
   position: relative;
-  top: 50px;
-  left: 27px;
+  left: 225px;
+  bottom: 17px;
 }
 
 @media (max-width: 600px) {
@@ -74,6 +74,17 @@
   .card-event-number {
     bottom: 10px;
     left: 16px;
+    font-size: 98px;
+  }
+
+  .card-event-icon {
+    position: relative;
+    left: 184px;
+    bottom: 20px;
+  }
+
+  .card-event {
+    left: 10px;
   }
 }
 
@@ -95,13 +106,14 @@
     position: relative;
     top: 19px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    left: 20px;
   }
 
   .card-event-icon {
     position: relative;
-    top: 33px;
-    left: 20px;
+    top: -10px;
+    left: 163px;
   }
 
   .card-event-number {
@@ -109,5 +121,13 @@
     top: 2px;
     left: 13px;
     font-size: 90px;
+  }
+
+  .card-event-icon-bs {
+    width: 42px !important;
+  }
+
+  .card-event-icon-md {
+    width: 50px !important;
   }
 }
