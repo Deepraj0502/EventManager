@@ -171,6 +171,11 @@
   top: 2px;
   left: 8px;
 }
+.home-browse-info {
+  position: relative;
+  top: 2px;
+  left: 8px;
+}
 .home-card-outer {
   display: flex;
   justify-content: space-around;
@@ -329,12 +334,16 @@
     .home-card-icon{
         color: white;
     }
+    .home-card-name{
+      color: white;
+      font-weight: 600;
+  }
     .home-card-btn{
         color: white !important;
     }
     .carousel-item{
         height: 280px;
-        margin-bottom: -40px;
+        margin-bottom: -80px;
     }
     .carousel-control-next{
         display: none;
@@ -349,11 +358,16 @@
     .carousel-indicators [data-bs-target]{
         visibility: hidden;
     }
-    .customHeart{
+    .latest-heart{
         width: 1.8rem;
-        fill: white !important;
+        fill: none !important;
         stroke: white !important;
     }
+    .customHeart-active{
+      width: 1.8rem;
+      fill: red !important;
+      stroke: white !important;
+  }
     .rs-sidenav{
         position: fixed;
         z-index: 2;

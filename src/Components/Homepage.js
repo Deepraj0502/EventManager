@@ -122,7 +122,7 @@ export default function Homepage() {
                       top: "4px",
                     }}
                   />
-                  <p className="home-card-info">10:00 AM</p>
+                  <p className="home-browse-info">10:00 AM</p>
                 </div>
                 <div style={{ display: "flex", marginTop: "-5px" }}>
                   <MdLocationOn
@@ -133,7 +133,7 @@ export default function Homepage() {
                       top: "4px",
                     }}
                   />
-                  <p className="home-card-info">Jio World Convention Centre</p>
+                  <p className="home-browse-info">Jio World Convention Centre</p>
                 </div>
                 <div style={{ display: "flex", marginTop: "-5px" }}>
                   <BsCalendarDate
@@ -144,7 +144,7 @@ export default function Homepage() {
                       top: "4px",
                     }}
                   />
-                  <p className="home-card-info">Sat, Aug 12</p>
+                  <p className="home-browse-info">Sat, Aug 12</p>
                 </div>
                 <button
                   type="button"
