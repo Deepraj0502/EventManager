@@ -44,7 +44,7 @@
 }
 .right-login-box::before{
   content: "";
-  background: url(https://st2.depositphotos.com/3944627/8210/i/450/depositphotos_82105954-stock-photo-abstract-blurred-event-with-people.jpg);
+  background: url(https://img.freepik.com/premium-photo/elegant-floral-wedding-backdrop-wallpaper_756748-2486.jpg?size=626&ext=jpg&ga=GA1.2.2034402480.1684136925&semt=ais);
       background-size: cover;
       position: absolute;
       top: 0px;
@@ -126,14 +126,14 @@
   top: -10px;
 }
 .signin-btn:hover{
-  background-color: #f7293e;
+  background-color: red;
 }
 .register-here{
   margin-top: 8px;
   color: gray;
 }
 .register-here-a{
-  color: #f7293e;
+  color: #6671ff;
   font-weight: bold;
   background-color: white;
   border: none;
@@ -224,14 +224,14 @@
   font-size: 18px;
 }
 .signin-btn:hover{
-  background-color: #f7293e;
+  background-color: red;
 }
 .register-here{
   margin-top: 8px;
   color: gray;
 }
 .register-here-a{
-  color: #f7293e;
+  color: #6671ff;
   font-weight: bold;
   text-decoration: none;
   margin-left: 5px;

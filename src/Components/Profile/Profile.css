@@ -45,6 +45,7 @@
   border-radius: 50%;
   z-index: 99;
   background-color: #dbe4fa;
+  object-fit: cover;
 }
 .profile-inner-info {
   width: 100%;

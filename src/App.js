@@ -10,6 +10,7 @@ import Type from "./Components/Type";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Profile from "./Components/Profile/Profile";
+import EventHome from "./Components/EventHome";
 
 function App() {
   AOS.init();
@@ -21,6 +22,7 @@ function App() {
           <Route path="/home" element={[<Homepage />]} />
           <Route path="/type" element={[<Type />]} />
           <Route path="/profile" element={[<Profile />]} />
+          <Route path="/eventhome" element={[<EventHome />]} />
         </Routes>
       </BrowserRouter>
     </>
