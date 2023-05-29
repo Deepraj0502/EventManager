@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useRef } from "react";
 import { useLocation } from "react-router-dom";
 import NavbarComp from "./NavbarComp";
 import "./Homepage.css";
@@ -7,16 +8,30 @@ import { BiTimeFive, BiSearch } from "react-icons/bi";
 import { MdLocationOn } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { BsCalendarDate } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import CardComp from "./CardComp";
 import Heart from "react-heart";
 import MediaQuery from "react-responsive";
 
 export default function Homepage() {
+  const navigate = useNavigate();
+  const browseRef = useRef(null);
+  const scrollToBrowse = () => {
+    browseRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
   const location = useLocation();
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [active, setActive] = useState(false);
   const [loading, setLoading] = useState(true);
+  const navigateToEventHome = (name) => {
+    navigate("/eventhome", {
+      state: {
+        email: location.state.email,
+        eventName: name
+      },
+    });
+  };
   useEffect(() => {
     fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/getname", {
       method: "POST",
@@ -85,7 +100,11 @@ export default function Homepage() {
                   Explore various event and get a digitalized entry and also get
                   a verified certificate for the event.
                 </p>
-                <button type="button" className="home-dash-button">
+                <button
+                  type="button"
+                  className="home-dash-button"
+                  onClick={scrollToBrowse}
+                >
                   Explore Events
                 </button>
               </div>
@@ -98,10 +117,12 @@ export default function Homepage() {
               </div>
             </div>
           </div>
-          <MediaQuery maxWidth={600}><Calendar /></MediaQuery>
+          <MediaQuery maxWidth={600}>
+            <Calendar />
+          </MediaQuery>
           <p className="home-dash-text">Latest Events</p>
           <CardComp />
-          <p className="home-dash-text">Browse Events</p>
+          <p className="home-dash-text"  ref={browseRef}>Browse Events</p>
           <div className="home-browse-outer">
             <div className="home-browse-card">
               <div className="home-browse-card-left">
@@ -133,7 +154,9 @@ export default function Homepage() {
                       top: "4px",
                     }}
                   />
-                  <p className="home-browse-info">Jio World Convention Centre</p>
+                  <p className="home-browse-info">
+                    Jio World Convention Centre
+                  </p>
                 </div>
                 <div style={{ display: "flex", marginTop: "-5px" }}>
                   <BsCalendarDate
@@ -150,18 +173,94 @@ export default function Homepage() {
                   type="button"
                   className="home-dash-button"
                   style={{ padding: "8px" }}
+                  onClick={()=>{navigateToEventHome('Money Expo India 2023')}}
                 >
                   Know More
                 </button>
               </div>
-              <div style={{ width: "16%",marginTop:"3px" }} className="heart-outer-div">
+              <div
+                style={{ width: "16%", marginTop: "3px" }}
+                className="heart-outer-div"
+              >
                 <Heart
                   isActive={active}
                   onClick={() => setActive(!active)}
                   animationScale={1.2}
                   animationTrigger="both"
                   animationDuration={0.2}
-                  className={`customHeart${active ? " active" : ""} browseHeart`}
+                  className={`customHeart${
+                    active ? " active" : ""
+                  } browseHeart`}
+                />
+              </div>
+            </div>
+            <div className="home-browse-card">
+              <div className="home-browse-card-left">
+                <img
+                  src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F444862499%2F1394200320313%2F1%2Foriginal.20230213-054456?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C1200%2C600&s=5f077de2efa38fca69811aecdec575cd"
+                  alt=""
+                  className="home-browse-image"
+                />
+              </div>
+              <div className="home-browse-card-right">
+                <p className="home-browse-name">Money Expo India 2023</p>
+                <div style={{ display: "flex" }}>
+                  <BiTimeFive
+                    style={{
+                      width: "18px",
+                      height: "22px",
+                      position: "relative",
+                      top: "4px",
+                    }}
+                  />
+                  <p className="home-browse-info">10:00 AM</p>
+                </div>
+                <div style={{ display: "flex", marginTop: "-5px" }}>
+                  <MdLocationOn
+                    style={{
+                      width: "18px",
+                      height: "22px",
+                      position: "relative",
+                      top: "4px",
+                    }}
+                  />
+                  <p className="home-browse-info">
+                    Jio World Convention Centre
+                  </p>
+                </div>
+                <div style={{ display: "flex", marginTop: "-5px" }}>
+                  <BsCalendarDate
+                    style={{
+                      width: "18px",
+                      height: "22px",
+                      position: "relative",
+                      top: "4px",
+                    }}
+                  />
+                  <p className="home-browse-info">Sat, Aug 12</p>
+                </div>
+                <button
+                  type="button"
+                  className="home-dash-button"
+                  style={{ padding: "8px" }}
+                  onClick={()=>{navigateToEventHome('Money Expo India 2023')}}
+                >
+                  Know More
+                </button>
+              </div>
+              <div
+                style={{ width: "16%", marginTop: "3px" }}
+                className="heart-outer-div"
+              >
+                <Heart
+                  isActive={active}
+                  onClick={() => setActive(!active)}
+                  animationScale={1.2}
+                  animationTrigger="both"
+                  animationDuration={0.2}
+                  className={`customHeart${
+                    active ? " active" : ""
+                  } browseHeart`}
                 />
               </div>
             </div>

@@ -49,12 +49,12 @@ export default function NavbarComp(props) {
                       }}
                     >
                       <img
-                        src="https://ik.imagekit.io/ok2wgebfs/evento/logo-removebg-preview__4_.png?updatedAt=1684140911523"
+                        src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
                         alt=""
                         className="nav-logo"
                       />
                       <img
-                        src="https://ik.imagekit.io/ok2wgebfs/evento/logo-name-removebg-preview.png?updatedAt=1684140911522"
+                        src="https://ik.imagekit.io/ok2wgebfs/evento/image.png?updatedAt=1685338632317"
                         alt=""
                         className="nav-name"
                       />
@@ -103,7 +103,7 @@ export default function NavbarComp(props) {
                       }}
                     >
                       <img
-                        src="https://ik.imagekit.io/ok2wgebfs/evento/logo-removebg-preview__4_.png?updatedAt=1684140911523"
+                        src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
                         alt=""
                         className="nav-logo"
                         style={{ width: "25px", height: "25px" }}
@@ -152,12 +152,12 @@ export default function NavbarComp(props) {
                     }}
                   >
                     <img
-                      src="https://ik.imagekit.io/ok2wgebfs/evento/logo-removebg-preview__4_.png?updatedAt=1684140911523"
+                      src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
                       alt=""
                       className="nav-logo"
                     />
                     <img
-                      src="https://ik.imagekit.io/ok2wgebfs/evento/logo-name-removebg-preview.png?updatedAt=1684140911522"
+                      src="https://ik.imagekit.io/ok2wgebfs/evento/image.png?updatedAt=1685338632317"
                       alt=""
                       className="nav-name"
                     />

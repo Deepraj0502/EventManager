@@ -223,12 +223,12 @@ export default function Login() {
             <h1 className="login-wel-text">WELCOME TO</h1>
             <div style={{ display: "flex" }}>
               <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/logo-removebg-preview__4_.png?updatedAt=1684140911523"
+                src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
                 alt=""
                 className="left-logo"
               />
               <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/logo-name-removebg-preview.png?updatedAt=1684140911522"
+                src="https://ik.imagekit.io/ok2wgebfs/evento/image.png?updatedAt=1685338632317"
                 alt=""
                 className="left-logo-text"
               />
@@ -321,13 +321,13 @@ export default function Login() {
           >
             <h1 className="login-wel-text">WELCOME TO</h1>
             <div style={{ display: "flex" }}>
-              <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/logo-removebg-preview__4_.png?updatedAt=1684140911523"
+            <img
+                src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
                 alt=""
                 className="left-logo"
               />
               <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/logo-name-removebg-preview.png?updatedAt=1684140911522"
+                src="https://ik.imagekit.io/ok2wgebfs/evento/image.png?updatedAt=1685338632317"
                 alt=""
                 className="left-logo-text"
               />
@@ -369,16 +369,16 @@ export default function Login() {
         <div className="register-box" id="register-box">
           <h1 className="register-wel-text">WELCOME TO</h1>
           <div style={{ display: "flex" }}>
-            <img
-              src="https://ik.imagekit.io/ok2wgebfs/evento/logo-removebg-preview__4_.png?updatedAt=1684140911523"
-              alt=""
-              className="left-logo"
-            />
-            <img
-              src="https://ik.imagekit.io/ok2wgebfs/evento/logo-name-removebg-preview.png?updatedAt=1684140911522"
-              alt=""
-              className="left-logo-text"
-            />
+          <img
+                src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
+                alt=""
+                className="left-logo"
+              />
+              <img
+                src="https://ik.imagekit.io/ok2wgebfs/evento/image.png?updatedAt=1685338632317"
+                alt=""
+                className="left-logo-text"
+              />
           </div>
           <p className="register-para">
             Register here to attend your favorite events.
@@ -483,12 +483,12 @@ export default function Login() {
       </div>
       <div className="right-login-box" id="right-login-box">
         <img
-          src="https://ik.imagekit.io/ok2wgebfs/evento/logo-removebg-preview__4_.png?updatedAt=1684140911523"
+          src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
           alt=""
           className="right-logo"
         />
         <img
-          src="https://ik.imagekit.io/ok2wgebfs/evento/login-logo-removebg-preview.png?updatedAt=1684140911481"
+          src="https://ik.imagekit.io/ok2wgebfs/evento/image__2_.png?updatedAt=1685338743423"
           alt=""
           className="right-logo-name"
         />
