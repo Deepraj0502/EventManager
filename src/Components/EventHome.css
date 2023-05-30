@@ -105,3 +105,49 @@
 .organiser-para{
     margin-top: 10px;
 }
+
+@media (max-width:600px) {
+    .eventhome-inner{
+        margin-left: 13%;
+        width: 87%;
+    }
+    .eventhome-outer{
+        border-top-left-radius: 0 !important;
+    }
+    .eventhome-image-div{
+        height: 200px;
+    }
+    .eventhome-image{
+        height: 300px;
+        width: 90%;
+        margin-top: -253px;
+        margin-bottom: -69px;
+    }
+    .eventhome-main-right{
+        display: none;
+    }
+    .eventhome-main-left{
+        width: 100%;
+    }
+    .ww-inside-div{
+        flex-direction: column;
+    }
+    .ww-inside-left{
+        border: none !important;
+        border-bottom: 0.5px solid !important;
+        width: 100% !important;
+    }
+    .ww-inside-right{
+        width: 100% !important;
+        margin-top: 15px;
+    }
+    .ww-right-loc{
+        margin-left: 0 !important;
+        width: 100px !important;
+        height: 35px !important;
+        margin-top: 2px;
+    }
+    .show-in-map{
+        margin-left: 50px;
+    }
+}
