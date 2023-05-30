@@ -238,6 +238,10 @@
 .calendar-div {
   padding: 15px !important;
 }
+.global-loading-gif{
+  width: 150px;
+  border-radius: 20px;
+}
 @media (max-width: 600px) {
   .home-inner {
     z-index: -1;

@@ -16,15 +16,16 @@ export default function EventHome() {
       {/* {loading && (
         <div className="loading-background">
           <img
-            src="https://ik.imagekit.io/ok2wgebfs/evento/image-processing20210904-26665-unscreen.gif?updatedAt=1684985103292"
+            src="https://ik.imagekit.io/ok2wgebfs/evento/loading.gif?updatedAt=1685464907954"
             alt=""
             style={{ position: "absolute", zIndex: "99" }}
+            className="global-loading-gif"
           />
         </div>
       )} */}
       <NavbarComp />
       <div
-        className="home-inner"
+        className="home-inner eventhome-inner"
         style={{
           background: "white",
           flexDirection: "column",
@@ -37,6 +38,7 @@ export default function EventHome() {
             overflowX: "hidden",
             borderTopLeftRadius: "30px",
           }}
+          className="eventhome-outer"
         >
           <div className="eventhome-image-div"></div>
           <img
@@ -65,7 +67,7 @@ export default function EventHome() {
               <div className="eventhome-ww-div">
                 <p className="eventhome-ww-head">When and Where</p>
                 <div className="ww-inside-div">
-                  <div style={{ width: "30%", borderRight: "1px solid gray" }}>
+                  <div style={{ width: "30%", borderRight: "1px solid gray" }} className="ww-inside-left">
                     <div style={{ display: "flex" }}>
                       <BsCalendarEventFill
                         style={{
@@ -95,7 +97,7 @@ export default function EventHome() {
                       <p className="eventhome-ww-info">11:00 am</p>
                     </div>
                   </div>
-                  <div style={{ width: "70%" }}>
+                  <div style={{ width: "70%" }} className="ww-inside-right">
                     <div style={{ display: "flex" }}>
                       <MdLocationOn
                         style={{
@@ -108,6 +110,7 @@ export default function EventHome() {
                           borderRadius: "5px",
                           background: "#f8f7fa",
                         }}
+                        className="ww-right-loc"
                       />
                       <p className="eventhome-ww-info">
                         Jio World Convention Centre, Jio World Centre, G Block,
@@ -115,7 +118,7 @@ export default function EventHome() {
                       </p>
                     </div>
                     <a
-                      href="https://www.google.com/maps/place/Jio+World+Convention+Centre/@19.06262,72.867668,1682m/data=!3m1!1e3!4m6!3m5!1s0x3be7c91ce5566167:0x399bdb06fab68a7e!8m2!3d19.0626199!4d72.8676677!16s%2Fg%2F11q486hcfp?hl=en&entry=ttu"
+                      href="https://www.google.com/maps/search/Jio World Convention Centre, Jio World Centre, G Block,Bandra Kurla Complex, Bandra East, Mumbai, Maharashtra"
                       className="show-in-map"
                       target="_blank"
                       rel="noreferrer"

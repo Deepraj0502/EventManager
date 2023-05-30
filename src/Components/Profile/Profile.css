@@ -17,6 +17,7 @@
   z-index: 51;
   position: relative;
   background: white;
+  overflow-y: scroll;
 }
 .profile-info-div {
   /* background-color: #dbe4fa; */

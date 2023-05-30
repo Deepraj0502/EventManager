@@ -69,9 +69,10 @@ export default function Homepage() {
       {loading && (
         <div className="loading-background">
           <img
-            src="https://ik.imagekit.io/ok2wgebfs/evento/image-processing20210904-26665-unscreen.gif?updatedAt=1684985103292"
+            src="https://ik.imagekit.io/ok2wgebfs/evento/loading.gif?updatedAt=1685464907954"
             alt=""
-            style={{ position: "absolute", zIndex: "99" }}
+            style={{ position: "absolute", zIndex: "99"}}
+            className="global-loading-gif"
           />
         </div>
       )}
@@ -280,6 +281,7 @@ export default function Homepage() {
                   height: "35px",
                   borderRadius: "50%",
                   marginRight: "5px",
+                  objectFit:"cover"
                 }}
               />
             )}
