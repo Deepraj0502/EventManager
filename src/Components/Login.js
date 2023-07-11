@@ -8,18 +8,18 @@ import {AiFillEye,AiFillEyeInvisible} from 'react-icons/ai';
 import { useNavigate } from "react-router-dom";
 import { auth, provider } from "./FirebaseConfig";
 import { signInWithPopup } from "firebase/auth";
-import ReactLoading from "react-loading"; 
+import ReactLoading from "react-loading";
 
 export default function Login() {
   const [login, setLogin] = useState("flex");
   const [forgot, setForgot] = useState("none");
-  const [loading,setLoading] = useState(false);
-  const [regloading,setRegLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [regloading, setRegLoading] = useState(false);
   const navigate = useNavigate();
-  const navigateToHome = (email,name) => {
+  const navigateToHome = (email, name) => {
     navigate("/home", {
       state: {
-        email: email
+        email: email,
       },
     });
   };
@@ -164,7 +164,7 @@ export default function Login() {
         method: "POST",
         body: JSON.stringify({
           email: data.user.email,
-          password: data.user.uid
+          password: data.user.uid,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -188,6 +188,7 @@ export default function Login() {
     signInWithPopup(auth, provider).then((data) => {
       document.getElementById("reg-loading").style.display = "block";
       // get form data and check for exist or not
+<<<<<<< Updated upstream
       fetch("http://localhost:3000/check", {
       method: "POST",
       body: JSON.stringify({
@@ -209,6 +210,33 @@ export default function Login() {
           navigateToNext(data.user.displayName, data.user.email, data.user.uid);
         }
       });
+=======
+      fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/check", {
+        method: "POST",
+        body: JSON.stringify({
+          email: data.user.email,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((res) => {
+          if (res["found"] === "true") {
+            document.getElementById("reginvalid").style.display = "block";
+            document.getElementById("reginvalid").innerHTML =
+              "Email Id Already Registered";
+            document.getElementById("reginvalid").style.animationName = "popup";
+            document.getElementById("reg-loading").style.display = "none";
+          } else {
+            navigateToNext(
+              data.user.displayName,
+              data.user.email,
+              data.user.uid
+            );
+          }
+        });
+>>>>>>> Stashed changes
     });
   };
   const showpass = () =>{
@@ -288,8 +316,16 @@ export default function Login() {
                 className="signin-btn"
                 onClick={putUserData}
               >
-                {!loading && <p>SIGN IN</p> }
-                {loading && <ReactLoading type="bars" color="white" height={30} width={50} className="login-btn-loading"/> }
+                {!loading && <p>SIGN IN</p>}
+                {loading && (
+                  <ReactLoading
+                    type="bars"
+                    color="white"
+                    height={30}
+                    width={50}
+                    className="login-btn-loading"
+                  />
+                )}
               </button>
             </form>
             <p className="register-here">
@@ -334,7 +370,7 @@ export default function Login() {
           >
             <h1 className="login-wel-text">WELCOME TO</h1>
             <div style={{ display: "flex" }}>
-            <img
+              <img
                 src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
                 alt=""
                 className="left-logo"
@@ -382,16 +418,16 @@ export default function Login() {
         <div className="register-box" id="register-box">
           <h1 className="register-wel-text">WELCOME TO</h1>
           <div style={{ display: "flex" }}>
-          <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
-                alt=""
-                className="left-logo"
-              />
-              <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/image.png?updatedAt=1685338632317"
-                alt=""
-                className="left-logo-text"
-              />
+            <img
+              src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
+              alt=""
+              className="left-logo"
+            />
+            <img
+              src="https://ik.imagekit.io/ok2wgebfs/evento/image.png?updatedAt=1685338632317"
+              alt=""
+              className="left-logo-text"
+            />
           </div>
           <p className="register-para">
             Register here to attend your favorite events.
@@ -455,8 +491,16 @@ export default function Login() {
               onClick={putRegData}
               style={{ marginTop: "10px" }}
             >
-              {!regloading && <p>SIGN UP</p> }
-              {regloading && <ReactLoading type="bars" color="white" height={30} width={50} className="login-btn-loading"/> }
+              {!regloading && <p>SIGN UP</p>}
+              {regloading && (
+                <ReactLoading
+                  type="bars"
+                  color="white"
+                  height={30}
+                  width={50}
+                  className="login-btn-loading"
+                />
+              )}
             </button>
           </form>
           <p className="register-here">
