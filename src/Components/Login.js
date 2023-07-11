@@ -4,7 +4,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { BiUser } from "react-icons/bi";
 import MediaQuery from "react-responsive";
-import {AiFillEye,AiFillEyeInvisible} from 'react-icons/ai';
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { auth, provider } from "./FirebaseConfig";
 import { signInWithPopup } from "firebase/auth";
@@ -188,30 +188,7 @@ export default function Login() {
     signInWithPopup(auth, provider).then((data) => {
       document.getElementById("reg-loading").style.display = "block";
       // get form data and check for exist or not
-<<<<<<< Updated upstream
       fetch("http://localhost:3000/check", {
-      method: "POST",
-      body: JSON.stringify({
-        email: data.user.email
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((res) => {
-        if (res["found"] === "true") {
-          document.getElementById("reginvalid").style.display = "block";
-          document.getElementById("reginvalid").innerHTML =
-            "Email Id Already Registered";
-          document.getElementById("reginvalid").style.animationName = "popup";
-          document.getElementById("reg-loading").style.display = "none";
-        } else {
-          navigateToNext(data.user.displayName, data.user.email, data.user.uid);
-        }
-      });
-=======
-      fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/check", {
         method: "POST",
         body: JSON.stringify({
           email: data.user.email,
@@ -236,19 +213,18 @@ export default function Login() {
             );
           }
         });
->>>>>>> Stashed changes
     });
   };
-  const showpass = () =>{
-    document.getElementById("pass").type="text";
-    document.getElementById("show-icon").style.display="none";
-    document.getElementById("hide-icon").style.display="block";
-  }
-  const hidepass = () =>{
-    document.getElementById("pass").type="password";
-    document.getElementById("show-icon").style.display="block";
-    document.getElementById("hide-icon").style.display="none";
-  }
+  const showpass = () => {
+    document.getElementById("pass").type = "text";
+    document.getElementById("show-icon").style.display = "none";
+    document.getElementById("hide-icon").style.display = "block";
+  };
+  const hidepass = () => {
+    document.getElementById("pass").type = "password";
+    document.getElementById("show-icon").style.display = "block";
+    document.getElementById("hide-icon").style.display = "none";
+  };
   return (
     <div className="login-outer-box">
       <div className="login-box">
@@ -298,8 +274,16 @@ export default function Login() {
                   id="pass"
                   required
                 />
-                <AiFillEye className="show-icon" id="show-icon" onClick={showpass}/>
-                <AiFillEyeInvisible className="hide-icon" id="hide-icon" onClick={hidepass}/>
+                <AiFillEye
+                  className="show-icon"
+                  id="show-icon"
+                  onClick={showpass}
+                />
+                <AiFillEyeInvisible
+                  className="hide-icon"
+                  id="hide-icon"
+                  onClick={hidepass}
+                />
               </div>
               <div style={{ display: "flex", marginTop: "5px" }}>
                 <button
