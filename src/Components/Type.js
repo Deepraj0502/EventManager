@@ -29,7 +29,7 @@ export default function Type() {
     }
     document.getElementById("loading").style.display="block";
     // get form data and check for exist or not
-    fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/register", {
+    fetch("http://localhost:3000/register", {
       method: "POST",
       body: JSON.stringify({
         name: location.state.name,

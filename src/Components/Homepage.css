@@ -38,7 +38,7 @@
 .recent-card {
   width: 100%;
   border-radius: 10px;
-  box-shadow: 0px 0px 8px gray;
+  box-shadow: 0px 0px 5px gray;
   background-color: white;
   display: flex;
 }
@@ -170,6 +170,7 @@
   position: relative;
   top: 2px;
   left: 8px;
+  width: 90%;
 }
 .home-browse-info {
   position: relative;
@@ -180,7 +181,6 @@
   display: flex;
   justify-content: space-around;
   margin-bottom: 10px;
-  height: 380px;
 }
 .carousel-control-prev {
   width: 4%;
@@ -256,6 +256,14 @@
     height: auto;
   }
 }
+.css-l7568v-MuiPaper-root-MuiCard-root{
+  box-shadow: 0px 0px 5px gray !important;
+}
+.carousel-item-next, .carousel-item-prev, .carousel-item.active {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+}
 .home-browse-card-left {
   width: 50%;
 }
@@ -283,6 +291,11 @@
 }
 .css-1knaqv7-MuiButtonBase-root-MuiButton-root {
   color: #6671ff !important;
+}
+.customHeart-active{
+  width: 2rem;
+  fill: red !important;
+  stroke: white !important;
 }
 @keyframes expand {
   0% {
@@ -430,4 +443,16 @@
         box-shadow: 0px 0px 3px gray !important;
         margin-top: 10px !important;
     }
+}
+
+@media (max-height:720px) {
+  .recent-card{
+    display: none;
+  }
+  .recent-text{
+    display: none;
+  }
+  .calendar-div{
+    min-height: 85%;
+  }
 }

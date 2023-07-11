@@ -42,6 +42,25 @@
   margin-left: -38%;
   transition: left 1s;
 }
+.show-icon{
+  width: 25px;
+  height: 25px;
+  position: relative;
+  margin-left: 89%;
+  top: -20px;
+  margin-top: -17px;
+  cursor: pointer;
+}
+.hide-icon{
+  width: 25px;
+  height: 25px;
+  position: relative;
+  margin-left: 89%;
+  top: -20px;
+  margin-top: -17px;
+  cursor: pointer;
+  display: none;
+}
 .right-login-box::before{
   content: "";
   background: url(https://img.freepik.com/premium-photo/elegant-floral-wedding-backdrop-wallpaper_756748-2486.jpg?size=626&ext=jpg&ga=GA1.2.2034402480.1684136925&semt=ais);
@@ -86,7 +105,7 @@
   top: 2px;
 }
 .login-para{
-  font-size: 1.1rem;
+  font-size: 1.5rem;
     color: gray;
     position: relative;
 }
@@ -111,7 +130,7 @@
 }
 .signin-btn{
   width: 100%;
-  background-color: red;
+  background-color: #4285f4;
   color: white;
   padding: 12px;
   border-radius: 20px;
@@ -214,17 +233,17 @@
 }
 .signin-btn{
   width: 100%;
-  background-color: red;
+  background-color: #6671ff;
   color: white;
   padding: 12px;
   border-radius: 20px;
   border: none;
   margin-top: 20px;
-  box-shadow: 0px 3px 10px 0px gray;
+  box-shadow: 0px 2px 8px 0px gray;
   font-size: 18px;
 }
 .signin-btn:hover{
-  background-color: red;
+  background-color: #6671ff;
 }
 .register-here{
   margin-top: 8px;
@@ -331,6 +350,10 @@
   margin-top: 10px;
   margin-left: -50px;
 }
+.login-comp-name{
+  color: black;
+  font-size: 2rem;
+}
 @media (max-width:600px) {
   .login-outer-box{
     background-position: revert;
@@ -410,5 +433,11 @@
   }
   .forgot-pass{
     font-weight: 500;
+  }
+  .show-icon{
+    margin-left: 87%;
+  }
+  .hide-icon{
+    margin-left: 87%;
   }
 }

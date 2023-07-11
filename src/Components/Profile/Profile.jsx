@@ -22,7 +22,7 @@ export default function App() {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/getname", {
+    fetch("http://localhost:3000/getname", {
       method: "POST",
       body: JSON.stringify({
         email: location.state.email,
@@ -36,7 +36,7 @@ export default function App() {
         setName(data["name"]);
       });
     fetch(
-      "https://event-manager-api-git-main-deepraj0502.vercel.app/getpropic",
+      "http://localhost:3000/getpropic",
       {
         method: "POST",
         body: JSON.stringify({
@@ -89,7 +89,7 @@ export default function App() {
   const deleteProfilePic = () => {
     setUrl("");
     fetch(
-      "https://event-manager-api-git-main-deepraj0502.vercel.app/setpropic",
+      "http://localhost:3000/setpropic",
       {
         method: "POST",
         body: JSON.stringify({
@@ -104,11 +104,11 @@ export default function App() {
   };
   const handleImageChange = (e) => {
     const imageRef = ref(storage, name);
-    uploadBytes(imageRef, e.target.files[0]).then(() => {
+    uploadBytes(imageRef, e.target.files[0],'image/jpeg').then(() => {
       getDownloadURL(imageRef).then((url) => {
         setUrl(url);
         fetch(
-          "https://event-manager-api-git-main-deepraj0502.vercel.app/setpropic",
+          "http://localhost:3000/setpropic",
           {
             method: "POST",
             body: JSON.stringify({

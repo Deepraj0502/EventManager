@@ -7,7 +7,7 @@ export default function MobileNumber(props) {
   const [mobno, setMobNo] = useState("");
   useEffect(() => {
     fetch(
-      "https://event-manager-api-git-main-deepraj0502.vercel.app/getmobileno",
+      "http://localhost:3000/getmobileno",
       {
         method: "POST",
         body: JSON.stringify({
@@ -35,7 +35,7 @@ export default function MobileNumber(props) {
       document.getElementById("mob-invalid").style.display = "block";
     } else {
       fetch(
-        "https://event-manager-api-git-main-deepraj0502.vercel.app/setmobileno",
+        "http://localhost:3000/setmobileno",
         {
           method: "POST",
           body: JSON.stringify({

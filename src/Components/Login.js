@@ -4,6 +4,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { BiUser } from "react-icons/bi";
 import MediaQuery from "react-responsive";
+import {AiFillEye,AiFillEyeInvisible} from 'react-icons/ai';
 import { useNavigate } from "react-router-dom";
 import { auth, provider } from "./FirebaseConfig";
 import { signInWithPopup } from "firebase/auth";
@@ -42,7 +43,7 @@ export default function Login() {
     }
     setLoading(true);
     // get form data and check for exist or not
-    fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/login", {
+    fetch("http://localhost:3000/login", {
       method: "POST",
       body: JSON.stringify({
         email: email,
@@ -81,7 +82,7 @@ export default function Login() {
       return;
     }
     setRegLoading(true);
-    fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/check", {
+    fetch("http://localhost:3000/check", {
       method: "POST",
       body: JSON.stringify({
         email: email,
@@ -159,7 +160,7 @@ export default function Login() {
     signInWithPopup(auth, provider).then((data) => {
       document.getElementById("login-loading").style.display = "block";
       // get form data and check for exist or not
-      fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/login", {
+      fetch("http://localhost:3000/login", {
         method: "POST",
         body: JSON.stringify({
           email: data.user.email,
@@ -187,7 +188,7 @@ export default function Login() {
     signInWithPopup(auth, provider).then((data) => {
       document.getElementById("reg-loading").style.display = "block";
       // get form data and check for exist or not
-      fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/check", {
+      fetch("http://localhost:3000/check", {
       method: "POST",
       body: JSON.stringify({
         email: data.user.email
@@ -210,6 +211,16 @@ export default function Login() {
       });
     });
   };
+  const showpass = () =>{
+    document.getElementById("pass").type="text";
+    document.getElementById("show-icon").style.display="none";
+    document.getElementById("hide-icon").style.display="block";
+  }
+  const hidepass = () =>{
+    document.getElementById("pass").type="password";
+    document.getElementById("show-icon").style.display="block";
+    document.getElementById("hide-icon").style.display="none";
+  }
   return (
     <div className="login-outer-box">
       <div className="login-box">
@@ -259,6 +270,8 @@ export default function Login() {
                   id="pass"
                   required
                 />
+                <AiFillEye className="show-icon" id="show-icon" onClick={showpass}/>
+                <AiFillEyeInvisible className="hide-icon" id="hide-icon" onClick={hidepass}/>
               </div>
               <div style={{ display: "flex", marginTop: "5px" }}>
                 <button

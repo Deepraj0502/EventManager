@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { useLocation } from "react-router-dom";
 import NavbarComp from "./NavbarComp";
 import "./Homepage.css";
-import Calendar from "./Calendar";
+import CalendarComp from "./CalendarComp";
 import { BiTimeFive, BiSearch } from "react-icons/bi";
 import { MdLocationOn } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
@@ -33,7 +33,7 @@ export default function Homepage() {
     });
   };
   useEffect(() => {
-    fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/getname", {
+    fetch("http://localhost:3000/getname", {
       method: "POST",
       body: JSON.stringify({
         email: location.state.email,
@@ -47,7 +47,7 @@ export default function Homepage() {
         setName(data["name"]);
       });
     fetch(
-      "https://event-manager-api-git-main-deepraj0502.vercel.app/getpropic",
+      "http://localhost:3000/getpropic",
       {
         method: "POST",
         body: JSON.stringify({
@@ -58,9 +58,9 @@ export default function Homepage() {
         },
       }
     )
-      .then((response) => response.json())
-      .then((data) => {
-        setUrl(data["propic"]);
+      .then((response2) => response2.json())
+      .then((data2) => {
+        setUrl(data2["propic"]);
       });
     setTimeout(() => setLoading(false), 1000);
   });
@@ -119,7 +119,7 @@ export default function Homepage() {
             </div>
           </div>
           <MediaQuery maxWidth={600}>
-            <Calendar />
+            <CalendarComp />
           </MediaQuery>
           <p className="home-dash-text">Latest Events</p>
           <CardComp />
@@ -287,7 +287,7 @@ export default function Homepage() {
             )}
             <p className="home-left-username">{name}</p>
           </div>
-          <Calendar />
+          <CalendarComp />
           <div className="home-recent-outer">
             <p className="recent-text">Recent Events</p>
             <div className="recent-card">

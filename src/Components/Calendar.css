@@ -1,21 +1,12 @@
-.mbsc-ios.mbsc-datepicker-inline {
-    width: 100%;
-    border: none;
-}
-.mbsc-calendar-day-inner{
-    background-color: white;
-}
-.mbsc-ios.mbsc-calendar-button.mbsc-button{
-    color: black !important;
-    font-weight: bolder;
-}
 .calendar-div{
-    width: 100%;
+    width: 80%;
     background-color: white;
     border-radius: 15px;
-    padding: 20px;
-    box-shadow: -1px 2px 8px 0px gray;
-    margin-left: 5px;
+    box-shadow: 0px 0px 5px 0px gray;
+    margin: auto;
+    margin-top: 35px;
+    margin-bottom: 30px;
+
 }
 .calendar-label{
     font-size: 1.2rem;
@@ -23,24 +14,61 @@
     margin-top: -10px !important;
     color: #141533;
 }
-.mbsc-calendar-controls {
-    background: #6671ff;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-.mbsc-ios.mbsc-calendar-button.mbsc-button {
-    color: white !important;
-    font-weight: 500;
-}
-.mbsc-ios.mbsc-datepicker-inline{
+.react-calendar{
     border: none !important;
 }
-.mbsc-grid .mbsc-col-md-4{
-    max-width: 100% !important;
+.react-calendar__navigation{
+    background-color: #6671ff;
+    border-radius: 10px;
+    color: white;
 }
-.mbsc-ios.mbsc-page{
-    background: transparent;
+abbr[title]{
+    text-decoration: none !important;
 }
-.mbsc-row{
-    justify-content: center;
+.react-calendar__tile--active{
+    background-color: #6671ff !important;
+    border-radius: 10px;
+}
+.react-calendar__tile--now{
+    border-radius: 10px;
+}
+/* .react-calendar__tile::after{
+    content: "🔴";
+    font-size: 10px;
+} */
+
+.calendar-lower{
+    border-top: 2px dashed darkgray;
+    width: 95%;
+    margin: auto;
+}
+.schedule-text{
+    font-size: 17px;
+    color: #bbb8b8;
+    margin-top: 10px;
+    font-weight: 500;
+}
+.schedule-event{
+    background-color: #fadde1;
+    border-radius: 3px;
+    padding: 5px;
+    border-left: 4px solid #ff5d8f;
+    padding-left: 10px;
+    margin-top: 10px;
+}
+.schedule-event-name{
+    font-size: 14px;
+    font-weight: bold;
+    color: #ff5d8f;
+}
+.schedule-event-loc{
+    font-size: 12px;
+    color: #ff5d8f;
+    margin-top: -12px;
+    margin-bottom: 0px;
+}
+@media (max-width:600px) {
+    .calendar-div{
+        width: 100%;
+    }
 }
