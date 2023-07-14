@@ -169,6 +169,10 @@
   left: 5px;
   font-weight: bold;
 }
+
+.forgot-pass:hover {
+  color: #e63946;
+}
 @keyframes popup {
   0% {
     transform: scale(0);
