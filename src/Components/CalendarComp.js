@@ -5,7 +5,6 @@ import './Calendar.css';
 
 export default function CalendarComp() {
   const [value, onChange] = useState(new Date());
-  console.log(value);
 
   return (
     <div className='calendar-div'>

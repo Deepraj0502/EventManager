@@ -22,13 +22,14 @@ export default function Homepage() {
   const location = useLocation();
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
-  const [active, setActive] = useState(false);
+  const [events, setEvents] = useState([]);
+  const [likes, setLikes] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigateToEventHome = (name) => {
     navigate("/eventhome", {
       state: {
         email: location.state.email,
-        eventName: name
+        eventName: name,
       },
     });
   };
@@ -46,9 +47,32 @@ export default function Homepage() {
       .then((data) => {
         setName(data["name"]);
       });
-    fetch(
-      "http://localhost:3000/getpropic",
-      {
+    fetch("http://localhost:3000/getpropic", {
+      method: "POST",
+      body: JSON.stringify({
+        email: location.state.email,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response2) => response2.json())
+      .then((data2) => {
+        setUrl(data2["propic"]);
+      });
+
+    fetch("http://localhost:3000/getevents", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response4) => response4.json())
+      .then((data4) => {
+        setEvents(data4);
+      });
+
+      fetch("http://localhost:3000/getlikes", {
         method: "POST",
         body: JSON.stringify({
           email: location.state.email,
@@ -56,14 +80,49 @@ export default function Homepage() {
         headers: {
           "Content-Type": "application/json",
         },
-      }
-    )
-      .then((response2) => response2.json())
-      .then((data2) => {
-        setUrl(data2["propic"]);
-      });
+      })
+        .then((response5) => response5.json())
+        .then((data5) => {
+          setLikes(data5);
+        });
     setTimeout(() => setLoading(false), 1000);
   });
+  const addlike = (name,date,time,loc) =>{
+    fetch("http://localhost:3000/setlike", {
+      method: "POST",
+      body: JSON.stringify({
+        email: location.state.email,
+        eventdate: date,
+        eventname: name,
+        eventtime: time,
+        eventlocation: loc
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    likes.push({eventname:name});
+  }
+
+  const deletelike = (name) =>{
+    fetch("http://localhost:3000/deletelike", {
+      method: "POST",
+      body: JSON.stringify({
+        email: location.state.email,
+        eventname: name,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    likes.find((item,index)=>{
+      if(item.eventname===name){
+        console.log(index);
+        likes.splice(index,1);
+      }
+      return 0;
+    })
+  }
   return (
     <div className="home-outer">
       {loading && (
@@ -71,7 +130,7 @@ export default function Homepage() {
           <img
             src="https://ik.imagekit.io/ok2wgebfs/evento/loading.gif?updatedAt=1685464907954"
             alt=""
-            style={{ position: "absolute", zIndex: "99"}}
+            style={{ position: "absolute", zIndex: "99" }}
             className="global-loading-gif"
           />
         </div>
@@ -123,148 +182,90 @@ export default function Homepage() {
           </MediaQuery>
           <p className="home-dash-text">Latest Events</p>
           <CardComp />
-          <p className="home-dash-text"  ref={browseRef}>Browse Events</p>
+          <p className="home-dash-text" ref={browseRef}>
+            Browse Events
+          </p>
           <div className="home-browse-outer">
-            <div className="home-browse-card">
-              <div className="home-browse-card-left">
-                <img
-                  src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F444862499%2F1394200320313%2F1%2Foriginal.20230213-054456?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C1200%2C600&s=5f077de2efa38fca69811aecdec575cd"
-                  alt=""
-                  className="home-browse-image"
-                />
-              </div>
-              <div className="home-browse-card-right">
-                <p className="home-browse-name">Money Expo India 2023</p>
-                <div style={{ display: "flex" }}>
-                  <BiTimeFive
-                    style={{
-                      width: "18px",
-                      height: "22px",
-                      position: "relative",
-                      top: "4px",
-                    }}
-                  />
-                  <p className="home-browse-info">10:00 AM</p>
+            {events.reverse().map((val) => {
+              return (
+                <div className="home-browse-card">
+                  <div className="home-browse-card-left">
+                    <img
+                      src={val['eventposter']}
+                      alt=""
+                      className="home-browse-image"
+                    />
+                  </div>
+                  <div className="home-browse-card-right">
+                    <p className="home-browse-name">{val['eventname']}</p>
+                    <div style={{ display: "flex" }}>
+                      <BiTimeFive
+                        style={{
+                          width: "18px",
+                          height: "22px",
+                          position: "relative",
+                          top: "4px",
+                        }}
+                      />
+                      <p className="home-browse-info">{val['eventtime']}</p>
+                    </div>
+                    <div style={{ display: "flex", marginTop: "-5px" }}>
+                      <MdLocationOn
+                        style={{
+                          width: "18px",
+                          height: "22px",
+                          position: "relative",
+                          top: "4px",
+                        }}
+                      />
+                      <p className="home-browse-info">
+                      {val['eventlocation']}
+                      </p>
+                    </div>
+                    <div style={{ display: "flex", marginTop: "-5px" }}>
+                      <BsCalendarDate
+                        style={{
+                          width: "18px",
+                          height: "22px",
+                          position: "relative",
+                          top: "4px",
+                        }}
+                      />
+                      <p className="home-browse-info">{val['eventdate']}</p>
+                    </div>
+                    <button
+                      type="button"
+                      className="home-dash-button"
+                      style={{ padding: "8px" }}
+                      onClick={() => {
+                        navigateToEventHome(val['eventname']);
+                      }}
+                    >
+                      Know More
+                    </button>
+                  </div>
+                  <div
+                    style={{ width: "10%", marginTop: "3px" }}
+                    className="heart-outer-div"
+                  >
+                    <Heart
+                      onClick={()=>{
+                        if(likes.some(item => item.eventname===val['eventname'])){
+                          deletelike(val['eventname']);
+                        }
+                        else{
+                          addlike(val['eventname'],val['eventdate'],val['eventtime'],val['eventlocation']);
+                        }
+                      }}
+                      animationScale={1.2}
+                      animationTrigger="both"
+                      animationDuration={0.2}
+                      className={`browseHeart ${likes.some(item => item.eventname===val['eventname'])?"browseHeart-active":""}`}
+                    />
+                  </div>
                 </div>
-                <div style={{ display: "flex", marginTop: "-5px" }}>
-                  <MdLocationOn
-                    style={{
-                      width: "18px",
-                      height: "22px",
-                      position: "relative",
-                      top: "4px",
-                    }}
-                  />
-                  <p className="home-browse-info">
-                    Jio World Convention Centre
-                  </p>
-                </div>
-                <div style={{ display: "flex", marginTop: "-5px" }}>
-                  <BsCalendarDate
-                    style={{
-                      width: "18px",
-                      height: "22px",
-                      position: "relative",
-                      top: "4px",
-                    }}
-                  />
-                  <p className="home-browse-info">Sat, Aug 12</p>
-                </div>
-                <button
-                  type="button"
-                  className="home-dash-button"
-                  style={{ padding: "8px" }}
-                  onClick={()=>{navigateToEventHome('Money Expo India 2023')}}
-                >
-                  Know More
-                </button>
-              </div>
-              <div
-                style={{ width: "16%", marginTop: "3px" }}
-                className="heart-outer-div"
-              >
-                <Heart
-                  isActive={active}
-                  onClick={() => setActive(!active)}
-                  animationScale={1.2}
-                  animationTrigger="both"
-                  animationDuration={0.2}
-                  className={`customHeart${
-                    active ? " active" : ""
-                  } browseHeart`}
-                />
-              </div>
-            </div>
-            <div className="home-browse-card">
-              <div className="home-browse-card-left">
-                <img
-                  src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F444862499%2F1394200320313%2F1%2Foriginal.20230213-054456?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C1200%2C600&s=5f077de2efa38fca69811aecdec575cd"
-                  alt=""
-                  className="home-browse-image"
-                />
-              </div>
-              <div className="home-browse-card-right">
-                <p className="home-browse-name">Money Expo India 2023</p>
-                <div style={{ display: "flex" }}>
-                  <BiTimeFive
-                    style={{
-                      width: "18px",
-                      height: "22px",
-                      position: "relative",
-                      top: "4px",
-                    }}
-                  />
-                  <p className="home-browse-info">10:00 AM</p>
-                </div>
-                <div style={{ display: "flex", marginTop: "-5px" }}>
-                  <MdLocationOn
-                    style={{
-                      width: "18px",
-                      height: "22px",
-                      position: "relative",
-                      top: "4px",
-                    }}
-                  />
-                  <p className="home-browse-info">
-                    Jio World Convention Centre
-                  </p>
-                </div>
-                <div style={{ display: "flex", marginTop: "-5px" }}>
-                  <BsCalendarDate
-                    style={{
-                      width: "18px",
-                      height: "22px",
-                      position: "relative",
-                      top: "4px",
-                    }}
-                  />
-                  <p className="home-browse-info">Sat, Aug 12</p>
-                </div>
-                <button
-                  type="button"
-                  className="home-dash-button"
-                  style={{ padding: "8px" }}
-                  onClick={()=>{navigateToEventHome('Money Expo India 2023')}}
-                >
-                  Know More
-                </button>
-              </div>
-              <div
-                style={{ width: "16%", marginTop: "3px" }}
-                className="heart-outer-div"
-              >
-                <Heart
-                  isActive={active}
-                  onClick={() => setActive(!active)}
-                  animationScale={1.2}
-                  animationTrigger="both"
-                  animationDuration={0.2}
-                  className={`customHeart${
-                    active ? " active" : ""
-                  } browseHeart`}
-                />
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
         <div className="home-side-div">
@@ -281,7 +282,7 @@ export default function Homepage() {
                   height: "35px",
                   borderRadius: "50%",
                   marginRight: "5px",
-                  objectFit:"cover"
+                  objectFit: "cover",
                 }}
               />
             )}
