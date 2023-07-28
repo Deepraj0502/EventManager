@@ -1,0 +1,81 @@
+.sample-head {
+  font-weight: 700;
+  font-family: sans-serif;
+}
+#ticket {
+  width: 100%;
+  height: 400px;
+}
+.sample-ticket-qr {
+  position: relative;
+  width: 42%;
+  margin: auto;
+  margin-top: 45px;
+  border: 4px solid #3d0f35;
+  padding: 5px;
+}
+.sample-ticket-image {
+  width: 100%;
+  margin-left: 0%;
+  background-size: contain;
+  margin-top: 2%;
+  height: 400px;
+}
+.ticketData {
+  z-index: 2;
+  position: relative;
+  font-size: 1.3rem;
+  color: #481c40;
+  font-family: inherit;
+  line-height: 35px;
+}
+.ticket-left-div{
+  position: relative;
+  height: 400px;
+  width: 33%;
+}
+.ticket-outer{
+  display: flex;
+  width: 100%;
+  margin-top: -400px;
+}
+.ticket-right-div{
+  position: relative;
+  height: 400px;
+  width: 66%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ticket-evento-logo{
+  z-index: 2;
+  position: relative;
+  width: 200px;
+  margin: auto;
+  margin-top: 30px;
+}
+.ticket-organizer-logo{
+  width: 200px;
+  margin: auto;
+  margin-top: 30px;
+}
+.ticket-data-div{
+  width: 100%;
+  height: 100%;
+  padding: 20%;
+  padding-top: 20px;
+  padding-bottom: 0px;
+}
+.ticket-event-name{
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 10px;
+  color: #3d0f35;
+}
+.ticket-address{
+  position: relative;
+  top: -5px;
+  width: 70%;
+  margin-left: 160px;
+  font-family: math;
+}

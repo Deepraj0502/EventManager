@@ -1,5 +1,5 @@
-import React,{useState} from "react";
-import Carousel from "react-bootstrap/Carousel";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -9,428 +9,191 @@ import { BiTimeFive } from "react-icons/bi";
 import { MdLocationOn } from "react-icons/md";
 import { BsCalendarDate } from "react-icons/bs";
 import Heart from "react-heart";
-import MediaQuery from "react-responsive";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 export default function OrganiserCard() {
-  const [active, setActive] = useState(false);
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 2,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+  const [events, setEvents] = useState([]);
+  const [likes, setLikes] = useState([]);
+  const location = useLocation();
+  useEffect(() => {
+    fetch("http://localhost:3000/getevents", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setEvents(data);
+      });
+
+    fetch("http://localhost:3000/getlikes", {
+      method: "POST",
+      body: JSON.stringify({
+        email: location.state.email,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response2) => response2.json())
+      .then((data2) => {
+        setLikes(data2);
+      });
+  }, [location.state.email]);
+
+  const addlike = (name, date, time, loc) => {
+    fetch("http://localhost:3000/setlike", {
+      method: "POST",
+      body: JSON.stringify({
+        email: location.state.email,
+        eventdate: date,
+        eventname: name,
+        eventtime: time,
+        eventlocation: loc,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    likes.push({ eventname: name });
+  };
+
+  const deletelike = (name) => {
+    fetch("http://localhost:3000/deletelike", {
+      method: "POST",
+      body: JSON.stringify({
+        email: location.state.email,
+        eventname: name,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    likes.find((item, index) => {
+      if (item.eventname === name) {
+        console.log(index);
+        likes.splice(index, 1);
+      }
+      return 0;
+    });
+  };
   return (
     <div>
-      <MediaQuery minWidth={900}>
-      <Carousel>
-        <Carousel.Item>
-          <div className="home-card-outer">
-            <Card sx={{ maxWidth: 340 }}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F444862499%2F1394200320313%2F1%2Foriginal.20230213-054456?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C1200%2C600&s=5f077de2efa38fca69811aecdec575cd"
-                  alt="green iguana"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    <p className="home-card-name">Money Expo India 2023</p>
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    <div style={{ display: "flex" }}>
-                      <BiTimeFive style={{ width: "18px", height: "22px" }} />
-                      <p className="home-card-info">10:00 AM</p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <MdLocationOn style={{ width: "18px", height: "22px" }} />
-                      <p className="home-card-info">
-                        Jio World Convention Centre
-                      </p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <BsCalendarDate
-                        style={{ width: "18px", height: "22px" }}
-                      />
-                      <p className="home-card-info">Sat, Aug 12</p>
-                    </div>
-                    <Heart
-                      isActive={active}
-                      onClick={() => setActive(!active)}
-                      animationScale={1.2}
-                      animationTrigger="both"
-                      animationDuration={0.2}
-                      className={`customHeart${active ? " active" : ""}`}
-                    />
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button
-                  size="small"
-                  color="primary"
-                  style={{ marginTop: "-35px" }}
-                >
-                  Know More
-                </Button>
-              </CardActions>
-            </Card>
-            <Card sx={{ maxWidth: 340 }}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F444862499%2F1394200320313%2F1%2Foriginal.20230213-054456?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C1200%2C600&s=5f077de2efa38fca69811aecdec575cd"
-                  alt="green iguana"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    <p className="home-card-name">Money Expo India 2023</p>
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    <div style={{ display: "flex" }}>
-                      <BiTimeFive style={{ width: "18px", height: "22px" }} />
-                      <p className="home-card-info">10:00 AM</p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <MdLocationOn style={{ width: "18px", height: "22px" }} />
-                      <p className="home-card-info">
-                        Jio World Convention Centre
-                      </p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <BsCalendarDate
-                        style={{ width: "18px", height: "22px" }}
-                      />
-                      <p className="home-card-info">Sat, Aug 12</p>
-                    </div>
-                    <Heart
-                      isActive={active}
-                      onClick={() => setActive(!active)}
-                      animationScale={1.2}
-                      animationTrigger="both"
-                      animationDuration={0.2}
-                      className={`customHeart${active ? " active" : ""}`}
-                    />
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button
-                  size="small"
-                  color="primary"
-                  style={{ marginTop: "-35px" }}
-                >
-                  Know More
-                </Button>
-              </CardActions>
-            </Card>
-          </div>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className="home-card-outer">
-          <Card sx={{ maxWidth: 340 }}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F444862499%2F1394200320313%2F1%2Foriginal.20230213-054456?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C1200%2C600&s=5f077de2efa38fca69811aecdec575cd"
-                  alt="green iguana"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    <p className="home-card-name">Money Expo India 2023</p>
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    <div style={{ display: "flex" }}>
-                      <BiTimeFive style={{ width: "18px", height: "22px" }} />
-                      <p className="home-card-info">10:00 AM</p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <MdLocationOn style={{ width: "18px", height: "22px" }} />
-                      <p className="home-card-info">
-                        Jio World Convention Centre
-                      </p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <BsCalendarDate
-                        style={{ width: "18px", height: "22px" }}
-                      />
-                      <p className="home-card-info">Sat, Aug 12</p>
-                    </div>
-                    <Heart
-                      isActive={active}
-                      onClick={() => setActive(!active)}
-                      animationScale={1.2}
-                      animationTrigger="both"
-                      animationDuration={0.2}
-                      className={`customHeart${active ? " active" : ""}`}
-                    />
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button
-                  size="small"
-                  color="primary"
-                  style={{ marginTop: "-35px" }}
-                >
-                  Know More
-                </Button>
-              </CardActions>
-            </Card>
-            <Card sx={{ maxWidth: 340 }}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F444862499%2F1394200320313%2F1%2Foriginal.20230213-054456?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C1200%2C600&s=5f077de2efa38fca69811aecdec575cd"
-                  alt="green iguana"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    <p className="home-card-name">Money Expo India 2023</p>
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    <div style={{ display: "flex" }}>
-                      <BiTimeFive style={{ width: "18px", height: "22px" }} />
-                      <p className="home-card-info">10:00 AM</p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <MdLocationOn style={{ width: "18px", height: "22px" }} />
-                      <p className="home-card-info">
-                        Jio World Convention Centre
-                      </p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <BsCalendarDate
-                        style={{ width: "18px", height: "22px" }}
-                      />
-                      <p className="home-card-info">Sat, Aug 12</p>
-                    </div>
-                    <Heart
-                      isActive={active}
-                      onClick={() => setActive(!active)}
-                      animationScale={1.2}
-                      animationTrigger="both"
-                      animationDuration={0.2}
-                      className={`customHeart${active ? " active" : ""}`}
-                    />
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button
-                  size="small"
-                  color="primary"
-                  style={{ marginTop: "-35px" }}
-                >
-                  Know More
-                </Button>
-              </CardActions>
-            </Card>
-          </div>
-        </Carousel.Item>
-      </Carousel>
-      </MediaQuery>
-
-
-
-      <MediaQuery maxWidth={600}>
-      <Carousel>
-        <Carousel.Item>
-          <div className="home-card-outer">
-            <Card sx={{ width: '98%',height:"200px",background:"linear-gradient(243deg, #4361ee, #4895ef)" }}>
-              <CardActionArea>
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    <p className="home-card-name">Money Expo India 2023</p>
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    <div style={{ display: "flex" }}>
-                      <BiTimeFive style={{ width: "18px", height: "22px" }} className="home-card-icon" />
-                      <p className="home-card-info">10:00 AM</p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <MdLocationOn style={{ width: "18px", height: "22px" }} className="home-card-icon" />
-                      <p className="home-card-info">
-                        Jio World Convention Centre
-                      </p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <BsCalendarDate
-                        style={{ width: "18px", height: "22px" }}
-                        className="home-card-icon"
-                      />
-                      <p className="home-card-info">Sat, Aug 12</p>
-                    </div>
-                    <Heart
-                      isActive={active}
-                      onClick={() => setActive(!active)}
-                      animationScale={1.2}
-                      animationTrigger="both"
-                      animationDuration={0.2}
-                      className={`customHeart${active ? " customHeart-active" : ""} latest-heart`}
-                    />
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button
-                  size="small"
-                  color="primary"
-                  style={{ marginTop: "-35px" }}
-                  className="home-card-btn"
-                >
-                  Know More
-                </Button>
-              </CardActions>
-            </Card>
-          </div>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className="home-card-outer">
-          <Card sx={{ width: '98%',height:"200px",background:"linear-gradient(243deg, #e85d04, #f48c06)"  }}>
-              <CardActionArea>
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    <p className="home-card-name">Money Expo India 2023</p>
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    <div style={{ display: "flex" }}>
-                      <BiTimeFive style={{ width: "18px", height: "22px",color:"white" }} />
-                      <p className="home-card-info">10:00 AM</p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <MdLocationOn style={{ width: "18px", height: "22px",color:"white" }} />
-                      <p className="home-card-info">
-                        Jio World Convention Centre
-                      </p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <BsCalendarDate
-                        style={{ width: "18px", height: "22px",color:"white" }}
-                      />
-                      <p className="home-card-info">Sat, Aug 12</p>
-                    </div>
-                    <Heart
-                      isActive={active}
-                      onClick={() => setActive(!active)}
-                      animationScale={1.2}
-                      animationTrigger="both"
-                      animationDuration={0.2}
-                      className={`customHeart${active ? " customHeart-active" : ""} latest-heart`}
-                    />
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button
-                  size="small"
-                  color="primary"
-                  className="home-card-btn"
-                  style={{ marginTop: "-35px" }}
-                >
-                  Know More
-                </Button>
-              </CardActions>
-            </Card>
-          </div>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className="home-card-outer">
-          <Card sx={{  width: '98%',height:"200px",background:"linear-gradient(243deg, #55a630, #80b918)"  }}>
-              <CardActionArea>
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    <p className="home-card-name">Money Expo India 2023</p>
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    <div style={{ display: "flex" }}>
-                      <BiTimeFive style={{ width: "18px", height: "22px",color:"white" }} />
-                      <p className="home-card-info">10:00 AM</p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <MdLocationOn style={{ width: "18px", height: "22px",color:"white" }} />
-                      <p className="home-card-info">
-                        Jio World Convention Centre
-                      </p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <BsCalendarDate
-                        style={{ width: "18px", height: "22px",color:"white" }}
-                      />
-                      <p className="home-card-info">Sat, Aug 12</p>
-                    </div>
-                    <Heart
-                      isActive={active}
-                      onClick={() => setActive(!active)}
-                      animationScale={1.2}
-                      animationTrigger="both"
-                      animationDuration={0.2}
-                      className={`customHeart${active ? " customHeart-active" : ""} latest-heart`}
-                    />
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button
-                  size="small"
-                  color="primary"
-                  style={{ marginTop: "-35px" }}
-                  className="home-card-btn"
-                >
-                  Know More
-                </Button>
-              </CardActions>
-            </Card>
-          </div>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className="home-card-outer">
-          <Card sx={{  width: '98%',height:"200px",background:"linear-gradient(243deg, #9d4edd, #c77dff)"  }}>
-              <CardActionArea>
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    <p className="home-card-name">Money Expo India 2023</p>
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    <div style={{ display: "flex" }}>
-                      <BiTimeFive style={{ width: "18px", height: "22px",color:"white" }} />
-                      <p className="home-card-info">10:00 AM</p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <MdLocationOn style={{ width: "18px", height: "22px",color:"white" }} />
-                      <p className="home-card-info">
-                        Jio World Convention Centre
-                      </p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <BsCalendarDate
-                        style={{ width: "18px", height: "22px",color:"white" }}
-                      />
-                      <p className="home-card-info">Sat, Aug 12</p>
-                    </div>
-                    <Heart
-                      isActive={active}
-                      onClick={() => setActive(!active)}
-                      animationScale={1.2}
-                      animationTrigger="both"
-                      animationDuration={0.2}
-                      className={`customHeart${active ? " customHeart-active" : ""} latest-heart`}
-                    />
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button
-                  size="small"
-                  color="primary"
-                  className="home-card-btn"
-                  style={{ marginTop: "-35px" }}
-                >
-                  Know More
-                </Button>
-              </CardActions>
-            </Card>
-          </div>
-        </Carousel.Item>
-      </Carousel>
-      </MediaQuery>
+      {events.length > 0 && (
+        <>
+          <p className="eventhome-about-head" style={{ marginTop: "40px" }}>
+            More Events By Trasol
+          </p>
+          <Carousel responsive={responsive}>
+            {events
+              .filter((item, index) => index < 6)
+              .map((val) => {
+                return (
+                  <div className="home-card-outer">
+                    <Card sx={{ width: 340, height: 450 }}>
+                      <CardActionArea>
+                        <CardMedia
+                          component="img"
+                          height="140"
+                          image={val["eventposter"]}
+                          alt="green iguana"
+                        />
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" component="div">
+                            <p className="home-card-name">{val["eventname"]}</p>
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            <div style={{ display: "flex" }}>
+                              <BiTimeFive
+                                style={{ width: "18px", height: "22px" }}
+                              />
+                              <p className="home-card-info">
+                                {val["eventtime"]}
+                              </p>
+                            </div>
+                            <div style={{ display: "flex", marginTop: "-5px" }}>
+                              <MdLocationOn
+                                style={{ width: "18px", height: "22px" }}
+                              />
+                              <p className="home-card-info">
+                                {val["eventlocation"]}
+                              </p>
+                            </div>
+                            <div style={{ display: "flex", marginTop: "-5px" }}>
+                              <BsCalendarDate
+                                style={{ width: "18px", height: "22px" }}
+                              />
+                              <p className="home-card-info">
+                                {val["eventdate"]}
+                              </p>
+                            </div>
+                          </Typography>
+                        </CardContent>
+                        <Heart
+                          animationScale={1.2}
+                          animationTrigger="both"
+                          animationDuration={0.2}
+                          className={`customHeart ${
+                            likes.some(
+                              (item) => item.eventname === val["eventname"]
+                            )
+                              ? "customHeart-active"
+                              : ""
+                          }`}
+                          onClick={() => {
+                            if (
+                              likes.some(
+                                (item) => item.eventname === val["eventname"]
+                              )
+                            ) {
+                              deletelike(val["eventname"]);
+                            } else {
+                              addlike(
+                                val["eventname"],
+                                val["eventdate"],
+                                val["eventtime"],
+                                val["eventlocation"]
+                              );
+                            }
+                          }}
+                        />
+                      </CardActionArea>
+                      <CardActions>
+                        <Button
+                          size="small"
+                          color="primary"
+                          style={{ marginTop: "-35px" }}
+                        >
+                          Know More
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  </div>
+                );
+              })}
+          </Carousel>
+        </>
+      )}
     </div>
   );
 }

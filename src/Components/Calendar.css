@@ -8,6 +8,12 @@
     margin-bottom: 30px;
 
 }
+.react-calendar__navigation__arrow:hover{
+    background-color: transparent !important;
+}
+.react-calendar__navigation__label:hover{
+    background-color: #6671ff !important;
+}
 .calendar-label{
     font-size: 1.2rem;
     font-weight: 700;
