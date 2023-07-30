@@ -40,6 +40,7 @@ export default function AddEventForm() {
     setLoading(true);
     e.preventDefault();
     setTimeout(()=>{
+      setLoading(true);
       var pass = 1;
       for (let index = 0; index < 11; index++) {
         if (e.target[index].value === "") {
@@ -78,7 +79,7 @@ export default function AddEventForm() {
             }
           });
       }
-    })
+    },3000)
   };
   return (
     <div className="home-outer">
