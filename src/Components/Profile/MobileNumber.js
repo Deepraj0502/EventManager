@@ -48,6 +48,7 @@ export default function MobileNumber(props) {
         }
       );
       setShow(false);
+      setMobNo(mobileno);
     }
   };
   const handleShow = () => setShow(true);

@@ -10,7 +10,7 @@ import { BsCalendarDate } from "react-icons/bs";
 import Heart from "react-heart";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function CardComp() {
   const responsive = {
@@ -34,6 +34,15 @@ export default function CardComp() {
   const [events, setEvents] = useState([]);
   const [likes, setLikes] = useState([]);
   const location = useLocation();
+  const navigate = useNavigate();
+  const navigateToEventHome = (name) => {
+    navigate("/eventhome", {
+      state: {
+        email: location.state.email,
+        eventName: name,
+      },
+    });
+  };
   useEffect(() => {
     fetch("http://localhost:3000/getevents", {
       method: "POST",
@@ -59,7 +68,7 @@ export default function CardComp() {
         .then((data2) => {
           setLikes(data2);
         });
-  }, []);
+  }, [location.state.email]);
 
   const addlike = (name,date,time,loc) =>{
     fetch("http://localhost:3000/setlike", {
@@ -104,7 +113,7 @@ export default function CardComp() {
           return (
             <>
               <div className="home-card-outer">
-                <Card sx={{ maxWidth: 340, height: 450 }}>
+                <Card sx={{ width: 340, height: 450 }}>
                   <CardActionArea>
                     <CardMedia
                       component="img"
@@ -159,6 +168,9 @@ export default function CardComp() {
                       size="small"
                       color="primary"
                       style={{ marginTop: "-35px" }}
+                      onClick={() => {
+                        navigateToEventHome(val['eventname']);
+                      }}
                     >
                       Know More
                     </Button>
