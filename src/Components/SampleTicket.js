@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NavbarComp from "./NavbarComp";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ticket1 from "../Images/ticket1.png";
 import ticket2 from "../Images/ticket2.png";
 import ticket3 from "../Images/ticket3.png";
@@ -13,7 +13,15 @@ export default function SampleTicket() {
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
 });
-  const location = useLocation();
+const location = useLocation();
+const navigate = useNavigate();
+  const navigateToHome = () => {
+    navigate("/home", {
+      state: {
+        email: location.state.email,
+      },
+    });
+  };
   const onCapture = (tickettype) => {
     htmlToImage
       .toPng(document.getElementById(tickettype))
@@ -48,17 +56,13 @@ export default function SampleTicket() {
         }}
       >
         <h3 className="sample-head">Sample Ticket</h3>
+        <div className="sample-outer">
         {location.state.ticket === "ticket1" && (
           <>
           <div id="ticket">
             <img src={ticket1} alt="" className="sample-ticket-image" />
             <div className="ticket-outer">
               <div className="ticket-left-div">
-                <img
-                  src="https://trasol.in/wp-content/uploads/2021/12/trasol-logo-2.png"
-                  alt=""
-                  className="ticket-organizer-logo"
-                />
                 <img
                   src="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=Sample%20Ticket&choe=UTF-8"
                   alt=""
@@ -92,7 +96,7 @@ export default function SampleTicket() {
         </button>
         </>
         )}
-        {location.state.ticket === "ticket2" && (
+        {location.state.ticket === "ticket3" && (
           <>
           <div id="ticket-2">
             <img src={ticket2} alt="" className="sample-ticket-2-image" />
@@ -118,7 +122,6 @@ export default function SampleTicket() {
                 </div>
               </div>
               <div className="ticket-2-right-div">
-                <img src="https://firebasestorage.googleapis.com/v0/b/evento-386813.appspot.com/o/Untitled%20(1).jpeg?alt=media&token=55a1dfcb-8d46-4fb0-8529-ccdcad6a5aa9" alt="" className="ticket-2-organizer-logo" />
                 <img
                   src="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=Sample%20ticket-2&choe=UTF-8"
                   alt=""
@@ -136,17 +139,12 @@ export default function SampleTicket() {
         </button>
         </>
         )}
-        {location.state.ticket === "ticket3" && (
+        {location.state.ticket === "ticket2" && (
           <>
           <div id="ticket-3">
             <img src={ticket3} alt="" className="sample-ticket-3-image" />
             <div className="ticket-3-outer">
               <div className="ticket-3-left-div">
-                <img
-                  src="https://trasol.in/wp-content/uploads/2021/12/trasol-logo-2.png"
-                  alt=""
-                  className="ticket-3-organizer-logo"
-                />
                 <img
                   src="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=Sample%20ticket-3&choe=UTF-8"
                   alt=""
@@ -171,6 +169,7 @@ export default function SampleTicket() {
               </div>
             </div>
           </div>
+          <div style={{display:"flex",gap:"40px"}}>
           <button
           type="button"
           className="ticket-download-button"
@@ -178,8 +177,17 @@ export default function SampleTicket() {
         >
           Download Ticket
         </button>
+        <button
+          type="button"
+          className="ticket-dashboard-button"
+          onClick={navigateToHome}
+        >
+          Return To Dashboard
+        </button>
+          </div>
         </>
         )}
+        </div>
       </div>
     </div>
   );
