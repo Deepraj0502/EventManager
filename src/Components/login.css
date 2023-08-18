@@ -1,8 +1,10 @@
 .login-outer-box {
-  background: url("../Images/login_bg.jpg");
+  /* background: url("https://colibriwp.com/blog/wp-content/uploads/2019/06/pawel-czerwinski-vI5XwPbGvmY-unsplash.jpg"); */
+  /* background-image: url(https://t3.ftcdn.net/jpg/04/23/18/44/360_F_423184467_qE9OxHTKVvMYefypnX6ieAErnwSndPQK.jpg); */
+  background-image: url("https://plus.unsplash.com/premium_photo-1667668224647-e587eba122cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8b2xkJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80");
   height: 100vh;
   background-position: center;
-  background-size: cover;
+  background-size: 100% 100%;
   display: flex;
   align-items: center;
 }
@@ -63,8 +65,8 @@
 }
 .right-login-box::before {
   content: "";
-  background: url(https://img.freepik.com/premium-photo/elegant-floral-wedding-backdrop-wallpaper_756748-2486.jpg?size=626&ext=jpg&ga=GA1.2.2034402480.1684136925&semt=ais);
-  background-size: cover;
+  background: url("https://images.unsplash.com/photo-1594122230689-45899d9e6f69?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE0fHx8ZW58MHx8fHx8&w=1000&q=80");
+  background-size: 100% 100%;
   position: absolute;
   top: 0px;
   right: 0px;
@@ -76,7 +78,7 @@
   border-bottom-right-radius: var(--check-secondary, 15px);
   border-left: var(--check-borderleft, 3px solid black);
   border-right: var(--check-borderright, 0);
-  opacity: 0.6;
+  opacity: 0.8;
 }
 .right-logo {
   position: relative;
@@ -119,7 +121,9 @@
 }
 .login-input:hover {
   outline: none;
+  border: 3px solid #0e78db;
 }
+
 .email-icon {
   width: 30px;
   height: 30px;
@@ -128,46 +132,23 @@
   margin-left: 10px;
   top: -20px;
 }
-.signin-btn {
-  width: 100%;
-  background-color: #4285f4;
-  color: white;
-  padding: 12px;
-  border-radius: 20px;
-  border: none;
-  margin-top: 20px;
-  height: 50px;
-  box-shadow: 0px 3px 10px 0px gray;
-}
 .login-btn-loading {
   margin: auto;
   position: relative;
   top: -10px;
 }
-.signin-btn:hover {
-  background-color: red;
-}
 .register-here {
   margin-top: 8px;
   color: gray;
-}
-.register-here-a {
-  color: #6671ff;
-  font-weight: bold;
-  background-color: white;
-  border: none;
-  margin-left: 5px;
-}
-.register-here-a:hover {
-  color: orange;
 }
 .forgot-pass {
   color: black;
   font-size: 14px;
   position: relative;
-  top: 5px;
   left: 5px;
+  top: 4px;
   font-weight: bold;
+  transition: color 0.2s;
 }
 
 .forgot-pass:hover {
@@ -238,33 +219,38 @@
 }
 .register-input:hover {
   outline: none;
+  border: 3px solid #0e78db;
 }
 .signin-btn {
   width: 100%;
-  background-color: #6671ff;
-  color: white;
-  padding: 12px;
+  background-color: #ffb703;
+  color: #fff;
+  padding: 8px;
   border-radius: 20px;
   border: none;
   margin-top: 20px;
   box-shadow: 0px 2px 8px 0px gray;
-  font-size: 18px;
+  font-size: 21px;
+  height: 50px;
+  font-weight: 600;
+  transition: ease-in-out 0.8s;
 }
 .signin-btn:hover {
-  background-color: #6671ff;
+  background-color: #fb8b24;
 }
 .register-here {
   margin-top: 8px;
   color: gray;
+  font-weight: 500;
 }
 .register-here-a {
-  color: #6671ff;
+  color: #0e78db;
   font-weight: bold;
   text-decoration: none;
   margin-left: 5px;
-}
-.register-here-a:hover {
-  color: orange;
+  background-color: white;
+  border: none;
+  /* transition: 0.7s; */
 }
 #left-box {
   display: flex;
@@ -326,7 +312,7 @@
   display: flex;
   width: 100%;
   height: 50px;
-  background-color: #4285f4;
+  background-color: #0e78db;
   border-radius: 3px;
   align-items: center;
   padding: 3px;

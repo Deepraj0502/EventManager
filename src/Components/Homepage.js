@@ -72,22 +72,22 @@ export default function Homepage() {
         setEvents(data4);
       });
 
-      fetch("http://localhost:3000/getlikes", {
-        method: "POST",
-        body: JSON.stringify({
-          email: location.state.email,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response5) => response5.json())
-        .then((data5) => {
-          setLikes(data5);
-        });
+    fetch("http://localhost:3000/getlikes", {
+      method: "POST",
+      body: JSON.stringify({
+        email: location.state.email,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response5) => response5.json())
+      .then((data5) => {
+        setLikes(data5);
+      });
     setTimeout(() => setLoading(false), 1000);
   });
-  const addlike = (name,date,time,loc) =>{
+  const addlike = (name, date, time, loc) => {
     fetch("http://localhost:3000/setlike", {
       method: "POST",
       body: JSON.stringify({
@@ -95,16 +95,16 @@ export default function Homepage() {
         eventdate: date,
         eventname: name,
         eventtime: time,
-        eventlocation: loc
+        eventlocation: loc,
       }),
       headers: {
         "Content-Type": "application/json",
       },
-    })
-    likes.push({eventname:name});
-  }
+    });
+    likes.push({ eventname: name });
+  };
 
-  const deletelike = (name) =>{
+  const deletelike = (name) => {
     fetch("http://localhost:3000/deletelike", {
       method: "POST",
       body: JSON.stringify({
@@ -114,15 +114,15 @@ export default function Homepage() {
       headers: {
         "Content-Type": "application/json",
       },
-    })
-    likes.find((item,index)=>{
-      if(item.eventname===name){
+    });
+    likes.find((item, index) => {
+      if (item.eventname === name) {
         console.log(index);
-        likes.splice(index,1);
+        likes.splice(index, 1);
       }
       return 0;
-    })
-  }
+    });
+  };
   return (
     <div className="home-outer">
       {loading && (
@@ -191,13 +191,13 @@ export default function Homepage() {
                 <div className="home-browse-card">
                   <div className="home-browse-card-left">
                     <img
-                      src={val['eventposter']}
+                      src={val["eventposter"]}
                       alt=""
                       className="home-browse-image"
                     />
                   </div>
                   <div className="home-browse-card-right">
-                    <p className="home-browse-name">{val['eventname']}</p>
+                    <p className="home-browse-name">{val["eventname"]}</p>
                     <div style={{ display: "flex" }}>
                       <BiTimeFive
                         style={{
@@ -207,7 +207,7 @@ export default function Homepage() {
                           top: "4px",
                         }}
                       />
-                      <p className="home-browse-info">{val['eventtime']}</p>
+                      <p className="home-browse-info">{val["eventtime"]}</p>
                     </div>
                     <div style={{ display: "flex", marginTop: "-5px" }}>
                       <MdLocationOn
@@ -218,9 +218,7 @@ export default function Homepage() {
                           top: "4px",
                         }}
                       />
-                      <p className="home-browse-info">
-                      {val['eventlocation']}
-                      </p>
+                      <p className="home-browse-info">{val["eventlocation"]}</p>
                     </div>
                     <div style={{ display: "flex", marginTop: "-5px" }}>
                       <BsCalendarDate
@@ -231,14 +229,14 @@ export default function Homepage() {
                           top: "4px",
                         }}
                       />
-                      <p className="home-browse-info">{val['eventdate']}</p>
+                      <p className="home-browse-info">{val["eventdate"]}</p>
                     </div>
                     <button
                       type="button"
                       className="home-dash-button"
                       style={{ padding: "8px" }}
                       onClick={() => {
-                        navigateToEventHome(val['eventname']);
+                        navigateToEventHome(val["eventname"]);
                       }}
                     >
                       Know More
@@ -249,18 +247,32 @@ export default function Homepage() {
                     className="heart-outer-div"
                   >
                     <Heart
-                      onClick={()=>{
-                        if(likes.some(item => item.eventname===val['eventname'])){
-                          deletelike(val['eventname']);
-                        }
-                        else{
-                          addlike(val['eventname'],val['eventdate'],val['eventtime'],val['eventlocation']);
+                      onClick={() => {
+                        if (
+                          likes.some(
+                            (item) => item.eventname === val["eventname"]
+                          )
+                        ) {
+                          deletelike(val["eventname"]);
+                        } else {
+                          addlike(
+                            val["eventname"],
+                            val["eventdate"],
+                            val["eventtime"],
+                            val["eventlocation"]
+                          );
                         }
                       }}
                       animationScale={1.2}
                       animationTrigger="both"
                       animationDuration={0.2}
-                      className={`browseHeart ${likes.some(item => item.eventname===val['eventname'])?"browseHeart-active":""}`}
+                      className={`browseHeart ${
+                        likes.some(
+                          (item) => item.eventname === val["eventname"]
+                        )
+                          ? "browseHeart-active"
+                          : ""
+                      }`}
                     />
                   </div>
                 </div>

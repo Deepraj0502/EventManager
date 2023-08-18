@@ -238,12 +238,12 @@ export default function Login() {
             <h1 className="login-wel-text">WELCOME TO</h1>
             <div style={{ display: "flex" }}>
               <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
+                src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled-removebg-preview.png?updatedAt=1689439801374"
                 alt=""
                 className="left-logo"
               />
               <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/image.png?updatedAt=1685338632317"
+                src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
                 alt=""
                 className="left-logo-text"
               />
@@ -355,12 +355,12 @@ export default function Login() {
             <h1 className="login-wel-text">WELCOME TO</h1>
             <div style={{ display: "flex" }}>
               <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
+                src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled-removebg-preview.png?updatedAt=1689439801374"
                 alt=""
                 className="left-logo"
               />
               <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/image.png?updatedAt=1685338632317"
+                src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
                 alt=""
                 className="left-logo-text"
               />
@@ -403,12 +403,12 @@ export default function Login() {
           <h1 className="register-wel-text">WELCOME TO</h1>
           <div style={{ display: "flex" }}>
             <img
-              src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
+              src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled-removebg-preview.png?updatedAt=1689439801374"
               alt=""
               className="left-logo"
             />
             <img
-              src="https://ik.imagekit.io/ok2wgebfs/evento/image.png?updatedAt=1685338632317"
+              src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
               alt=""
               className="left-logo-text"
             />
@@ -524,12 +524,12 @@ export default function Login() {
       </div>
       <div className="right-login-box" id="right-login-box">
         <img
-          src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
+          src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled-removebg-preview.png?updatedAt=1689439801374"
           alt=""
           className="right-logo"
         />
         <img
-          src="https://ik.imagekit.io/ok2wgebfs/evento/image__2_.png?updatedAt=1685338743423"
+          src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__1_-removebg-preview.png?updatedAt=1689439803174"
           alt=""
           className="right-logo-name"
         />
