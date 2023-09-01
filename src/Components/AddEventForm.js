@@ -5,7 +5,7 @@ import NavbarComp from "./NavbarComp";
 import "./AddEventForm.css";
 import { storage } from "./FirebaseConfig";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import TicketSelect from "./TicketSelect";
 
 export default function AddEventForm() {
@@ -39,7 +39,7 @@ export default function AddEventForm() {
   const handleSubmit = (e) => {
     setLoading(true);
     e.preventDefault();
-    setTimeout(()=>{
+    setTimeout(() => {
       setLoading(true);
       var pass = 1;
       for (let index = 0; index < 11; index++) {
@@ -79,7 +79,7 @@ export default function AddEventForm() {
             }
           });
       }
-    },3000)
+    }, 3000);
   };
   return (
     <div className="home-outer">
@@ -99,7 +99,11 @@ export default function AddEventForm() {
         <>
           <div
             className="home-inner"
-            style={{ display: "block", overflowY: "scroll",borderTopRightRadius: "0px" }}
+            style={{
+              display: "block",
+              overflowY: "scroll",
+              borderTopRightRadius: "0px",
+            }}
           >
             <img
               src="https://ik.imagekit.io/ok2wgebfs/evento/addevent-bg.png?updatedAt=1689659150762"
@@ -107,7 +111,7 @@ export default function AddEventForm() {
               className="add-event-bg"
             />
 
-            <div style={{padding:"50px"}}>
+            <div style={{ padding: "50px" }}>
               <h1 className="details-head">Add Your Event</h1>
               <form
                 className="addevent-form"
@@ -197,44 +201,48 @@ export default function AddEventForm() {
                     onChange={handleEventPoster}
                   />
                 </div>
-                <div style={{display:"block",width:"40%"}}>
-                <div className="organizer-div">
-                  <h5 style={{ color: "#9973f3" }}>Organiser Details</h5>
-                  <p className="add-form-label">
-                    Organiser Name<span>*</span>
-                  </p>
-                  <input
-                    type="text"
-                    id="organizername"
-                    placeholder="Enter Here"
-                    className="add-form-input"
+                <div style={{ display: "block", width: "40%" }}>
+                  <div className="organizer-div">
+                    <h5 style={{ color: "#9973f3" }}>Organiser Details</h5>
+                    <p className="add-form-label">
+                      Organiser Name<span>*</span>
+                    </p>
+                    <input
+                      type="text"
+                      id="organizername"
+                      placeholder="Enter Here"
+                      className="add-form-input"
+                    />
+                    <p className="add-form-label">
+                      Organiser Description<span>*</span>
+                    </p>
+                    <textarea
+                      rows="2"
+                      cols="2"
+                      placeholder="Enter Details"
+                      className="add-form-input"
+                      id="organizerinfo"
+                    ></textarea>
+                    <p className="add-form-label">
+                      Organizer Logo<span>*</span>
+                    </p>
+                    <input
+                      type="file"
+                      id="organizerlogo"
+                      className="add-form-input"
+                      onChange={handleorganizerLogo}
+                    />
+                    <input
+                      type="submit"
+                      value="Next"
+                      className="add-form-submit"
+                    />
+                  </div>
+                  <img
+                    src="https://img.freepik.com/free-vector/build-your-program-appointment-booking_23-2148552954.jpg?size=626&ext=jpg&ga=GA1.1.2034402480.1684136925&semt=ais"
+                    alt=""
+                    className="add-event-vector"
                   />
-                  <p className="add-form-label">
-                    Organiser Description<span>*</span>
-                  </p>
-                  <textarea
-                    rows="2"
-                    cols="2"
-                    placeholder="Enter Details"
-                    className="add-form-input"
-                    id="organizerinfo"
-                  ></textarea>
-                  <p className="add-form-label">
-                    Organizer Logo<span>*</span>
-                  </p>
-                  <input
-                    type="file"
-                    id="organizerlogo"
-                    className="add-form-input"
-                    onChange={handleorganizerLogo}
-                  />
-                  <input
-                    type="submit"
-                    value="Next"
-                    className="add-form-submit"
-                  />
-                </div>
-              <img src="https://img.freepik.com/free-vector/build-your-program-appointment-booking_23-2148552954.jpg?size=626&ext=jpg&ga=GA1.1.2034402480.1684136925&semt=ais" alt="" className="add-event-vector"/>
                 </div>
               </form>
             </div>
@@ -243,7 +251,7 @@ export default function AddEventForm() {
       )}
       {success && (
         <>
-          <TicketSelect eventname={eventname} email={location.state.email}/>
+          <TicketSelect eventname={eventname} email={location.state.email} />
         </>
       )}
     </div>
