@@ -31,7 +31,7 @@
     "html2canvas": "^1.4.1",
     "jquery": "^3.7.0",
     "jspdf": "^2.5.1",
-    "mdb-react-ui-kit": "^6.1.0",
+    "mdb-react-ui-kit": "^6.2.0",
     "merge-images": "^2.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
