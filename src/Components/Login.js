@@ -9,8 +9,18 @@ import { useNavigate } from "react-router-dom";
 import { auth, provider } from "./FirebaseConfig";
 import { signInWithPopup } from "firebase/auth";
 import ReactLoading from "react-loading";
+import {
+  collection,
+  getDocs,
+  query,
+  addDoc,
+  getFirestore,
+} from "firebase/firestore";
+
+import { app } from "./FirebaseConfig";
 
 export default function Login() {
+  const db = getFirestore(app);
   const [login, setLogin] = useState("flex");
   const [forgot, setForgot] = useState("none");
   const [loading, setLoading] = useState(false);
@@ -32,7 +42,7 @@ export default function Login() {
       },
     });
   };
-  const putUserData = () => {
+  const putUserData = async () => {
     var email = document.getElementById("email").value;
     var pass = document.getElementById("pass").value;
     if (email === "" || pass === "") {
@@ -42,28 +52,18 @@ export default function Login() {
       return;
     }
     setLoading(true);
-    // get form data and check for exist or not
-    fetch("http://localhost:3000/login", {
-      method: "POST",
-      body: JSON.stringify({
-        email: email,
-        password: pass,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data["login"] === "Success") {
-          navigateToHome(email);
-        } else {
-          document.getElementById("invalid").style.display = "block";
-          document.getElementById("invalid").innerHTML = "Invalid Credentials";
-          document.getElementById("invalid").style.animationName = "popup";
-          setLoading(false);
-        }
-      });
+    const q = query(collection(db, "users"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      if (doc.data()["email"] === email && doc.data()["password"] === pass) {
+        navigateToHome(email);
+      } else {
+        document.getElementById("invalid").style.display = "block";
+        document.getElementById("invalid").innerHTML = "Invalid Credentials";
+        document.getElementById("invalid").style.animationName = "popup";
+        setLoading(false);
+      }
+    });
   };
   const putRegData = () => {
     var name = document.getElementById("rname").value;
@@ -82,27 +82,16 @@ export default function Login() {
       return;
     }
     setRegLoading(true);
-    fetch("http://localhost:3000/check", {
-      method: "POST",
-      body: JSON.stringify({
-        email: email,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data["found"] === "true") {
-          document.getElementById("reginvalid").style.display = "block";
-          document.getElementById("reginvalid").innerHTML =
-            "Email Id Already Registered";
-          document.getElementById("reginvalid").style.animationName = "popup";
-          setRegLoading(false);
-        } else {
-          navigateToNext(name, email, pass);
-        }
-      });
+    addDoc(collection(db, "users"), {
+      name: name,
+      email: email,
+      password: pass,
+      mobileNo: null,
+      category: null,
+    }).then((err) => {
+      window.location.reload();
+    });
+    navigateToNext(name, email, pass);
   };
   const slideReg = () => {
     document
@@ -157,62 +146,42 @@ export default function Login() {
     document.getElementById("left-box").style.width = "100%";
   };
   const googleLogin = () => {
-    signInWithPopup(auth, provider).then((data) => {
-      document.getElementById("login-loading").style.display = "block";
-      // get form data and check for exist or not
-      fetch("http://localhost:3000/login", {
-        method: "POST",
-        body: JSON.stringify({
+    var count=0;
+    signInWithPopup(auth, provider).then(async (data) => {
+      const q = query(collection(db, "users"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        if (data.user.email === doc.data()["email"]) {
+          navigateToHome(data.user.email);
+          count++;
+        } 
+      });
+      if(count===0){
+        addDoc(collection(db, "users"), {
+          name: data.user.displayName,
           email: data.user.email,
           password: data.user.uid,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((res) => {
-          if (res["login"] === "Success") {
-            navigateToHome(data.user.email);
-          } else {
-            document.getElementById("invalid").style.display = "block";
-            document.getElementById("invalid").innerHTML =
-              "Invalid Credentials";
-            document.getElementById("invalid").style.animationName = "popup";
-            document.getElementById("login-loading").style.display = "none";
-          }
+          mobileNo: null,
+          category: null,
+        }).then((err) => {
+          window.location.reload();
         });
+        navigateToNext(data.user.displayName, data.user.email, data.user.uid);
+      }
     });
   };
   const googleReg = () => {
     signInWithPopup(auth, provider).then((data) => {
-      document.getElementById("reg-loading").style.display = "block";
-      // get form data and check for exist or not
-      fetch("http://localhost:3000/check", {
-        method: "POST",
-        body: JSON.stringify({
-          email: data.user.email,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((res) => {
-          if (res["found"] === "true") {
-            document.getElementById("reginvalid").style.display = "block";
-            document.getElementById("reginvalid").innerHTML =
-              "Email Id Already Registered";
-            document.getElementById("reginvalid").style.animationName = "popup";
-            document.getElementById("reg-loading").style.display = "none";
-          } else {
-            navigateToNext(
-              data.user.displayName,
-              data.user.email,
-              data.user.uid
-            );
-          }
-        });
+      addDoc(collection(db, "users"), {
+        name: data.user.displayName,
+        email: data.user.email,
+        password: data.user.uid,
+        mobileNo: null,
+        category: null,
+      }).then((err) => {
+        window.location.reload();
+      });
+      navigateToNext(data.user.displayName, data.user.email, data.user.uid);
     });
   };
   const showpass = () => {
