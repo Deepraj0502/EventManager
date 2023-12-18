@@ -7,6 +7,9 @@ import { storage } from "./FirebaseConfig";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useLocation } from "react-router-dom";
 import TicketSelect from "./TicketSelect";
+import { collection, addDoc, getFirestore } from "firebase/firestore";
+
+import { app } from "./FirebaseConfig";
 
 export default function AddEventForm() {
   const location = useLocation();
@@ -36,6 +39,8 @@ export default function AddEventForm() {
       });
     });
   };
+
+  const db = getFirestore(app);
   const handleSubmit = (e) => {
     setLoading(true);
     e.preventDefault();
@@ -52,32 +57,23 @@ export default function AddEventForm() {
       }
       if (pass === 1) {
         setEventName(e.target[0].value);
-        fetch("http://localhost:3000/addevent", {
-          method: "POST",
-          body: JSON.stringify({
-            email: location.state.email,
-            eventname: e.target[0].value,
-            eventinfo: e.target[1].value,
-            eventdate: e.target[2].value,
-            eventtime: e.target[3].value,
-            eventcity: e.target[4].value,
-            eventaddress: e.target[5].value,
-            eventcategory: e.target[6].value,
-            eventposter: url,
-            organizername: e.target[8].value,
-            organizerinfo: e.target[9].value,
-            organizerlogo: url2,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data["added"] === "success") {
-              setSuccess(true);
-            }
-          });
+        addDoc(collection(db, "events"), {
+          email: location.state.email,
+          eventname: e.target[0].value,
+          eventinfo: e.target[1].value,
+          eventdate: e.target[2].value,
+          eventtime: e.target[3].value,
+          eventcity: e.target[4].value,
+          eventaddress: e.target[5].value,
+          eventcategory: e.target[6].value,
+          eventposter: url,
+          organizerlogo: url2,
+          organizername: e.target[9].value,
+          organizerinfo: e.target[10].value,
+        }).then((err) => {
+          window.location.reload();
+        });
+        setSuccess(true);
       }
     }, 3000);
   };
@@ -205,6 +201,15 @@ export default function AddEventForm() {
                   <div className="organizer-div">
                     <h5 style={{ color: "#9973f3" }}>Organiser Details</h5>
                     <p className="add-form-label">
+                      Organizer Logo<span>*</span>
+                    </p>
+                    <input
+                      type="file"
+                      id="organizerlogo"
+                      className="add-form-input"
+                      onChange={handleorganizerLogo}
+                    />
+                    <p className="add-form-label">
                       Organiser Name<span>*</span>
                     </p>
                     <input
@@ -223,15 +228,7 @@ export default function AddEventForm() {
                       className="add-form-input"
                       id="organizerinfo"
                     ></textarea>
-                    <p className="add-form-label">
-                      Organizer Logo<span>*</span>
-                    </p>
-                    <input
-                      type="file"
-                      id="organizerlogo"
-                      className="add-form-input"
-                      onChange={handleorganizerLogo}
-                    />
+
                     <input
                       type="submit"
                       value="Next"

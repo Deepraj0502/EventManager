@@ -15,42 +15,36 @@ import { storage } from "../FirebaseConfig";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import MobileNumber from "./MobileNumber";
 import MediaQuery from "react-responsive";
+import {
+  collection,
+  doc,
+  getDocs,
+  updateDoc,
+  getFirestore,
+  query,
+} from "firebase/firestore";
+import { app } from ".././FirebaseConfig";
 
 export default function App() {
+  const db = getFirestore(app);
   const location = useLocation();
   const [name, setName] = useState("");
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(null);
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    fetch("http://localhost:3000/getname", {
-      method: "POST",
-      body: JSON.stringify({
-        email: location.state.email,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setName(data["name"]);
-      });
-    fetch(
-      "http://localhost:3000/getpropic",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          email: location.state.email,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+
+  const getInfo = async () => {
+    const colRef = query(collection(db, "users"));
+    const querySnapshot = await getDocs(colRef);
+    querySnapshot.forEach((doc) => {
+      if (doc.data()["email"] === location.state.email) {
+        setName(doc.data()["name"]);
+        setUrl(doc.data()["profilepic"]);
       }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setUrl(data["propic"]);
-      });
+    });
+  };
+
+  useEffect(() => {
+    getInfo();
     setTimeout(() => setLoading(false), 1000);
   });
   const month = [
@@ -86,43 +80,38 @@ export default function App() {
       events: 2,
     },
   ];
-  const deleteProfilePic = () => {
+  const deleteProfilePic = async () => {
     setUrl("");
-    fetch(
-      "http://localhost:3000/setpropic",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          email: location.state.email,
-          url: "",
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+    const q = query(collection(db, "users"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc4) => {
+      if (doc4.data()["email"] === location.state.email) {
+        const scoreRef = doc(db, "users", doc4.id);
+        updateDoc(scoreRef, {
+          profilepic: null,
+        });
       }
-    );
+    });
   };
   const handleImageChange = (e) => {
-    const imageRef = ref(storage, name);
-    uploadBytes(imageRef, e.target.files[0],'image/jpeg').then(() => {
-      getDownloadURL(imageRef).then((url) => {
+    const imageRef = ref(storage, e.target.files[0].name);
+    uploadBytes(imageRef, e.target.files[0], "image").then(() => {
+      getDownloadURL(imageRef).then(async (url) => {
         setUrl(url);
-        fetch(
-          "http://localhost:3000/setpropic",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              email: location.state.email,
-              url: url,
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
+        const querySnapshot = await getDocs(collection(db, "users"));
+        querySnapshot.forEach((e) => {
+          if (e.data()["email"] === location.state.email) {
+            const scoreRef = doc(db, "users", e.id);
+            updateDoc(scoreRef, {
+              profilepic: url,
+            });
           }
-        );
+        });
       });
     });
   };
+
+  console.log(name);
   return (
     <>
       {loading && (
@@ -141,10 +130,14 @@ export default function App() {
         <div className="profile-inner-div">
           <div className="profile-info-div">
             <div className="user-profile-div">
-              {url === "" && (
-                <FaUserCircle className="profile-image" id="profile-image" color="gray" />
+              {url === null && (
+                <FaUserCircle
+                  className="profile-image"
+                  id="profile-image"
+                  color="gray"
+                />
               )}
-              {url !== "" && (
+              {url !== null && (
                 <img
                   src={url}
                   alt=""
@@ -174,7 +167,7 @@ export default function App() {
             </div>
             <div className="profile-inner-info">
               <p className="profile-name">{name}</p>
-              <div style={{textAlign:"left"}}>
+              <div style={{ textAlign: "left" }}>
                 <div style={{ display: "flex", marginTop: "-5px" }}>
                   <HiMail
                     style={{ width: "20px", height: "22px", color: "#6671FF" }}
