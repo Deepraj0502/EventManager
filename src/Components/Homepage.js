@@ -62,16 +62,16 @@ export default function Homepage() {
     const q2 = query(collection(db, "likes"));
     const querySnapshot2 = await getDocs(q2);
     querySnapshot2.forEach((doc2) => {
-      if (doc2.data()["email"] === location.state.email) {
-        setLikes(likes.push({eventName:doc2.data()['eventName']}));
+      if (doc2.data()["user"] === location.state.email) {
+        setLikes((likes)=>[...likes,doc2.data()]);
       }
     });
   };
   const getEventsData = async () => {
     const q3 = query(collection(db, "events"));
     const querySnapshot3 = await getDocs(q3);
-    querySnapshot3.forEach((doc) => {
-      setEvents(events.push(doc.data()));
+    querySnapshot3.forEach((doc3) => {
+      setEvents((events)=>[...events,doc3.data()]);
     });
   };
   useEffect(() => {
@@ -79,7 +79,7 @@ export default function Homepage() {
     getLikesData();
     getEventsData();
     setTimeout(() => setLoading(false), 1000);
-  });
+  },[]);
   const addlike = (name, date, time, loc) => {
     fetch("http://localhost:3000/setlike", {
       method: "POST",
@@ -116,7 +116,6 @@ export default function Homepage() {
       return 0;
     });
   };
-  console.log(events);
   return (
     <div className="home-outer">
       {loading && (
