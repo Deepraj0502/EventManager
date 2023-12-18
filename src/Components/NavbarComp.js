@@ -12,8 +12,17 @@ import "./NavbarComp.css";
 import MediaQuery from "react-responsive";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import {
+  collection,
+  getDocs,
+  query,
+  getFirestore,
+} from "firebase/firestore";
+
+import { app } from "./FirebaseConfig";
 
 export default function NavbarComp(props) {
+  const db = getFirestore(app);
   const [expanded, setExpanded] = React.useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -39,21 +48,18 @@ export default function NavbarComp(props) {
     });
   };
   const [user, setUser] = useState([]);
+  const getCategory = async() =>{
+    const q = query(collection(db, "users"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      if (doc.data()["email"] === location.state.email) {
+        setUser(doc.data()["category"]);
+      }
+    });
+  }
   useEffect(() => {
-    fetch("http://localhost:3000/check", {
-      method: "POST",
-      body: JSON.stringify({
-        email: location.state.email,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response2) => response2.json())
-      .then((data2) => {
-        setUser(data2['data'][0]['category']);
-      });
-  }, [location.state.email]);
+    getCategory();
+  },);
   return (
     <div style={{ width: 300 }}>
       <MediaQuery maxWidth={600}>

@@ -88,6 +88,7 @@ export default function Login() {
       password: pass,
       mobileNo: null,
       category: null,
+      profilepic:null,
     }).then((err) => {
       window.location.reload();
     });
@@ -163,6 +164,7 @@ export default function Login() {
           password: data.user.uid,
           mobileNo: null,
           category: null,
+          profilepic:null,
         }).then((err) => {
           window.location.reload();
         });
@@ -178,6 +180,7 @@ export default function Login() {
         password: data.user.uid,
         mobileNo: null,
         category: null,
+        profilepic:null,
       }).then((err) => {
         window.location.reload();
       });

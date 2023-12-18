@@ -12,8 +12,18 @@ import { useNavigate } from "react-router-dom";
 import CardComp from "./CardComp";
 import Heart from "react-heart";
 import MediaQuery from "react-responsive";
+import {
+  collection,
+  getDocs,
+  query,
+  addDoc,
+  getFirestore,
+} from "firebase/firestore";
+
+import { app } from "./FirebaseConfig";
 
 export default function Homepage() {
+  const db = getFirestore(app);
   const navigate = useNavigate();
   const browseRef = useRef(null);
   const scrollToBrowse = () => {
@@ -21,6 +31,10 @@ export default function Homepage() {
   };
   const location = useLocation();
   const [name, setName] = useState("");
+  const [userData, setUserData] = useState({
+    name:"",
+    propic:""
+  });
   const [url, setUrl] = useState("");
   const [events, setEvents] = useState([]);
   const [likes, setLikes] = useState([]);
@@ -33,7 +47,17 @@ export default function Homepage() {
       },
     });
   };
+  const getUserData = async() =>{
+    const q = query(collection(db, "users"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      if (doc.data()["email"] === location.state.email) {
+        setUserData({name:doc.data()['name'],category:doc.data()['category'],propic:doc.data()['profilepic']});
+      }
+    });
+  }
   useEffect(() => {
+
     fetch("http://localhost:3000/getname", {
       method: "POST",
       body: JSON.stringify({
