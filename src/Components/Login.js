@@ -173,18 +173,29 @@ export default function Login() {
     });
   };
   const googleReg = () => {
-    signInWithPopup(auth, provider).then((data) => {
-      addDoc(collection(db, "users"), {
-        name: data.user.displayName,
-        email: data.user.email,
-        password: data.user.uid,
-        mobileNo: null,
-        category: null,
-        profilepic:null,
-      }).then((err) => {
-        window.location.reload();
+   var count=0;
+    signInWithPopup(auth, provider).then(async (data) => {
+      const q = query(collection(db, "users"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        if (data.user.email === doc.data()["email"]) {
+          navigateToHome(data.user.email);
+          count++;
+        } 
       });
-      navigateToNext(data.user.displayName, data.user.email, data.user.uid);
+      if(count===0){
+        addDoc(collection(db, "users"), {
+          name: data.user.displayName,
+          email: data.user.email,
+          password: data.user.uid,
+          mobileNo: null,
+          category: null,
+          profilepic:null,
+        }).then((err) => {
+          window.location.reload();
+        });
+        navigateToNext(data.user.displayName, data.user.email, data.user.uid);
+      }
     });
   };
   const showpass = () => {

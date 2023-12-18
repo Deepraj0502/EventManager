@@ -30,12 +30,10 @@ export default function Homepage() {
     browseRef.current?.scrollIntoView({ behavior: "smooth" });
   };
   const location = useLocation();
-  const [name, setName] = useState("");
   const [userData, setUserData] = useState({
-    name:"",
-    propic:""
+    name: "",
+    propic: "",
   });
-  const [url, setUrl] = useState("");
   const [events, setEvents] = useState([]);
   const [likes, setLikes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -47,70 +45,41 @@ export default function Homepage() {
       },
     });
   };
-  const getUserData = async() =>{
+  const getUserData = async () => {
     const q = query(collection(db, "users"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       if (doc.data()["email"] === location.state.email) {
-        setUserData({name:doc.data()['name'],category:doc.data()['category'],propic:doc.data()['profilepic']});
+        setUserData({
+          name: doc.data()["name"],
+          category: doc.data()["category"],
+          propic: doc.data()["profilepic"],
+        });
       }
     });
-  }
+  };
+  const getLikesData = async () => {
+    const q2 = query(collection(db, "likes"));
+    const querySnapshot2 = await getDocs(q2);
+    querySnapshot2.forEach((doc2) => {
+      if (doc2.data()["user"] === location.state.email) {
+        setLikes((likes)=>[...likes,doc2.data()]);
+      }
+    });
+  };
+  const getEventsData = async () => {
+    const q3 = query(collection(db, "events"));
+    const querySnapshot3 = await getDocs(q3);
+    querySnapshot3.forEach((doc3) => {
+      setEvents((events)=>[...events,doc3.data()]);
+    });
+  };
   useEffect(() => {
-
-    fetch("http://localhost:3000/getname", {
-      method: "POST",
-      body: JSON.stringify({
-        email: location.state.email,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setName(data["name"]);
-      });
-    fetch("http://localhost:3000/getpropic", {
-      method: "POST",
-      body: JSON.stringify({
-        email: location.state.email,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response2) => response2.json())
-      .then((data2) => {
-        setUrl(data2["propic"]);
-      });
-
-    fetch("http://localhost:3000/getevents", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response4) => response4.json())
-      .then((data4) => {
-        setEvents(data4);
-      });
-
-    fetch("http://localhost:3000/getlikes", {
-      method: "POST",
-      body: JSON.stringify({
-        email: location.state.email,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response5) => response5.json())
-      .then((data5) => {
-        setLikes(data5);
-      });
+    getUserData();
+    getLikesData();
+    getEventsData();
     setTimeout(() => setLoading(false), 1000);
-  });
+  },[]);
   const addlike = (name, date, time, loc) => {
     fetch("http://localhost:3000/setlike", {
       method: "POST",
@@ -179,7 +148,7 @@ export default function Homepage() {
           <div className="home-dash-outer">
             <div className="home-dash-inner">
               <div className="home-dash-inner-left">
-                <p className="home-dash-wel">Welcome {name}</p>
+                <p className="home-dash-wel">Welcome {userData.name}</p>
                 <p>
                   Explore various event and get a digitalized entry and also get
                   a verified certificate for the event.
@@ -210,7 +179,7 @@ export default function Homepage() {
             Browse Events
           </p>
           <div className="home-browse-outer">
-            {events.reverse().map((val) => {
+            {events.map((val) => {
               return (
                 <div className="home-browse-card">
                   <div className="home-browse-card-left">
@@ -274,7 +243,7 @@ export default function Homepage() {
                       onClick={() => {
                         if (
                           likes.some(
-                            (item) => item.eventname === val["eventname"]
+                            (item) => item.eventName === val["eventname"]
                           )
                         ) {
                           deletelike(val["eventname"]);
@@ -292,7 +261,7 @@ export default function Homepage() {
                       animationDuration={0.2}
                       className={`browseHeart ${
                         likes.some(
-                          (item) => item.eventname === val["eventname"]
+                          (item) => item.eventName === val["eventname"]
                         )
                           ? "browseHeart-active"
                           : ""
@@ -306,23 +275,23 @@ export default function Homepage() {
         </div>
         <div className="home-side-div">
           <div className="home-left-user-div">
-            {url === "" && (
+            <p className="home-left-username">{userData.name}</p>
+            {userData.propic === "" && (
               <FaUserCircle style={{ width: "45px", height: "35px" }} />
             )}
-            {url !== "" && (
+            {userData.propic !== "" && (
               <img
-                src={url}
+                src={userData.propic}
                 alt=""
                 style={{
                   width: "35px",
                   height: "35px",
                   borderRadius: "50%",
-                  marginRight: "5px",
+                  marginLeft: "10px",
                   objectFit: "cover",
                 }}
               />
             )}
-            <p className="home-left-username">{name}</p>
           </div>
           <CalendarComp />
           <div className="home-recent-outer">
