@@ -11,8 +11,18 @@ import Heart from "react-heart";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useLocation, useNavigate } from "react-router-dom";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  getFirestore,
+} from "firebase/firestore";
+import { app } from "./FirebaseConfig";
 
 export default function CardComp() {
+  const db = getFirestore(app);
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -55,22 +65,22 @@ export default function CardComp() {
         setEvents(data);
       });
 
-      fetch("http://localhost:3000/getlikes", {
-        method: "POST",
-        body: JSON.stringify({
-          email: location.state.email,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response2) => response2.json())
-        .then((data2) => {
-          setLikes(data2);
-        });
+    fetch("http://localhost:3000/getlikes", {
+      method: "POST",
+      body: JSON.stringify({
+        email: location.state.email,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response2) => response2.json())
+      .then((data2) => {
+        setLikes(data2);
+      });
   }, [location.state.email]);
 
-  const addlike = (name,date,time,loc) =>{
+  const addlike = (name, date, time, loc) => {
     fetch("http://localhost:3000/setlike", {
       method: "POST",
       body: JSON.stringify({
@@ -78,16 +88,16 @@ export default function CardComp() {
         eventdate: date,
         eventname: name,
         eventtime: time,
-        eventlocation: loc
+        eventlocation: loc,
       }),
       headers: {
         "Content-Type": "application/json",
       },
-    })
-    likes.push({eventname:name});
-  }
+    });
+    likes.push({ eventname: name });
+  };
 
-  const deletelike = (name) =>{
+  const deletelike = (name) => {
     fetch("http://localhost:3000/deletelike", {
       method: "POST",
       body: JSON.stringify({
@@ -97,89 +107,105 @@ export default function CardComp() {
       headers: {
         "Content-Type": "application/json",
       },
-    })
-    likes.find((item,index)=>{
-      if(item.eventname===name){
+    });
+    likes.find((item, index) => {
+      if (item.eventname === name) {
         console.log(index);
-        likes.splice(index,1);
+        likes.splice(index, 1);
       }
       return 0;
-    })
-  }
-    return (
+    });
+  };
+  return (
     <div>
       <Carousel responsive={responsive}>
-        {events.filter((item, index) => index < 6).map((val) => {
-          return (
-            <>
-              <div className="home-card-outer">
-                <Card sx={{ width: 340, height: 450 }}>
-                  <CardActionArea>
-                    <CardMedia
-                      component="img"
-                      height="140"
-                      image={val["eventposter"]}
-                      alt="green iguana"
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                        <p className="home-card-name">{val["eventname"]}</p>
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        <div style={{ display: "flex" }}>
-                          <BiTimeFive
-                            style={{ width: "18px", height: "22px" }}
-                          />
-                          <p className="home-card-info">{val["eventtime"]}</p>
-                        </div>
-                        <div style={{ display: "flex", marginTop: "-5px" }}>
-                          <MdLocationOn
-                            style={{ width: "18px", height: "22px" }}
-                          />
-                          <p className="home-card-info">
-                            {val["eventlocation"]}
-                          </p>
-                        </div>
-                        <div style={{ display: "flex", marginTop: "-5px" }}>
-                          <BsCalendarDate
-                            style={{ width: "18px", height: "22px" }}
-                          />
-                          <p className="home-card-info">{val["eventdate"]}</p>
-                        </div>
-                      </Typography>
-                    </CardContent>
-                    <Heart
-                      animationScale={1.2}
-                      animationTrigger="both"
-                      animationDuration={0.2}
-                      className={`customHeart ${likes.some(item => item.eventname===val['eventname'])?"customHeart-active":""}`}
-                      onClick={()=>{
-                        if(likes.some(item => item.eventname===val['eventname'])){
-                          deletelike(val['eventname']);
-                        }
-                        else{
-                          addlike(val['eventname'],val['eventdate'],val['eventtime'],val['eventlocation']);
-                        }
-                      }}
-                    />
-                  </CardActionArea>
-                  <CardActions>
-                    <Button
-                      size="small"
-                      color="primary"
-                      style={{ marginTop: "-35px" }}
-                      onClick={() => {
-                        navigateToEventHome(val['eventname']);
-                      }}
-                    >
-                      Know More
-                    </Button>
-                  </CardActions>
-                </Card>
-              </div>
-            </>
-          );
-        })}
+        {events
+          .filter((item, index) => index < 6)
+          .map((val) => {
+            return (
+              <>
+                <div className="home-card-outer">
+                  <Card sx={{ width: 340, height: 450 }}>
+                    <CardActionArea>
+                      <CardMedia
+                        component="img"
+                        height="140"
+                        image={val["eventposter"]}
+                        alt="green iguana"
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                          <p className="home-card-name">{val["eventname"]}</p>
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          <div style={{ display: "flex" }}>
+                            <BiTimeFive
+                              style={{ width: "18px", height: "22px" }}
+                            />
+                            <p className="home-card-info">{val["eventtime"]}</p>
+                          </div>
+                          <div style={{ display: "flex", marginTop: "-5px" }}>
+                            <MdLocationOn
+                              style={{ width: "18px", height: "22px" }}
+                            />
+                            <p className="home-card-info">
+                              {val["eventlocation"]}
+                            </p>
+                          </div>
+                          <div style={{ display: "flex", marginTop: "-5px" }}>
+                            <BsCalendarDate
+                              style={{ width: "18px", height: "22px" }}
+                            />
+                            <p className="home-card-info">{val["eventdate"]}</p>
+                          </div>
+                        </Typography>
+                      </CardContent>
+                      <Heart
+                        animationScale={1.2}
+                        animationTrigger="both"
+                        animationDuration={0.2}
+                        className={`customHeart ${
+                          likes.some(
+                            (item) => item.eventname === val["eventname"]
+                          )
+                            ? "customHeart-active"
+                            : ""
+                        }`}
+                        onClick={() => {
+                          if (
+                            likes.some(
+                              (item) => item.eventname === val["eventname"]
+                            )
+                          ) {
+                            deletelike(val["eventname"]);
+                          } else {
+                            addlike(
+                              val["eventname"],
+                              val["eventdate"],
+                              val["eventtime"],
+                              val["eventlocation"]
+                            );
+                          }
+                        }}
+                      />
+                    </CardActionArea>
+                    <CardActions>
+                      <Button
+                        size="small"
+                        color="primary"
+                        style={{ marginTop: "-35px" }}
+                        onClick={() => {
+                          navigateToEventHome(val["eventname"]);
+                        }}
+                      >
+                        Know More
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </div>
+              </>
+            );
+          })}
       </Carousel>
     </div>
   );
