@@ -56,7 +56,7 @@ export default function MobileNumber(props) {
 
   return (
     <>
-      {mobno === "" && (
+      {mobno === null && (
         <Button
           variant="primary"
           onClick={handleShow}

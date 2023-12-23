@@ -81,7 +81,7 @@ export default function Homepage() {
     getLikesData();
     getEventsData();
     setTimeout(() => setLoading(false), 1000);
-  }, []);
+  });
   const addlike = async (name, date, time, loc) => {
     addDoc(collection(db, "likes"), {
       user: location.state.email,
@@ -113,13 +113,7 @@ export default function Homepage() {
         deleteDoc(scoreRef);
       }
     });
-    var newLike = likes;
-    newLike.find((item, index) => {
-      if (item.eventName === name) {
-        newLike.splice(index, 1);
-      }
-      setLikes(newLike);
-    });
+      setLikes(likes.filter((event) => event.eventName !== name));
   };
 
   return (

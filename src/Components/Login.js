@@ -20,6 +20,9 @@ import {
 import { app } from "./FirebaseConfig";
 
 export default function Login() {
+  if(window.sessionStorage.getItem("login")===true){
+    window.location.href="/home";
+  }
   const db = getFirestore(app);
   const [login, setLogin] = useState("flex");
   const [forgot, setForgot] = useState("none");
@@ -56,6 +59,7 @@ export default function Login() {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       if (doc.data()["email"] === email && doc.data()["password"] === pass) {
+        window.sessionStorage.setItem("login",true);
         navigateToHome(email);
       } else {
         document.getElementById("invalid").style.display = "block";
@@ -92,6 +96,7 @@ export default function Login() {
     }).then((err) => {
       window.location.reload();
     });
+    window.sessionStorage.setItem("login",true);
     navigateToNext(name, email, pass);
   };
   const slideReg = () => {
@@ -168,6 +173,7 @@ export default function Login() {
         }).then((err) => {
           window.location.reload();
         });
+        window.sessionStorage.setItem("login",true);
         navigateToNext(data.user.displayName, data.user.email, data.user.uid);
       }
     });
@@ -179,6 +185,7 @@ export default function Login() {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         if (data.user.email === doc.data()["email"]) {
+          window.sessionStorage.setItem("login",true);
           navigateToHome(data.user.email);
           count++;
         } 
@@ -194,6 +201,7 @@ export default function Login() {
         }).then((err) => {
           window.location.reload();
         });
+        window.sessionStorage.setItem("login",true);
         navigateToNext(data.user.displayName, data.user.email, data.user.uid);
       }
     });

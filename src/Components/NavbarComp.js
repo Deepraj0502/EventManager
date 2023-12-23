@@ -22,6 +22,9 @@ import {
 import { app } from "./FirebaseConfig";
 
 export default function NavbarComp(props) {
+  if(window.sessionStorage.getItem("login")===false){
+    window.location.href="/";
+  }
   const db = getFirestore(app);
   const [expanded, setExpanded] = React.useState(false);
   const location = useLocation();
@@ -80,12 +83,12 @@ export default function NavbarComp(props) {
                     }}
                   >
                     <img
-                      src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
+                      src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled-removebg-preview.png?updatedAt=1689439801374"
                       alt=""
                       className="nav-logo"
                     />
                     <img
-                      src="https://ik.imagekit.io/ok2wgebfs/evento/image.png?updatedAt=1685338632317"
+                      src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
                       alt=""
                       className="nav-name"
                     />
@@ -155,7 +158,7 @@ export default function NavbarComp(props) {
                     }}
                   >
                     <img
-                      src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
+                      src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled-removebg-preview.png?updatedAt=1689439801374"
                       alt=""
                       className="nav-logo"
                       style={{ width: "25px", height: "25px" }}
@@ -219,15 +222,15 @@ export default function NavbarComp(props) {
                   }}
                 >
                   <img
-                    src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
-                    alt=""
-                    className="nav-logo"
-                  />
-                  <img
-                    src="https://ik.imagekit.io/ok2wgebfs/evento/image.png?updatedAt=1685338632317"
-                    alt=""
-                    className="nav-name"
-                  />
+                      src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled-removebg-preview.png?updatedAt=1689439801374"
+                      alt=""
+                      className="nav-logo"
+                    />
+                    <img
+                      src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
+                      alt=""
+                      className="nav-name"
+                    />
                 </div>
               </Nav.Item>
               <Nav.Item
@@ -266,7 +269,7 @@ export default function NavbarComp(props) {
               <Nav.Item eventKey="5" icon={<CertificateIcon />}>
                 Certificate
               </Nav.Item>
-              <Nav.Item eventKey="6" icon={<LogoutIcon />}>
+              <Nav.Item eventKey="6" icon={<LogoutIcon />} onClick={()=>{ window.sessionStorage.setItem("login",false);window.location.href="/"}}>
                 Logout
               </Nav.Item>
             </Nav>
