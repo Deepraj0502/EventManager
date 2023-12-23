@@ -158,6 +158,7 @@ export default function Login() {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         if (data.user.email === doc.data()["email"]) {
+          window.sessionStorage.setItem("login",true);
           navigateToHome(data.user.email);
           count++;
         } 
