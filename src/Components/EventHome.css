@@ -86,12 +86,12 @@
 }
 .reserve-head{
     font-size: 1.5rem;
-    color: #ff6e40;
+    color: black;
     font-weight: 700;
 }
 .reserve-button{
     width: 100%;
-    background-color: #ff6e40;
+    background-color: #1274d1;
     padding: 8px;
     border-radius: 5px;
     font-weight: 600;
@@ -99,7 +99,10 @@
     font-size: 18px;
 }
 .organiser-logo{
-    width: 250px;
+    width: 150px;
+    height: 150px;
+   object-fit: cover; 
+
 }
 .organiser-para{
     margin-top: 10px;
@@ -130,7 +133,7 @@
         margin-bottom: -69px;
     }
     .eventhome-main-right{
-        display: none;
+        display: block;
     }
     .eventhome-main-left{
         width: 100%;

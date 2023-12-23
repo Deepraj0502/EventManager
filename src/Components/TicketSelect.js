@@ -7,8 +7,11 @@ import ticket1 from "../Images/ticket1.png";
 import ticket2 from "../Images/ticket2.png";
 import ticket3 from "../Images/ticket3.png";
 import { useNavigate } from "react-router-dom";
+import { collection, getDocs, updateDoc,doc,getFirestore } from "firebase/firestore";
+import { app } from "./FirebaseConfig";
 
 export default function TicketSelect(props) {
+  const db = getFirestore(app);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
@@ -23,24 +26,17 @@ export default function TicketSelect(props) {
       },
     });
   };
-  const handleTicket = (ticket) =>{
-    fetch("http://localhost:3000/addticket", {
-        method: "POST",
-        body: JSON.stringify({
-          email: props.email,
-          eventname: props.eventname,
-          ticket: ticket
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data["added"] === "success") {
-            navigateToSuccess(props.eventname,ticket,props.email);
-          }
-        });
+  const handleTicket = async(ticket) =>{
+        const querySnapshot = await getDocs(collection(db, "events"));
+      querySnapshot.forEach((dat) => {
+        if (dat.data()["email"] === props.email && dat.data()['eventname']===props.eventname) {
+          const scoreRef = doc(db, "events", dat.id);
+          updateDoc(scoreRef, {
+            ticket: ticket,
+          });
+          navigateToSuccess(props.eventname,ticket,props.email);
+        }
+      });
   }
   return (
     <div>

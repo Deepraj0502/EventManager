@@ -25,7 +25,6 @@ export default function AddEventForm() {
     const imageRef = ref(storage, e.target.files[0].name);
     uploadBytes(imageRef, e.target.files[0], "image").then(() => {
       getDownloadURL(imageRef).then((url6) => {
-        console.log(url6);
         setUrl(url6);
       });
     });
@@ -34,7 +33,6 @@ export default function AddEventForm() {
     const imageRef2 = ref(storage, e.target.files[0].name);
     uploadBytes(imageRef2, e.target.files[0], "image").then(() => {
       getDownloadURL(imageRef2).then((url5) => {
-        console.log(url5);
         setUrl2(url5);
       });
     });
@@ -70,8 +68,7 @@ export default function AddEventForm() {
           organizerlogo: url2,
           organizername: e.target[9].value,
           organizerinfo: e.target[10].value,
-        }).then((err) => {
-          window.location.reload();
+          ticket:"",
         });
         setSuccess(true);
       }

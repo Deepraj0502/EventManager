@@ -81,24 +81,18 @@ export default function Homepage() {
     getLikesData();
     getEventsData();
     setTimeout(() => setLoading(false), 1000);
-  },[]);
+  });
   
   const addlike = async (name, date, time, loc) => {
     addDoc(collection(db, "likes"), {
       user: location.state.email,
-      eventDate: date,
       eventName: name,
-      eventTime: time,
-      eventAddress: loc,
     });
     setLikes((likes) => [
       ...likes,
       {
-        eventTime: time,
         eventName: name,
         user: location.state.email,
-        eventAddress: loc,
-        eventDate: date,
       },
     ]);
   };

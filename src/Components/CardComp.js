@@ -11,18 +11,8 @@ import Heart from "react-heart";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  updateDoc,
-  getFirestore,
-} from "firebase/firestore";
-import { app } from "./FirebaseConfig";
 
 export default function CardComp() {
-  const db = getFirestore(app);
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },

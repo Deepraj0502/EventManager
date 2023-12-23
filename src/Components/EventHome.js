@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NavbarComp from "./NavbarComp";
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import "./EventHome.css";
 import { BiTimeFive } from "react-icons/bi";
 import { MdLocationOn } from "react-icons/md";
@@ -18,7 +18,7 @@ import {
   MDBModalFooter,
 } from "mdb-react-ui-kit";
 import { Button } from "rsuite";
-import { collection, getDocs, getFirestore, query } from "firebase/firestore";
+import { collection, getDocs, getFirestore, query,addDoc } from "firebase/firestore";
 import { app } from "./FirebaseConfig";
 
 export default function EventHome() {
@@ -41,7 +41,23 @@ export default function EventHome() {
     getParticularEvent();
     setTimeout(() => setLoading(false), 1000);
   });
-  console.log(event);
+  const navigate = useNavigate();
+  const getTicket = () =>{
+    addDoc(collection(db, "registered"), {
+      email: location.state.email,
+      eventname: location.state.eventName,
+    });
+    navigate("/ticket", {
+      state: {
+        email: location.state.email,
+        eventName: location.state.eventName,
+        eventLoc:event["eventaddress"],
+        eventDate:event['eventdate'],
+        eventTime:event['eventtime'],
+        ticket:event['ticket']
+      },
+    });
+  }
   return (
     <div>
       {loading && (
@@ -64,28 +80,30 @@ export default function EventHome() {
             <MDBModalDialog scrollable>
               <MDBModalContent>
                 <MDBModalHeader>
-                  <MDBModalTitle>Register For Event</MDBModalTitle>
+                  <MDBModalTitle>Confirmation</MDBModalTitle>
                   <MDBBtn
                     className="btn-close"
                     color="none"
                     onClick={() => setScrollableModal(!scrollableModal)}
                   ></MDBBtn>
                 </MDBModalHeader>
-                <MDBModalBody></MDBModalBody>
+                <MDBModalBody>
+                  <p>Are you sure you want to register for this event</p>
+                </MDBModalBody>
                 <MDBModalFooter>
                   <Button
                     onClick={() => setScrollableModal(!setScrollableModal)}
                     className="home-form-btn"
                     style={{ background: "red", width: "100px" }}
                   >
-                    Close
+                    No
                   </Button>
                   <Button
-                    onClick={() => setScrollableModal(!setScrollableModal)}
+                    onClick={() => getTicket()}
                     className="home-form-btn"
                     style={{ background: "#6671ff", width: "150px" }}
                   >
-                    Submit
+                    Yes
                   </Button>
                 </MDBModalFooter>
               </MDBModalContent>
@@ -127,14 +145,7 @@ export default function EventHome() {
                   <div className="eventhome-about-div">
                     <p className="eventhome-about-head">About Event</p>
                     <p className="eventhome-about-para">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ultrices mi tempus imperdiet nulla malesuada. A
-                      cras semper auctor neque vitae tempus quam pellentesque.
-                      Nulla at volutpat diam ut venenatis tellus in. Ornare arcu
-                      dui vivamus arcu felis. Cursus vitae congue mauris rhoncus
-                      aenean. Pharetra diam sit amet nisl suscipit adipiscing
-                      bibendum.
+                    {event["eventinfo"]}
                     </p>
                   </div>
                   {/* When and Where */}
@@ -194,17 +205,17 @@ export default function EventHome() {
                             className="ww-right-loc"
                           />
                           <p className="eventhome-ww-info">
-                            {event["eventlocation"]}{" "}
+                            {event["eventaddress"]}{" "}
                           </p>
                         </div>
                         <a
-                          href={`https://www.google.com/maps/place/${event["eventlocation"]}`}
+                          href={`https://www.google.com/maps/search/?api=1&query=${event["eventaddress"].split(' ').join('%20')}`}
                           className="show-in-map"
                           target="_blank"
                           rel="noreferrer"
                           style={{
                             display: `${
-                              event["eventlocation"] === "Online"
+                              event["eventaddress"] === "Online"
                                 ? "none"
                                 : "block"
                             }`,
@@ -219,14 +230,12 @@ export default function EventHome() {
                   <div className="eventhome-about-div">
                     <p className="eventhome-about-head">Organised By</p>
                     <img
-                      src="https://trasol.in/wp-content/uploads/2021/12/trasol-logo-2.png"
+                      src={event["organizerlogo"]}
                       alt=""
                       className="organiser-logo"
                     />
                     <p className="organiser-para">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ultrices mi tempus imperdiet nulla malesuada.
+                    {event["organizerinfo"]}
                     </p>
                   </div>
                   {/* More Events */}
