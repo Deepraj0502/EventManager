@@ -17,7 +17,9 @@ import {
   getDocs,
   query,
   addDoc,
+  deleteDoc,
   getFirestore,
+  doc,
 } from "firebase/firestore";
 
 import { app } from "./FirebaseConfig";
@@ -63,7 +65,7 @@ export default function Homepage() {
     const querySnapshot2 = await getDocs(q2);
     querySnapshot2.forEach((doc2) => {
       if (doc2.data()["user"] === location.state.email) {
-        setLikes((likes)=>[...likes,doc2.data()]);
+        setLikes((likes) => [...likes, doc2.data()]);
       }
     });
   };
@@ -71,7 +73,7 @@ export default function Homepage() {
     const q3 = query(collection(db, "events"));
     const querySnapshot3 = await getDocs(q3);
     querySnapshot3.forEach((doc3) => {
-      setEvents((events)=>[...events,doc3.data()]);
+      setEvents((events) => [...events, doc3.data()]);
     });
   };
   useEffect(() => {
@@ -79,43 +81,47 @@ export default function Homepage() {
     getLikesData();
     getEventsData();
     setTimeout(() => setLoading(false), 1000);
-  },[]);
-  const addlike = (name, date, time, loc) => {
-    fetch("http://localhost:3000/setlike", {
-      method: "POST",
-      body: JSON.stringify({
-        email: location.state.email,
-        eventdate: date,
-        eventname: name,
-        eventtime: time,
-        eventlocation: loc,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
+  }, []);
+  const addlike = async (name, date, time, loc) => {
+    addDoc(collection(db, "likes"), {
+      user: location.state.email,
+      eventDate: date,
+      eventName: name,
+      eventTime: time,
+      eventAddress: loc,
     });
-    likes.push({ eventname: name });
+    setLikes((likes) => [
+      ...likes,
+      {
+        eventTime: time,
+        eventName: name,
+        user: location.state.email,
+        eventAddress: loc,
+        eventDate: date,
+      },
+    ]);
   };
 
-  const deletelike = (name) => {
-    fetch("http://localhost:3000/deletelike", {
-      method: "POST",
-      body: JSON.stringify({
-        email: location.state.email,
-        eventname: name,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    likes.find((item, index) => {
-      if (item.eventname === name) {
-        console.log(index);
-        likes.splice(index, 1);
+  const deletelike = async (name) => {
+    const querySnapshot = await getDocs(collection(db, "likes"));
+    querySnapshot.forEach((dat) => {
+      if (
+        dat.data()["eventName"] === name &&
+        dat.data()["user"] === location.state.email
+      ) {
+        const scoreRef = doc(db, "likes", dat.id);
+        deleteDoc(scoreRef);
       }
-      return 0;
+    });
+    var newLike = likes;
+    newLike.find((item, index) => {
+      if (item.eventName === name) {
+        newLike.splice(index, 1);
+      }
+      setLikes(newLike);
     });
   };
+
   return (
     <div className="home-outer">
       {loading && (
@@ -211,7 +217,7 @@ export default function Homepage() {
                           top: "4px",
                         }}
                       />
-                      <p className="home-browse-info">{val["eventlocation"]}</p>
+                      <p className="home-browse-info">{val["eventaddress"]}</p>
                     </div>
                     <div style={{ display: "flex", marginTop: "-5px" }}>
                       <BsCalendarDate
@@ -252,7 +258,7 @@ export default function Homepage() {
                             val["eventname"],
                             val["eventdate"],
                             val["eventtime"],
-                            val["eventlocation"]
+                            val["eventaddress"]
                           );
                         }
                       }}
