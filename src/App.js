@@ -15,6 +15,7 @@ import AddEventForm from "./Components/AddEventForm";
 import Success from "./Components/Success";
 import SampleTicket from "./Components/SampleTicket";
 import Ticket from "./Components/Ticket";
+import LikedEvents from "./Components/LikedEvents";
 
 function App() {
   AOS.init();
@@ -31,6 +32,7 @@ function App() {
           <Route path="/success" element={[<Success />]} />
           <Route path="/sampleticket" element={[<SampleTicket />]} />
           <Route path="/ticket" element={[<Ticket />]} />
+          <Route path="/likedevents" element={[<LikedEvents />]} />
         </Routes>
       </BrowserRouter>
     </>
