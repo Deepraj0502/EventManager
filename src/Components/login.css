@@ -1,12 +1,17 @@
-.login-outer-box{
-  background: url("../Images/login_bg.jpg");
+/* @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+ */
+ @import url('https://fonts.googleapis.com/css2?family=Signika:wght@700&display=swap');
+.login-outer-box {
+  /* background: url("https://colibriwp.com/blog/wp-content/uploads/2019/06/pawel-czerwinski-vI5XwPbGvmY-unsplash.jpg"); */
+  /* background-image: url(https://t3.ftcdn.net/jpg/04/23/18/44/360_F_423184467_qE9OxHTKVvMYefypnX6ieAErnwSndPQK.jpg); */
+  background-image: url("https://ik.imagekit.io/ok2wgebfs/evento/SL_060521_43530_01.jpg?updatedAt=1703916294015");
   height: 100vh;
   background-position: center;
-  background-size: cover;
+  background-size: 100% 100%;
   display: flex;
   align-items: center;
 }
-.login-box{
+.login-box {
   display: flex;
   width: 80%;
   border-radius: 15px;
@@ -16,15 +21,15 @@
   box-shadow: 0px 2px 10px 0px #5a5858;
   height: 600px;
 }
-.left-login-box{
+.left-login-box {
   width: 100%;
-  padding: 20px 100px 20px 100px;
+  padding: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.right-login-box{
+.right-login-box {
   width: 40%;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -42,55 +47,73 @@
   margin-left: -38%;
   transition: left 1s;
 }
-.right-login-box::before{
-  content: "";
-  background: url(https://img.freepik.com/premium-photo/elegant-floral-wedding-backdrop-wallpaper_756748-2486.jpg?size=626&ext=jpg&ga=GA1.2.2034402480.1684136925&semt=ais);
-      background-size: cover;
-      position: absolute;
-      top: 0px;
-      right: 0px;
-      bottom: 0px;
-      left: 0px;
-      border-top-left-radius: var(--check-primary,0px);;
-      border-bottom-left-radius:var(--check-primary,0px);
-      border-top-right-radius: var(--check-secondary,15px);;
-      border-bottom-right-radius:var(--check-secondary,15px);
-      border-left: var(--check-borderleft,3px solid black);
-      border-right: var(--check-borderright,0);
-      opacity: 0.60;
+.show-icon {
+  width: 25px;
+  height: 25px;
+  position: relative;
+  margin-left: 89%;
+  top: -20px;
+  margin-top: -17px;
+  cursor: pointer;
 }
-.right-logo{
+.hide-icon {
+  width: 25px;
+  height: 25px;
+  position: relative;
+  margin-left: 89%;
+  top: -20px;
+  margin-top: -17px;
+  cursor: pointer;
+  display: none;
+}
+.right-login-box::before {
+  content: "";
+  background: white;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  border-top-left-radius: var(--check-primary, 0px);
+  border-bottom-left-radius: var(--check-primary, 0px);
+  border-top-right-radius: var(--check-secondary, 15px);
+  border-bottom-right-radius: var(--check-secondary, 15px);
+  border-right: var(--check-borderright, 0);
+  opacity: 0.8;
+}
+.right-logo {
   position: relative;
   z-index: 2;
-  width: 150px;
+  width: 95%;
 }
-.right-logo-name{
+.right-logo-name {
   position: relative;
   z-index: 2;
   width: 350px;
 }
-.login-wel-text{
+.login-wel-text {
   font-size: 1.2rem;
   color: gray;
   margin-left: -5px;
 }
-.left-logo{
+.left-logo {
   width: 50px;
   height: fit-content;
   margin-left: -5px;
 }
-.left-logo-text{
+.left-logo-text {
   width: 180px;
   height: fit-content;
   position: relative;
   top: 2px;
 }
-.login-para{
-  font-size: 1.1rem;
-    color: gray;
-    position: relative;
+.login-para {
+  font-size: 1.5rem;
+  color: gray;
+  position: relative;
 }
-.login-input{
+.login-input {
   width: 100%;
   height: 50px;
   border-radius: 20px;
@@ -98,10 +121,12 @@
   font-size: 18px;
   padding-left: 50px;
 }
-.login-input:hover{
+.login-input:hover {
   outline: none;
+  border: 3px solid #0e78db;
 }
-.email-icon{
+
+.email-icon {
   width: 30px;
   height: 30px;
   margin-bottom: -60px;
@@ -109,52 +134,37 @@
   margin-left: 10px;
   top: -20px;
 }
-.signin-btn{
-  width: 100%;
-  background-color: red;
-  color: white;
-  padding: 12px;
-  border-radius: 20px;
-  border: none;
-  margin-top: 20px;
-  height: 50px;
-  box-shadow: 0px 3px 10px 0px gray;
-}
-.login-btn-loading{
+.login-btn-loading {
   margin: auto;
   position: relative;
   top: -10px;
 }
-.signin-btn:hover{
-  background-color: red;
-}
-.register-here{
+.register-here {
   margin-top: 8px;
   color: gray;
 }
-.register-here-a{
-  color: #6671ff;
-  font-weight: bold;
-  background-color: white;
-  border: none;
-  margin-left: 5px;
-}
-.register-here-a:hover{
-  color: orange;
-}
-.forgot-pass{
+.forgot-pass {
   color: black;
   font-size: 14px;
   position: relative;
-  top: 5px;
   left: 5px;
+  top: 4px;
   font-weight: bold;
+  transition: color 0.2s;
+}
+
+.forgot-pass:hover {
+  color: #e63946;
 }
 @keyframes popup {
-  0% {transform: scale(0);}
-  100% {transform: scale(1);}
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
-.invalid{
+.invalid {
   color: red;
   font-size: 14px;
   font-weight: 700;
@@ -165,9 +175,9 @@
   display: none;
   animation-duration: 0.5s;
 }
-.register-box{
+.register-box {
   width: 50%;
-  padding: 10px 100px 10px 100px;
+  padding: 50px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -179,28 +189,28 @@
   border-bottom-right-radius: 15px;
 }
 
-.register-wel-text{
+.register-wel-text {
   font-size: 1.2rem;
   color: gray;
   margin-left: -5px;
 }
-.left-logo{
+.left-logo {
   width: 50px;
   height: fit-content;
   margin-left: -5px;
 }
-.left-logo-text{
+.left-logo-text {
   width: 180px;
   height: fit-content;
   position: relative;
   top: 2px;
 }
-.register-para{
+.register-para {
   font-size: 1.1rem;
-    color: gray;
-    position: relative;
+  color: gray;
+  position: relative;
 }
-.register-input{
+.register-input {
   width: 100%;
   height: 45px;
   border-radius: 20px;
@@ -209,42 +219,45 @@
   padding-left: 50px;
   margin-bottom: 15px;
 }
-.register-input:hover{
+.register-input:hover {
   outline: none;
+  border: 3px solid #0e78db;
 }
-.signin-btn{
+.signin-btn {
   width: 100%;
-  background-color: red;
-  color: white;
-  padding: 12px;
+  background-color: #1078da;
+  color: #fff;
+  padding: 8px;
   border-radius: 20px;
   border: none;
-  margin-top: 20px;
-  box-shadow: 0px 3px 10px 0px gray;
-  font-size: 18px;
+  margin-top: 10px;
+  font-size: 21px;
+  height: 50px;
+  font-weight: 600;
+  transition: ease-in-out 0.8s;
 }
-.signin-btn:hover{
-  background-color: red;
+.signin-btn:hover {
+  background-color: #0e78db;
 }
-.register-here{
+.register-here {
   margin-top: 8px;
   color: gray;
+  font-weight: 500;
 }
-.register-here-a{
-  color: #6671ff;
-  font-weight: bold;
+.register-here-a {
+  color: black;
   text-decoration: none;
   margin-left: 5px;
+  background-color: white;
+  border: none;
+  /* transition: 0.7s; */
 }
-.register-here-a:hover{
-  color: orange;
-}
-#left-box{
+#left-box {
   display: flex;
   width: 50%;
   transition: transform 1s;
 }
-.reg-email-icon{
+.reg-email-icon {
   width: 25px;
   height: 25px;
   margin-bottom: -60px;
@@ -252,7 +265,7 @@
   margin-left: 13px;
   top: -25px;
 }
-.login-loading{
+.login-loading {
   height: 0px;
   margin-top: -15px;
   display: none;
@@ -260,7 +273,7 @@
   top: -15px;
   left: 65px;
 }
-.reg-loading{
+.reg-loading {
   height: 0px;
   margin-top: -15px;
   display: none;
@@ -268,7 +281,7 @@
   top: -15px;
   left: 65px;
 }
-.otp-loading{
+.otp-loading {
   height: 0px;
   margin-top: -15px;
   display: none;
@@ -282,29 +295,30 @@
   color: #5a5858;
   width: 100%;
 }
-.or:before, .or:after{
+.or:before,
+.or:after {
   content: "";
   flex: 1 1;
   border-bottom: 1px solid;
   margin: auto;
 }
 .or:before {
-  margin-right: 10px
+  margin-right: 10px;
 }
 .or:after {
-  margin-left: 10px
+  margin-left: 10px;
 }
-.google-button-outer{
+.google-button-outer {
   display: flex;
   width: 100%;
   height: 50px;
-  background-color: #4285f4;
+  background-color: #0e78db;
   border-radius: 3px;
   align-items: center;
   padding: 3px;
   cursor: pointer;
 }
-.google-logo-div{
+.google-logo-div {
   width: 50px;
   height: 100%;
   background: white;
@@ -314,101 +328,132 @@
   justify-content: center;
   align-items: center;
 }
-.google-logo{
+.google-logo {
   width: 28px;
   height: 28px;
 }
-.google-text-outer{
+.google-text-outer {
   display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
-.google-text{
+.google-text {
   color: white;
   font-size: 1.3rem;
   text-align: center;
   margin-top: 10px;
   margin-left: -50px;
 }
-@media (max-width:600px) {
-  .login-outer-box{
-    background-position: revert;
+.login-comp-name {
+  color: black;
+  font-size: 2rem;
+}
+#reg-gif{
+  display: none;
+}
+.evento-logo-name{
+  font-family: 'Signika', sans-serif;
+  font-weight: bolder;
+  font-size: 3rem;
+  color: #1397e0;
+  position: relative;
+  top: 6px;
+  left: 4px;
+  background: -webkit-linear-gradient(#43e2e0,#1397e0, #2e56d0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@media (max-width: 600px) {
+  .evento-logo-name{
+    font-size: 2rem;
+    top:4px;
   }
-  .right-login-box{
+  .login-outer-box {
+    background-position: left;
+    background-size: cover;
+  }
+  .right-login-box {
     display: none;
   }
-  .register-box{
+  .register-box {
     display: none;
   }
-  .left-login-box{
+  .left-login-box {
     padding: 20px;
     width: 100%;
   }
-  .login-box{
+  .login-box {
     width: 80%;
   }
-  .login-wel-text{
+  .login-wel-text {
     font-size: 1rem;
   }
-  .left-logo{
+  .left-logo {
     width: 35px;
   }
-  .left-logo-text{
+  .left-logo-text {
     width: 130px;
   }
-  .login-para{
+  .login-para {
     text-align: center;
+    font-size: 18px;
   }
-  .login-input{
+  .login-input {
     width: 100%;
   }
-  .login-form{
+  .login-form {
     margin-left: 0 !important;
   }
-  .register-here{
+  .register-here {
     font-size: 14px;
   }
-  .register-here-a{
+  .register-here-a {
     font-size: 14px;
   }
-  .login-box{
+  .login-box {
     height: auto;
   }
-  #left-box{
+  #left-box {
     width: 100%;
   }
-  .register-box{
+  .register-box {
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
     margin-left: 0;
     width: 100%;
     padding: 20px;
   }
-  .register-para{
+  .register-para {
     text-align: center;
   }
-  .register-here{
+  .register-here {
     font-size: 14px;
   }
-  .register-here-a{
+  .register-here-a {
     font-size: 14px;
   }
-  .register-wel-text{
+  .register-wel-text {
     font-size: 1rem;
   }
-  .forgot-pass{
+  .forgot-pass {
     width: 150px;
     text-align: left;
   }
-  .google-text{
+  .google-text {
     margin-top: 15px;
     margin-left: -35px;
   }
-  .signin-btn{
+  .signin-btn {
     box-shadow: 0px 0px 5px 0px gray;
   }
-  .forgot-pass{
+  .forgot-pass {
     font-weight: 500;
+  }
+  .show-icon {
+    margin-left: 87%;
+  }
+  .hide-icon {
+    margin-left: 87%;
   }
 }

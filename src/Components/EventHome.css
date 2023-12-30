@@ -10,7 +10,6 @@
     padding: 20px;
     height: 450px;
     border-top-left-radius: 20px;
-    background: url(https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F444862499%2F1394200320313%2F1%2Foriginal.20230213-054456?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C1200%2C600&s=5f077de2efa38fca69811aecdec575cd);
     filter: blur(5px);
     -webkit-filter: blur(5px);
     -moz-filter: blur(5px);
@@ -68,16 +67,16 @@
 }
 .eventhome-ww-info{
     color: gray;
-   
+   width: 100%;
 }
 .show-in-map{
-    margin-left: 75px;
+    margin-left: 93px;
     text-decoration: none;
     color: #6671ff;
     font-weight: 600;
-    margin-top: -15px;
+    margin-top: 0px;
     position: relative;
-    top: -5px;
+    top: 2px;
 }
 .book-outer-div{
     padding: 21px;
@@ -87,12 +86,12 @@
 }
 .reserve-head{
     font-size: 1.5rem;
-    color: #e85d04;
+    color: black;
     font-weight: 700;
 }
 .reserve-button{
     width: 100%;
-    background-color: #e85d04;
+    background-color: #1274d1;
     padding: 8px;
     border-radius: 5px;
     font-weight: 600;
@@ -100,12 +99,22 @@
     font-size: 18px;
 }
 .organiser-logo{
-    width: 250px;
+    width: 150px;
+    height: 150px;
+   object-fit: cover; 
+
 }
 .organiser-para{
     margin-top: 10px;
 }
-
+.home-form-btn{
+    color: white;
+    height: 40px;
+    font-size: 16px;
+}
+.home-form-btn:hover{
+    color: white;
+}
 @media (max-width:600px) {
     .eventhome-inner{
         margin-left: 13%;
@@ -124,7 +133,7 @@
         margin-bottom: -69px;
     }
     .eventhome-main-right{
-        display: none;
+        display: block;
     }
     .eventhome-main-left{
         width: 100%;

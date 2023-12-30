@@ -9,11 +9,12 @@ const firebaseConfig = {
   storageBucket: "evento-386813.appspot.com",
   messagingSenderId: "17807023590",
   appId: "1:17807023590:web:7bccd5f65869c34e980a27",
-  measurementId: "G-HGHZQH5H6Q"
+  measurementId: "G-HGHZQH5H6Q",
+  crossOriginIsolated:false
 };
 
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-export {auth,provider,storage};
+export {auth,provider,storage,app};

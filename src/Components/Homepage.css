@@ -9,7 +9,6 @@
   height: 100vh;
   background: #eaf0fe;
   border-radius: 30px;
-  z-index: 23;
   display: flex;
   position: relative;
 }
@@ -19,6 +18,7 @@
   background-color: white;
   overflow-y: scroll;
   padding: 40px;
+  overflow-x: hidden;
 }
 .home-side-div {
   width: 30%;
@@ -38,7 +38,7 @@
 .recent-card {
   width: 100%;
   border-radius: 10px;
-  box-shadow: 0px 0px 8px gray;
+  box-shadow: 0px 0px 5px gray;
   background-color: white;
   display: flex;
 }
@@ -140,6 +140,8 @@
 }
 .home-dash-img {
   width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
 .home-dash-wel {
   font-family: emoji;
@@ -155,6 +157,7 @@
 }
 .home-card-name {
   font-size: 1.3rem;
+  font-weight: 500;
 }
 .loading-background {
   width: 100vw;
@@ -170,17 +173,25 @@
   position: relative;
   top: 2px;
   left: 8px;
+  width: 90%;
 }
 .home-browse-info {
   position: relative;
   top: 2px;
   left: 8px;
+  width: 100%;
+  word-break: break-all;
 }
 .home-card-outer {
   display: flex;
   justify-content: space-around;
   margin-bottom: 10px;
-  height: 380px;
+}
+.css-r40f8v-MuiTypography-root {
+  height: 160px;
+}
+.css-h93ljk-MuiTypography-root {
+  height: 60px;
 }
 .carousel-control-prev {
   width: 4%;
@@ -211,11 +222,14 @@
   box-shadow: 0px 0px 5px darkgray;
   border-radius: 5px;
 }
+.css-o69gx8-MuiCardMedia-root {
+  height: 165px;
+}
 .home-browse-image {
   width: 100%;
-    border-radius: 5px;
-    height: 200px;
-    object-fit: cover;
+  border-radius: 5px;
+  height: 200px;
+  object-fit: cover;
 }
 .home-browse-card-left {
   width: 50%;
@@ -225,6 +239,7 @@
 }
 .home-browse-name {
   font-size: 22px;
+  font-weight: bold;
 }
 .mbsc-datepicker-tab-wrapper {
   margin-top: -8px;
@@ -238,14 +253,11 @@
 .calendar-div {
   padding: 15px !important;
 }
-.global-loading-gif{
+.global-loading-gif {
   width: 150px;
   border-radius: 20px;
 }
 @media (max-width: 600px) {
-  .home-inner {
-    z-index: -1;
-  }
   .home-side-div {
     display: none;
   }
@@ -256,11 +268,22 @@
     height: auto;
   }
 }
+.css-l7568v-MuiPaper-root-MuiCard-root {
+  box-shadow: 0px 0px 5px gray !important;
+}
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-item.active {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+}
 .home-browse-card-left {
-  width: 50%;
+  width: 40%;
 }
 .home-browse-card-right {
   padding-left: 30px;
+  width: 50%;
 }
 .home-browse-name {
   font-size: 22px;
@@ -280,9 +303,25 @@
 .customHeart {
   width: 30px;
   float: right;
+  margin-top: -30px;
+  margin-right: 15px;
+}
+.browseHeart {
+  width: 30px;
+  float: right;
+}
+.browseHeart-active {
+  width: 2rem;
+  fill: red !important;
+  stroke: white !important;
 }
 .css-1knaqv7-MuiButtonBase-root-MuiButton-root {
   color: #6671ff !important;
+}
+.customHeart-active {
+  width: 2rem;
+  fill: red !important;
+  stroke: white !important;
 }
 @keyframes expand {
   0% {
@@ -300,134 +339,146 @@
     width: 56px;
   }
 }
-@media (max-width:600px) {
-    .home-inner{
-        z-index: 1;
-        height: auto;
-    }
-    .home-side-div{
-        display: none;
-    }
-    .home-dash-outer{
-        border-radius: 15px;
-    }
-    .home-main-div{
-        width: 100%;
-        padding: 20px;
-    }
-    .home-outer{
-        height: auto;
-    }
-    .home-search-bar{
-        width: 100%;
-    }
-    .home-dash-inner-left{
-        width: 100%;
-    }
-    .home-dash-inner-right{
-        display: none;
-    }
-    .home-dash-wel{
-        font-family: sans-serif;
-        font-size: 1.2rem;
-    }
-    .home-card-name{
-        color: white;
-        font-weight: 600;
-    }
-    .home-card-info{
-        color: white;
-    }
-    .home-card-icon{
-        color: white;
-    }
-    .home-card-name{
-      color: white;
-      font-weight: 600;
+@media (max-width: 600px) {
+  .home-inner {
+    z-index: 0 !important;
+    height: auto;
   }
-    .home-card-btn{
-        color: white !important;
-    }
-    .home-browse-outer{
+  .home-side-div {
+    display: none;
+  }
+  .home-dash-outer {
+    border-radius: 15px;
+  }
+  .home-main-div {
+    width: 100%;
+    padding: 20px;
+  }
+  .home-outer {
+    height: auto;
+  }
+  .home-search-bar {
+    width: 100%;
+  }
+  .home-dash-inner-left {
+    width: 100%;
+  }
+  .home-dash-inner-right {
+    display: none;
+  }
+  .home-dash-wel {
+    font-family: sans-serif;
+    font-size: 1.2rem;
+  }
+  .home-card-name {
+    color: white;
+    font-weight: 600;
+  }
+  .home-card-info {
+    color: white;
+  }
+  .home-card-icon {
+    color: white;
+  }
+  .home-card-name {
+    color: white;
+    font-weight: 600;
+  }
+  .home-card-btn {
+    color: white !important;
+  }
+  .home-browse-outer {
     gap: 40px;
   }
-    .carousel-item{
-        height: 280px;
-        margin-bottom: -80px;
-    }
-    .carousel-control-next{
-        display: none;
-    }
-    .carousel-control-prev{
-        display: none;
-    }
-    .carousel-indicators{
-        display: block;
-        text-align: center;
-    }
-    .carousel-indicators [data-bs-target]{
-        visibility: hidden;
-    }
-    .latest-heart{
-        width: 1.8rem;
-        fill: none !important;
-        stroke: white !important;
-    }
-    .customHeart-active{
-      width: 1.8rem;
-      fill: red !important;
-      stroke: white !important;
+  .carousel-item {
+    height: 280px;
+    margin-bottom: -80px;
   }
-    .rs-sidenav{
-        position: fixed;
-        z-index: 2;
-    }
-    .rs-sidenav-toggle{
-        width: 300px;
-        background-color:#141533;
-        animation-name: expand;
-        animation-duration: 0.5s;
-    }
-    .rs-sidenav-toggle-collapsed{
-        width: 56px;
-        background-color:#141533;
-        animation-name: contrast;
-        animation-duration: 0.5s;
-    }
-    .mbsc-grid{
-        padding: 0 !important;
-    }
-    .calendar-div{
-        margin-left: 0 !important;
-        margin-top: 40px;
-        margin-bottom: -20px;
-        box-shadow: 0px 0px 2px gray !important;
-    }
-    .home-browse-card{
-        flex-direction: column;
-    }
-    .home-browse-card-left{
-        width: 100%;
-    }
-    .home-browse-card-right{
-        width: 100%;
-        margin-top: 10px;
-        padding: 0;
-    }
-    .browseHeart{
-        margin-top: -38px;
-    }
-    .heart-outer-div{
-        width: 100% !important;
-    }
-    .css-1plesqt{
-        width: 98% !important;
-        box-shadow: 0px 1px 5px gray !important;
-        margin-top: 10px !important;
-    }
-    .css-1drdsge-MuiPaper-root-MuiCard-root{
-        width: 98% !important;
-        box-shadow: 0px 0px 3px gray !important;
-        margin-top: 10px !important;
-    }
+  .carousel-control-next {
+    display: none;
+  }
+  .carousel-control-prev {
+    display: none;
+  }
+  .carousel-indicators {
+    display: block;
+    text-align: center;
+  }
+  .carousel-indicators [data-bs-target] {
+    visibility: hidden;
+  }
+  .latest-heart {
+    width: 1.8rem;
+    fill: none !important;
+    stroke: white !important;
+  }
+  .customHeart-active {
+    width: 1.8rem;
+    fill: red !important;
+    stroke: white !important;
+  }
+  .rs-sidenav {
+    position: fixed;
+    z-index: 2;
+  }
+  .rs-sidenav-toggle {
+    width: 300px;
+    background-color: #141533;
+    animation-name: expand;
+    animation-duration: 0.5s;
+  }
+  .rs-sidenav-toggle-collapsed {
+    width: 56px;
+    background-color: #141533;
+    animation-name: contrast;
+    animation-duration: 0.5s;
+  }
+  .mbsc-grid {
+    padding: 0 !important;
+  }
+  .calendar-div {
+    margin-left: 0 !important;
+    margin-top: 40px;
+    margin-bottom: -20px;
+    box-shadow: 0px 0px 2px gray !important;
+  }
+  .home-browse-card {
+    flex-direction: column;
+  }
+  .home-browse-card-left {
+    width: 100%;
+  }
+  .home-browse-card-right {
+    width: 100%;
+    margin-top: 10px;
+    padding: 0;
+  }
+  .browseHeart {
+    margin-top: -38px;
+  }
+  .heart-outer-div {
+    width: 100% !important;
+  }
+  .css-1plesqt {
+    width: 98% !important;
+    box-shadow: 0px 1px 5px gray !important;
+    margin-top: 10px !important;
+  }
+  .css-1drdsge-MuiPaper-root-MuiCard-root {
+    width: 98% !important;
+    box-shadow: 0px 0px 3px gray !important;
+    margin-top: 10px !important;
+  }
+}
+
+@media (max-height: 720px) {
+  .recent-card {
+    display: none;
+  }
+  .recent-text {
+    display: none;
+  }
+  .calendar-div {
+    min-height: 85%;
+  }
 }

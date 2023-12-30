@@ -42,6 +42,10 @@
     0% {width: 300px;}
     100% {width: 56px;}
 }
+.nav-name{
+    font-size: 2rem;
+    margin-top: -12px;
+}
 @media (max-width:600px) {
     .rs-sidenav-toggle{
         display: block;
@@ -50,5 +54,14 @@
     .rs-sidenav-body{
         height: 100vh;
         animation-duration: 0.5s;
+    }
+    .nav-name{
+        font-size: 2rem;
+        margin-top: -18px;
+    }
+    .nav-logo{
+        width: 35px;
+        height: 35px;
+        margin-top: -12px;
     }
 }

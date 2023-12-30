@@ -3,8 +3,18 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { MdNavigateNext } from "react-icons/md";
 import "./Type.css";
 import { CircularProgress } from "@mui/material";
+import {
+  collection,
+  doc,
+  getDocs,
+  updateDoc,
+  getFirestore,
+} from "firebase/firestore";
+
+import { app } from "./FirebaseConfig";
 
 export default function Type() {
+  const db = getFirestore(app);
   const location = useLocation();
   const [organizer, setOrganizer] = useState(false);
   const [member, setMember] = useState(false);
@@ -16,7 +26,7 @@ export default function Type() {
       },
     });
   };
-  const regUser = () => {
+  const regUser = async() => {
     var cat;
     if(organizer===false && member===false){
       return
@@ -29,18 +39,15 @@ export default function Type() {
     }
     document.getElementById("loading").style.display="block";
     // get form data and check for exist or not
-    fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/register", {
-      method: "POST",
-      body: JSON.stringify({
-        name: location.state.name,
-        password: location.state.password,
-        email: location.state.email,
-        category: cat
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    const querySnapshot = await getDocs(collection(db, "users"));
+    querySnapshot.forEach((dat) => {
+      if (dat.data()["email"] === location.state.email) {
+        const scoreRef = doc(db, "users", dat.id);
+        updateDoc(scoreRef, {
+         category:cat,
+        });
+      }
+    });
     navigateToHome(location.state.email);
   };
   return (

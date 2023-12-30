@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.07b5b06b.css",
+    "main.js": "/static/js/main.f2858c42.js",
+    "static/js/787.3de1ba2c.chunk.js": "/static/js/787.3de1ba2c.chunk.js",
+    "static/media/ticket1.png": "/static/media/ticket1.3d5fc320c70e670e4f16.png",
+    "static/media/ticket2.png": "/static/media/ticket2.e58be90433630386b8cf.png",
+    "static/media/ticket3.png": "/static/media/ticket3.507ead7be2ca30f98610.png",
+    "static/media/revicons.eot": "/static/media/revicons.a77de540a38981833f9e.eot",
+    "static/media/revicons.ttf": "/static/media/revicons.57fd05d4ae650374c8de.ttf",
+    "static/media/revicons.woff": "/static/media/revicons.e8746a624ed098489406.woff",
+    "index.html": "/index.html",
+    "main.07b5b06b.css.map": "/static/css/main.07b5b06b.css.map",
+    "main.f2858c42.js.map": "/static/js/main.f2858c42.js.map",
+    "787.3de1ba2c.chunk.js.map": "/static/js/787.3de1ba2c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.07b5b06b.css",
+    "static/js/main.f2858c42.js"
+  ]
+}

@@ -1,60 +1,62 @@
+import {
+  collection,
+  getFirestore,
+  getDocs,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import { app } from "../FirebaseConfig";
 
 export default function MobileNumber(props) {
+  const db = getFirestore(app);
+  const location = useLocation();
   const [mobno, setMobNo] = useState("");
-  useEffect(() => {
-    fetch(
-      "https://event-manager-api-git-main-deepraj0502.vercel.app/getmobileno",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          email: props.email,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+
+  const getMobileNumber = async () => {
+    const querySnapshot = await getDocs(collection(db, "users"));
+    querySnapshot.forEach((dat) => {
+      if (dat.data()["email"] === location.state.email) {
+        setMobNo(dat.data()["mobileNo"]);
       }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setMobNo(data["mobileno"]);
-      });
+    });
+  };
+  useEffect(() => {
+    getMobileNumber();
   });
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
     setShow(false);
   };
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     var mobileno = document.getElementById("mob-input").value;
     var regEx = /^([0-9]{10})+$/;
     if (mobileno.length !== 10 || !regEx.test(mobileno)) {
       document.getElementById("mob-invalid").style.display = "block";
     } else {
-      fetch(
-        "https://event-manager-api-git-main-deepraj0502.vercel.app/setmobileno",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            email: props.email,
-            mobileno: mobileno,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
+      const querySnapshot = await getDocs(collection(db, "users"));
+      querySnapshot.forEach((dat) => {
+        if (dat.data()["email"] === location.state.email) {
+          const scoreRef = doc(db, "users", dat.id);
+          updateDoc(scoreRef, {
+            mobileNo: mobileno,
+          });
         }
-      );
+      });
       setShow(false);
+      setMobNo(mobileno);
     }
   };
   const handleShow = () => setShow(true);
 
   return (
     <>
-      {mobno === "" && (
+      {mobno === null && (
         <Button
           variant="primary"
           onClick={handleShow}

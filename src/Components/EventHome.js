@@ -1,19 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavbarComp from "./NavbarComp";
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import "./EventHome.css";
 import { BiTimeFive } from "react-icons/bi";
 import { MdLocationOn } from "react-icons/md";
 import { BsCalendarEventFill } from "react-icons/bs";
-import OrganiserCard from './OrganiserCard';
-import SimilarCard from './SimilarCard';
+import OrganiserCard from "./OrganiserCard";
+import SimilarCard from "./SimilarCard";
+import {
+  MDBBtn,
+  MDBModal,
+  MDBModalDialog,
+  MDBModalContent,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody,
+  MDBModalFooter,
+} from "mdb-react-ui-kit";
+import { Button } from "rsuite";
+import { collection, getDocs, getFirestore, query,addDoc } from "firebase/firestore";
+import { app } from "./FirebaseConfig";
 
 export default function EventHome() {
-  // const [loading, setLoading] = useState(true);
+  const db = getFirestore(app);
+  const [scrollableModal, setScrollableModal] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [event, setEvent] = useState([]);
   const location = useLocation();
+
+  const getParticularEvent = async () => {
+    const colRef = query(collection(db, "events"));
+    const querySnapshot = await getDocs(colRef);
+    querySnapshot.forEach((doc) => {
+      if (doc.data()["eventname"] === location.state.eventName) {
+        setEvent(doc.data());
+      }
+    });
+  };
+  useEffect(() => {
+    getParticularEvent();
+    setTimeout(() => setLoading(false), 1000);
+  });
+  const navigate = useNavigate();
+  const getTicket = () =>{
+    addDoc(collection(db, "registered"), {
+      email: location.state.email,
+      eventname: location.state.eventName,
+    });
+    navigate("/ticket", {
+      state: {
+        email: location.state.email,
+        eventName: location.state.eventName,
+        eventLoc:event["eventaddress"],
+        eventDate:event['eventdate'],
+        eventTime:event['eventtime'],
+        ticket:event['ticket']
+      },
+    });
+  }
   return (
     <div>
-      {/* {loading && (
+      {loading && (
         <div className="loading-background">
           <img
             src="https://ik.imagekit.io/ok2wgebfs/evento/loading.gif?updatedAt=1685464907954"
@@ -22,155 +69,217 @@ export default function EventHome() {
             className="global-loading-gif"
           />
         </div>
-      )} */}
-      <NavbarComp />
-      <div
-        className="home-inner eventhome-inner"
-        style={{
-          background: "white",
-          flexDirection: "column",
-          borderTopRightRadius: "0px",
-        }}
-      >
-        <div
-          style={{
-            overflowY: "scroll",
-            overflowX: "hidden",
-            borderTopLeftRadius: "30px",
-          }}
-          className="eventhome-outer"
-        >
-          <div className="eventhome-image-div"></div>
-          <img
-            src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F444862499%2F1394200320313%2F1%2Foriginal.20230213-054456?w=940&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C1200%2C600&s=54c74217b7eb37d24bdd3b6e3f40658d"
-            alt=""
-            className="eventhome-image"
-          />
-          <div className="eventhome-main">
-            <div className="eventhome-main-left">
-              <h1 style={{ fontWeight: "bold" }}>{location.state.eventName}</h1>
-              <p className="eventhome-date">May 29</p>
-              {/* About Event */}
-              <div className="eventhome-about-div">
-                <p className="eventhome-about-head">About Event</p>
-                <p className="eventhome-about-para">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ultrices mi tempus imperdiet nulla malesuada. A cras semper
-                  auctor neque vitae tempus quam pellentesque. Nulla at volutpat
-                  diam ut venenatis tellus in. Ornare arcu dui vivamus arcu
-                  felis. Cursus vitae congue mauris rhoncus aenean. Pharetra
-                  diam sit amet nisl suscipit adipiscing bibendum.
-                </p>
-              </div>
-              {/* When and Where */}
-              <div className="eventhome-ww-div">
-                <p className="eventhome-ww-head">When and Where</p>
-                <div className="ww-inside-div">
-                  <div style={{ width: "30%", borderRight: "1px solid gray" }} className="ww-inside-left">
-                    <div style={{ display: "flex" }}>
-                      <BsCalendarEventFill
-                        style={{
-                          width: "40px",
-                          height: "30px",
-                          marginRight: "10px",
-                          color: "#6671ff",
-                          padding: "5px",
-                          borderRadius: "5px",
-                          background: "#f8f7fa",
-                        }}
-                      />
-                      <p className="eventhome-ww-info">May 25, 2023</p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "10px" }}>
-                      <BiTimeFive
-                        style={{
-                          width: "40px",
-                          height: "30px",
-                          marginRight: "10px",
-                          color: "#6671ff",
-                          padding: "5px",
-                          borderRadius: "5px",
-                          background: "#f8f7fa",
-                        }}
-                      />
-                      <p className="eventhome-ww-info">11:00 am</p>
+      )}
+      {!loading && (
+        <>
+          <MDBModal
+            show={scrollableModal}
+            setShow={setScrollableModal}
+            tabIndex="-1"
+          >
+            <MDBModalDialog scrollable>
+              <MDBModalContent>
+                <MDBModalHeader>
+                  <MDBModalTitle>Confirmation</MDBModalTitle>
+                  <MDBBtn
+                    className="btn-close"
+                    color="none"
+                    onClick={() => setScrollableModal(!scrollableModal)}
+                  ></MDBBtn>
+                </MDBModalHeader>
+                <MDBModalBody>
+                  <p>Are you sure you want to register for this event</p>
+                </MDBModalBody>
+                <MDBModalFooter>
+                  <Button
+                    onClick={() => setScrollableModal(!setScrollableModal)}
+                    className="home-form-btn"
+                    style={{ background: "red", width: "100px" }}
+                  >
+                    No
+                  </Button>
+                  <Button
+                    onClick={() => getTicket()}
+                    className="home-form-btn"
+                    style={{ background: "#6671ff", width: "150px" }}
+                  >
+                    Yes
+                  </Button>
+                </MDBModalFooter>
+              </MDBModalContent>
+            </MDBModalDialog>
+          </MDBModal>
+          <NavbarComp />
+          <div
+            className="home-inner eventhome-inner"
+            style={{
+              background: "white",
+              flexDirection: "column",
+              borderTopRightRadius: "0px",
+            }}
+          >
+            <div
+              style={{
+                overflowY: "scroll",
+                overflowX: "hidden",
+                borderTopLeftRadius: "30px",
+              }}
+              className="eventhome-outer"
+            >
+              <div
+                className="eventhome-image-div"
+                style={{ background: `url(${event["eventposter"]})` }}
+              ></div>
+              <img
+                src={event["eventposter"]}
+                alt=""
+                className="eventhome-image"
+              />
+              <div className="eventhome-main">
+                <div className="eventhome-main-left">
+                  <h1 style={{ fontWeight: "bold" }}>
+                    {location.state.eventName}
+                  </h1>
+                  <p className="eventhome-date">{event["eventdate"]}</p>
+                  {/* About Event */}
+                  <div className="eventhome-about-div">
+                    <p className="eventhome-about-head">About Event</p>
+                    <p className="eventhome-about-para">
+                    {event["eventinfo"]}
+                    </p>
+                  </div>
+                  {/* When and Where */}
+                  <div className="eventhome-ww-div">
+                    <p className="eventhome-ww-head">When and Where</p>
+                    <div className="ww-inside-div">
+                      <div
+                        style={{ width: "30%", borderRight: "1px solid gray" }}
+                        className="ww-inside-left"
+                      >
+                        <div style={{ display: "flex" }}>
+                          <BsCalendarEventFill
+                            style={{
+                              width: "40px",
+                              height: "30px",
+                              marginRight: "10px",
+                              color: "#6671ff",
+                              padding: "5px",
+                              borderRadius: "5px",
+                              background: "#f8f7fa",
+                            }}
+                          />
+                          <p className="eventhome-ww-info">
+                            {event["eventdate"]}
+                          </p>
+                        </div>
+                        <div style={{ display: "flex", marginTop: "10px" }}>
+                          <BiTimeFive
+                            style={{
+                              width: "40px",
+                              height: "30px",
+                              marginRight: "10px",
+                              color: "#6671ff",
+                              padding: "5px",
+                              borderRadius: "5px",
+                              background: "#f8f7fa",
+                            }}
+                          />
+                          <p className="eventhome-ww-info">
+                            {event["eventtime"]}
+                          </p>
+                        </div>
+                      </div>
+                      <div style={{ width: "70%" }} className="ww-inside-right">
+                        <div style={{ display: "flex" }}>
+                          <MdLocationOn
+                            style={{
+                              width: "60px",
+                              height: "30px",
+                              marginRight: "10px",
+                              color: "#6671ff",
+                              marginLeft: "30px",
+                              padding: "5px",
+                              borderRadius: "5px",
+                              background: "#f8f7fa",
+                            }}
+                            className="ww-right-loc"
+                          />
+                          <p className="eventhome-ww-info">
+                            {event["eventaddress"]}{" "}
+                          </p>
+                        </div>
+                        <a
+                          href={`https://www.google.com/maps/search/?api=1&query=${event["eventaddress"].split(' ').join('%20')}`}
+                          className="show-in-map"
+                          target="_blank"
+                          rel="noreferrer"
+                          style={{
+                            display: `${
+                              event["eventaddress"] === "Online"
+                                ? "none"
+                                : "block"
+                            }`,
+                          }}
+                        >
+                          Show in map
+                        </a>
+                      </div>
                     </div>
                   </div>
-                  <div style={{ width: "70%" }} className="ww-inside-right">
-                    <div style={{ display: "flex" }}>
-                      <MdLocationOn
-                        style={{
-                          width: "60px",
-                          height: "30px",
-                          marginRight: "10px",
-                          color: "#6671ff",
-                          marginLeft: "30px",
-                          padding: "5px",
-                          borderRadius: "5px",
-                          background: "#f8f7fa",
-                        }}
-                        className="ww-right-loc"
-                      />
-                      <p className="eventhome-ww-info">
-                        Jio World Convention Centre, Jio World Centre, G Block,
-                        Bandra Kurla Complex, Bandra East, Mumbai, Maharashtra{" "}
-                      </p>
-                    </div>
-                    <a
-                      href="https://www.google.com/maps/search/Jio World Convention Centre, Jio World Centre, G Block,Bandra Kurla Complex, Bandra East, Mumbai, Maharashtra"
-                      className="show-in-map"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Show in map
-                    </a>
+                  {/* About Oraganiser */}
+                  <div className="eventhome-about-div">
+                    <p className="eventhome-about-head">Organised By</p>
+                    <img
+                      src={event["organizerlogo"]}
+                      alt=""
+                      className="organiser-logo"
+                    />
+                    <p className="organiser-para">
+                    {event["organizerinfo"]}
+                    </p>
                   </div>
-                </div>
-              </div>
-              {/* About Oraganiser */}
-              <div className="eventhome-about-div">
-                <p className="eventhome-about-head">Organised By</p>
-                <img
-                  src="https://trasol.in/wp-content/uploads/2021/12/trasol-logo-2.png"
-                  alt=""
-                  className="organiser-logo"
-                />
-                <p className="organiser-para">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ultrices mi tempus imperdiet nulla malesuada.
-                </p>
-              </div>
-              {/* More Events */}
-              <p className="eventhome-about-head" style={{marginTop:"40px"}}>More Events By Trasol</p>
-              <OrganiserCard/>
-              {/* Similar Events */} 
-              <p className="eventhome-about-head" style={{marginTop:"40px"}}>Similar Events</p>
-              <SimilarCard/>
-            </div>
-            <div className="eventhome-main-right">
-              <div className="eventhome-map">
-                <div
-                  className="book-outer-div"
-                  data-aos="fade-left"
-                  data-aos-duration="8000"
-                >
-                  <p className="reserve-head">RESERVE YOUR SEAT</p>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ultrices mi tempus imperdiet nulla malesuada.
+                  {/* More Events */}
+                  <OrganiserCard />
+                  {/* Similar Events */}
+                  <p
+                    className="eventhome-about-head"
+                    style={{ marginTop: "40px" }}
+                  >
+                    Similar Events
                   </p>
-                  <button type="button" className="reserve-button">
-                    Book Now
-                  </button>
+                  <SimilarCard />
+                </div>
+                <div className="eventhome-main-right">
+                  <div className="eventhome-map">
+                    <div
+                      className="book-outer-div"
+                      data-aos="fade-left"
+                      data-aos-duration="8000"
+                    >
+                      <p className="reserve-head">RESERVE YOUR SEAT</p>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Ultrices mi tempus imperdiet nulla
+                        malesuada.
+                      </p>
+                      <button
+                        type="button"
+                        className="reserve-button"
+                        onClick={() => {
+                          setScrollableModal(!scrollableModal);
+                        }}
+                      >
+                        Book Now
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 }

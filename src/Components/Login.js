@@ -4,21 +4,35 @@ import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { BiUser } from "react-icons/bi";
 import MediaQuery from "react-responsive";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { auth, provider } from "./FirebaseConfig";
 import { signInWithPopup } from "firebase/auth";
-import ReactLoading from "react-loading"; 
+import ReactLoading from "react-loading";
+import {
+  collection,
+  getDocs,
+  query,
+  addDoc,
+  getFirestore,
+} from "firebase/firestore";
+
+import { app } from "./FirebaseConfig";
 
 export default function Login() {
+  if(window.sessionStorage.getItem("login")===true){
+    window.location.href="/home";
+  }
+  const db = getFirestore(app);
   const [login, setLogin] = useState("flex");
   const [forgot, setForgot] = useState("none");
-  const [loading,setLoading] = useState(false);
-  const [regloading,setRegLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [regloading, setRegLoading] = useState(false);
   const navigate = useNavigate();
-  const navigateToHome = (email,name) => {
+  const navigateToHome = (email, name) => {
     navigate("/home", {
       state: {
-        email: email
+        email: email,
       },
     });
   };
@@ -31,7 +45,7 @@ export default function Login() {
       },
     });
   };
-  const putUserData = () => {
+  const putUserData = async () => {
     var email = document.getElementById("email").value;
     var pass = document.getElementById("pass").value;
     if (email === "" || pass === "") {
@@ -41,28 +55,19 @@ export default function Login() {
       return;
     }
     setLoading(true);
-    // get form data and check for exist or not
-    fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/login", {
-      method: "POST",
-      body: JSON.stringify({
-        email: email,
-        password: pass,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data["login"] === "Success") {
-          navigateToHome(email);
-        } else {
-          document.getElementById("invalid").style.display = "block";
-          document.getElementById("invalid").innerHTML = "Invalid Credentials";
-          document.getElementById("invalid").style.animationName = "popup";
-          setLoading(false);
-        }
-      });
+    const q = query(collection(db, "users"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      if (doc.data()["email"] === email && doc.data()["password"] === pass) {
+        window.sessionStorage.setItem("login",true);
+        navigateToHome(email);
+      } else {
+        document.getElementById("invalid").style.display = "block";
+        document.getElementById("invalid").innerHTML = "Invalid Credentials";
+        document.getElementById("invalid").style.animationName = "popup";
+        setLoading(false);
+      }
+    });
   };
   const putRegData = () => {
     var name = document.getElementById("rname").value;
@@ -81,27 +86,18 @@ export default function Login() {
       return;
     }
     setRegLoading(true);
-    fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/check", {
-      method: "POST",
-      body: JSON.stringify({
-        email: email,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data["found"] === "true") {
-          document.getElementById("reginvalid").style.display = "block";
-          document.getElementById("reginvalid").innerHTML =
-            "Email Id Already Registered";
-          document.getElementById("reginvalid").style.animationName = "popup";
-          setRegLoading(false);
-        } else {
-          navigateToNext(name, email, pass);
-        }
-      });
+    addDoc(collection(db, "users"), {
+      name: name,
+      email: email,
+      password: pass,
+      mobileNo: null,
+      category: null,
+      profilepic:null,
+    }).then((err) => {
+      window.location.reload();
+    });
+    window.sessionStorage.setItem("login",true);
+    navigateToNext(name, email, pass);
   };
   const slideReg = () => {
     document
@@ -112,11 +108,13 @@ export default function Login() {
       .style.setProperty("--check-secondary", "0px");
     document
       .getElementById("right-login-box")
-      .style.setProperty("--check-borderright", "3px solid");
+      .style.setProperty("--check-borderright", "0px solid");
     document
       .getElementById("right-login-box")
       .style.setProperty("--check-borderleft", "0");
     document.getElementById("right-login-box").style.left = "-51%";
+    document.getElementById("reg-gif").style.display = "block";
+    document.getElementById("login-gif").style.display = "none";
   };
   const slideLog = () => {
     document
@@ -127,11 +125,13 @@ export default function Login() {
       .style.setProperty("--check-primary", "0px");
     document
       .getElementById("right-login-box")
-      .style.setProperty("--check-borderleft", "3px solid");
+      .style.setProperty("--check-borderleft", "0px solid");
     document
       .getElementById("right-login-box")
       .style.setProperty("--check-borderright", "0");
     document.getElementById("right-login-box").style.left = "-11%";
+    document.getElementById("reg-gif").style.display = "none";
+    document.getElementById("login-gif").style.display = "block";
   };
   const showForgot = () => {
     setForgot("flex");
@@ -156,59 +156,71 @@ export default function Login() {
     document.getElementById("left-box").style.width = "100%";
   };
   const googleLogin = () => {
-    signInWithPopup(auth, provider).then((data) => {
-      document.getElementById("login-loading").style.display = "block";
-      // get form data and check for exist or not
-      fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/login", {
-        method: "POST",
-        body: JSON.stringify({
+    var count=0;
+    signInWithPopup(auth, provider).then(async (data) => {
+      const q = query(collection(db, "users"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        if (data.user.email === doc.data()["email"]) {
+          window.sessionStorage.setItem("login",true);
+          navigateToHome(data.user.email);
+          count++;
+        } 
+      });
+      if(count===0){
+        addDoc(collection(db, "users"), {
+          name: data.user.displayName,
           email: data.user.email,
-          password: data.user.uid
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((res) => {
-          if (res["login"] === "Success") {
-            navigateToHome(data.user.email);
-          } else {
-            document.getElementById("invalid").style.display = "block";
-            document.getElementById("invalid").innerHTML =
-              "Invalid Credentials";
-            document.getElementById("invalid").style.animationName = "popup";
-            document.getElementById("login-loading").style.display = "none";
-          }
+          password: data.user.uid,
+          mobileNo: null,
+          category: null,
+          profilepic:null,
+        }).then((err) => {
+          window.location.reload();
         });
+        window.sessionStorage.setItem("login",true);
+        navigateToNext(data.user.displayName, data.user.email, data.user.uid);
+      }
     });
   };
+  document.addEventListener('DOMContentLoaded', function () {window.setTimeout(document.querySelector('svg').classList.add('animated'),1000);})
   const googleReg = () => {
-    signInWithPopup(auth, provider).then((data) => {
-      document.getElementById("reg-loading").style.display = "block";
-      // get form data and check for exist or not
-      fetch("https://event-manager-api-git-main-deepraj0502.vercel.app/check", {
-      method: "POST",
-      body: JSON.stringify({
-        email: data.user.email
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((res) => {
-        if (res["found"] === "true") {
-          document.getElementById("reginvalid").style.display = "block";
-          document.getElementById("reginvalid").innerHTML =
-            "Email Id Already Registered";
-          document.getElementById("reginvalid").style.animationName = "popup";
-          document.getElementById("reg-loading").style.display = "none";
-        } else {
-          navigateToNext(data.user.displayName, data.user.email, data.user.uid);
-        }
+   var count=0;
+    signInWithPopup(auth, provider).then(async (data) => {
+      const q = query(collection(db, "users"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        if (data.user.email === doc.data()["email"]) {
+          window.sessionStorage.setItem("login",true);
+          navigateToHome(data.user.email);
+          count++;
+        } 
       });
+      if(count===0){
+        addDoc(collection(db, "users"), {
+          name: data.user.displayName,
+          email: data.user.email,
+          password: data.user.uid,
+          mobileNo: null,
+          category: null,
+          profilepic:null,
+        }).then((err) => {
+          window.location.reload();
+        });
+        window.sessionStorage.setItem("login",true);
+        navigateToNext(data.user.displayName, data.user.email, data.user.uid);
+      }
     });
+  };
+  const showpass = () => {
+    document.getElementById("pass").type = "text";
+    document.getElementById("show-icon").style.display = "none";
+    document.getElementById("hide-icon").style.display = "block";
+  };
+  const hidepass = () => {
+    document.getElementById("pass").type = "password";
+    document.getElementById("show-icon").style.display = "block";
+    document.getElementById("hide-icon").style.display = "none";
   };
   return (
     <div className="login-outer-box">
@@ -221,17 +233,13 @@ export default function Login() {
             style={{ display: login }}
           >
             <h1 className="login-wel-text">WELCOME TO</h1>
-            <div style={{ display: "flex" }}>
+            <div style={{ display: "flex",alignItems:"center" ,marginTop:"-10px"}}>
               <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
+                src="https://ik.imagekit.io/ok2wgebfs/evento/evento-removebg-preview.png?updatedAt=1703920695677"
                 alt=""
                 className="left-logo"
               />
-              <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/image.png?updatedAt=1685338632317"
-                alt=""
-                className="left-logo-text"
-              />
+              <h1 className="evento-logo-name">EVENTO</h1>
             </div>
             <p className="login-para">Log in to attend your favorite events.</p>
             <form
@@ -259,6 +267,16 @@ export default function Login() {
                   id="pass"
                   required
                 />
+                <AiFillEye
+                  className="show-icon"
+                  id="show-icon"
+                  onClick={showpass}
+                />
+                <AiFillEyeInvisible
+                  className="hide-icon"
+                  id="hide-icon"
+                  onClick={hidepass}
+                />
               </div>
               <div style={{ display: "flex", marginTop: "5px" }}>
                 <button
@@ -275,8 +293,16 @@ export default function Login() {
                 className="signin-btn"
                 onClick={putUserData}
               >
-                {!loading && <p>SIGN IN</p> }
-                {loading && <ReactLoading type="bars" color="white" height={30} width={50} className="login-btn-loading"/> }
+                {!loading && <p>SIGN IN</p>}
+                {loading && (
+                  <ReactLoading
+                    type="bars"
+                    color="white"
+                    height={30}
+                    width={50}
+                    className="login-btn-loading"
+                  />
+                )}
               </button>
             </form>
             <p className="register-here">
@@ -320,17 +346,13 @@ export default function Login() {
             style={{ display: forgot }}
           >
             <h1 className="login-wel-text">WELCOME TO</h1>
-            <div style={{ display: "flex" }}>
-            <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
+            <div style={{ display: "flex",alignItems:"center" ,marginTop:"-10px"}}>
+              <img
+                src="https://ik.imagekit.io/ok2wgebfs/evento/evento-removebg-preview.png?updatedAt=1703920695677"
                 alt=""
                 className="left-logo"
               />
-              <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/image.png?updatedAt=1685338632317"
-                alt=""
-                className="left-logo-text"
-              />
+              <h1 className="evento-logo-name">EVENTO</h1>
             </div>
             <p className="login-para">Recover your password.</p>
             <form
@@ -368,18 +390,14 @@ export default function Login() {
         {/* Register Box */}
         <div className="register-box" id="register-box">
           <h1 className="register-wel-text">WELCOME TO</h1>
-          <div style={{ display: "flex" }}>
-          <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
+          <div style={{ display: "flex",alignItems:"center" ,marginTop:"-10px"}}>
+              <img
+                src="https://ik.imagekit.io/ok2wgebfs/evento/evento-removebg-preview.png?updatedAt=1703920695677"
                 alt=""
                 className="left-logo"
               />
-              <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/image.png?updatedAt=1685338632317"
-                alt=""
-                className="left-logo-text"
-              />
-          </div>
+              <h1 className="evento-logo-name">EVENTO</h1>
+            </div>
           <p className="register-para">
             Register here to attend your favorite events.
           </p>
@@ -442,8 +460,16 @@ export default function Login() {
               onClick={putRegData}
               style={{ marginTop: "10px" }}
             >
-              {!regloading && <p>SIGN UP</p> }
-              {regloading && <ReactLoading type="bars" color="white" height={30} width={50} className="login-btn-loading"/> }
+              {!regloading && <p>SIGN UP</p>}
+              {regloading && (
+                <ReactLoading
+                  type="bars"
+                  color="white"
+                  height={30}
+                  width={50}
+                  className="login-btn-loading"
+                />
+              )}
             </button>
           </form>
           <p className="register-here">
@@ -483,14 +509,16 @@ export default function Login() {
       </div>
       <div className="right-login-box" id="right-login-box">
         <img
-          src="https://ik.imagekit.io/ok2wgebfs/evento/image__1_.png?updatedAt=1685338707406"
+          src="https://ik.imagekit.io/ok2wgebfs/evento/Tablet%20login%20(2).gif?updatedAt=1703922498569"
           alt=""
+          id="login-gif"
           className="right-logo"
         />
         <img
-          src="https://ik.imagekit.io/ok2wgebfs/evento/image__2_.png?updatedAt=1685338743423"
+          src="https://ik.imagekit.io/ok2wgebfs/evento/Computer%20login%20(2).gif?updatedAt=1703922499306"
           alt=""
-          className="right-logo-name"
+          id="reg-gif"
+          className="right-logo"
         />
       </div>
     </div>
