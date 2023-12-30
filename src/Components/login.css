@@ -1,7 +1,10 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+ */
+ @import url('https://fonts.googleapis.com/css2?family=Signika:wght@700&display=swap');
 .login-outer-box {
   /* background: url("https://colibriwp.com/blog/wp-content/uploads/2019/06/pawel-czerwinski-vI5XwPbGvmY-unsplash.jpg"); */
   /* background-image: url(https://t3.ftcdn.net/jpg/04/23/18/44/360_F_423184467_qE9OxHTKVvMYefypnX6ieAErnwSndPQK.jpg); */
-  background-image: url("https://plus.unsplash.com/premium_photo-1667668224647-e587eba122cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8b2xkJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80");
+  background-image: url("https://ik.imagekit.io/ok2wgebfs/evento/SL_060521_43530_01.jpg?updatedAt=1703916294015");
   height: 100vh;
   background-position: center;
   background-size: 100% 100%;
@@ -20,7 +23,7 @@
 }
 .left-login-box {
   width: 100%;
-  padding: 20px 100px 20px 100px;
+  padding: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -65,7 +68,7 @@
 }
 .right-login-box::before {
   content: "";
-  background: url("https://images.unsplash.com/photo-1594122230689-45899d9e6f69?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE0fHx8ZW58MHx8fHx8&w=1000&q=80");
+  background: white;
   background-size: 100% 100%;
   position: absolute;
   top: 0px;
@@ -76,14 +79,13 @@
   border-bottom-left-radius: var(--check-primary, 0px);
   border-top-right-radius: var(--check-secondary, 15px);
   border-bottom-right-radius: var(--check-secondary, 15px);
-  border-left: var(--check-borderleft, 3px solid black);
   border-right: var(--check-borderright, 0);
   opacity: 0.8;
 }
 .right-logo {
   position: relative;
   z-index: 2;
-  width: 150px;
+  width: 95%;
 }
 .right-logo-name {
   position: relative;
@@ -175,7 +177,7 @@
 }
 .register-box {
   width: 50%;
-  padding: 10px 100px 10px 100px;
+  padding: 50px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -223,20 +225,19 @@
 }
 .signin-btn {
   width: 100%;
-  background-color: #ffb703;
+  background-color: #1078da;
   color: #fff;
   padding: 8px;
   border-radius: 20px;
   border: none;
-  margin-top: 20px;
-  box-shadow: 0px 2px 8px 0px gray;
+  margin-top: 10px;
   font-size: 21px;
   height: 50px;
   font-weight: 600;
   transition: ease-in-out 0.8s;
 }
 .signin-btn:hover {
-  background-color: #fb8b24;
+  background-color: #0e78db;
 }
 .register-here {
   margin-top: 8px;
@@ -244,8 +245,7 @@
   font-weight: 500;
 }
 .register-here-a {
-  color: #0e78db;
-  font-weight: bold;
+  color: black;
   text-decoration: none;
   margin-left: 5px;
   background-color: white;
@@ -349,9 +349,29 @@
   color: black;
   font-size: 2rem;
 }
+#reg-gif{
+  display: none;
+}
+.evento-logo-name{
+  font-family: 'Signika', sans-serif;
+  font-weight: bolder;
+  font-size: 3rem;
+  color: #1397e0;
+  position: relative;
+  top: 6px;
+  left: 4px;
+  background: -webkit-linear-gradient(#43e2e0,#1397e0, #2e56d0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 @media (max-width: 600px) {
+  .evento-logo-name{
+    font-size: 2rem;
+    top:4px;
+  }
   .login-outer-box {
-    background-position: revert;
+    background-position: left;
+    background-size: cover;
   }
   .right-login-box {
     display: none;
@@ -377,6 +397,7 @@
   }
   .login-para {
     text-align: center;
+    font-size: 18px;
   }
   .login-input {
     width: 100%;
