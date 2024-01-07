@@ -81,7 +81,7 @@ export default function Homepage() {
     getLikesData();
     getEventsData();
     setTimeout(() => setLoading(false), 1000);
-  });
+  },[]);
   
   const addlike = async (name, date, time, loc) => {
     addDoc(collection(db, "likes"), {
@@ -158,7 +158,7 @@ export default function Homepage() {
               </div>
               <div className="home-dash-inner-right">
                 <img
-                  src="https://ik.imagekit.io/ok2wgebfs/evento/360_F_334545763_330Jh62ukgHbSkBZOsTgjqLitlNAjoSd-removebg-preview.png?updatedAt=1684853008911"
+                  src="https://ik.imagekit.io/ok2wgebfs/evento/Calendar.gif?updatedAt=1703923837967"
                   alt=""
                   className="home-dash-img"
                 />

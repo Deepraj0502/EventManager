@@ -108,11 +108,13 @@ export default function Login() {
       .style.setProperty("--check-secondary", "0px");
     document
       .getElementById("right-login-box")
-      .style.setProperty("--check-borderright", "3px solid");
+      .style.setProperty("--check-borderright", "0px solid");
     document
       .getElementById("right-login-box")
       .style.setProperty("--check-borderleft", "0");
     document.getElementById("right-login-box").style.left = "-51%";
+    document.getElementById("reg-gif").style.display = "block";
+    document.getElementById("login-gif").style.display = "none";
   };
   const slideLog = () => {
     document
@@ -123,11 +125,13 @@ export default function Login() {
       .style.setProperty("--check-primary", "0px");
     document
       .getElementById("right-login-box")
-      .style.setProperty("--check-borderleft", "3px solid");
+      .style.setProperty("--check-borderleft", "0px solid");
     document
       .getElementById("right-login-box")
       .style.setProperty("--check-borderright", "0");
     document.getElementById("right-login-box").style.left = "-11%";
+    document.getElementById("reg-gif").style.display = "none";
+    document.getElementById("login-gif").style.display = "block";
   };
   const showForgot = () => {
     setForgot("flex");
@@ -179,6 +183,7 @@ export default function Login() {
       }
     });
   };
+  document.addEventListener('DOMContentLoaded', function () {window.setTimeout(document.querySelector('svg').classList.add('animated'),1000);})
   const googleReg = () => {
    var count=0;
     signInWithPopup(auth, provider).then(async (data) => {
@@ -228,17 +233,13 @@ export default function Login() {
             style={{ display: login }}
           >
             <h1 className="login-wel-text">WELCOME TO</h1>
-            <div style={{ display: "flex" }}>
+            <div style={{ display: "flex",alignItems:"center" ,marginTop:"-10px"}}>
               <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled-removebg-preview.png?updatedAt=1689439801374"
+                src="https://ik.imagekit.io/ok2wgebfs/evento/evento-removebg-preview.png?updatedAt=1703920695677"
                 alt=""
                 className="left-logo"
               />
-              <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
-                alt=""
-                className="left-logo-text"
-              />
+              <h1 className="evento-logo-name">EVENTO</h1>
             </div>
             <p className="login-para">Log in to attend your favorite events.</p>
             <form
@@ -345,17 +346,13 @@ export default function Login() {
             style={{ display: forgot }}
           >
             <h1 className="login-wel-text">WELCOME TO</h1>
-            <div style={{ display: "flex" }}>
+            <div style={{ display: "flex",alignItems:"center" ,marginTop:"-10px"}}>
               <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled-removebg-preview.png?updatedAt=1689439801374"
+                src="https://ik.imagekit.io/ok2wgebfs/evento/evento-removebg-preview.png?updatedAt=1703920695677"
                 alt=""
                 className="left-logo"
               />
-              <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
-                alt=""
-                className="left-logo-text"
-              />
+              <h1 className="evento-logo-name">EVENTO</h1>
             </div>
             <p className="login-para">Recover your password.</p>
             <form
@@ -393,18 +390,14 @@ export default function Login() {
         {/* Register Box */}
         <div className="register-box" id="register-box">
           <h1 className="register-wel-text">WELCOME TO</h1>
-          <div style={{ display: "flex" }}>
-            <img
-              src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled-removebg-preview.png?updatedAt=1689439801374"
-              alt=""
-              className="left-logo"
-            />
-            <img
-              src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
-              alt=""
-              className="left-logo-text"
-            />
-          </div>
+          <div style={{ display: "flex",alignItems:"center" ,marginTop:"-10px"}}>
+              <img
+                src="https://ik.imagekit.io/ok2wgebfs/evento/evento-removebg-preview.png?updatedAt=1703920695677"
+                alt=""
+                className="left-logo"
+              />
+              <h1 className="evento-logo-name">EVENTO</h1>
+            </div>
           <p className="register-para">
             Register here to attend your favorite events.
           </p>
@@ -516,14 +509,16 @@ export default function Login() {
       </div>
       <div className="right-login-box" id="right-login-box">
         <img
-          src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled-removebg-preview.png?updatedAt=1689439801374"
+          src="https://ik.imagekit.io/ok2wgebfs/evento/Tablet%20login%20(2).gif?updatedAt=1703922498569"
           alt=""
+          id="login-gif"
           className="right-logo"
         />
         <img
-          src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__1_-removebg-preview.png?updatedAt=1689439803174"
+          src="https://ik.imagekit.io/ok2wgebfs/evento/Computer%20login%20(2).gif?updatedAt=1703922499306"
           alt=""
-          className="right-logo-name"
+          id="reg-gif"
+          className="right-logo"
         />
       </div>
     </div>

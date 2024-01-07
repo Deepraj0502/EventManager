@@ -80,20 +80,17 @@ export default function NavbarComp(props) {
                   <div
                     style={{
                       display: "flex",
+                      alignItems: "center",
                       marginLeft: "-40px",
                       marginTop: "10px",
                     }}
                   >
                     <img
-                      src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled-removebg-preview.png?updatedAt=1689439801374"
+                      src="https://ik.imagekit.io/ok2wgebfs/evento/evento-removebg-preview.png?updatedAt=1703920695677"
                       alt=""
-                      className="nav-logo"
+                      className="left-logo nav-logo"
                     />
-                    <img
-                      src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
-                      alt=""
-                      className="nav-name"
-                    />
+                    <h1 className="evento-logo-name nav-name">EVENTO</h1>
                   </div>
                 </Nav.Item>
                 <Nav.Item
@@ -163,16 +160,18 @@ export default function NavbarComp(props) {
                   <div
                     style={{
                       display: "flex",
+                      alignItems: "center",
                       marginLeft: "-40px",
                       marginTop: "10px",
                     }}
                   >
                     <img
-                      src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled-removebg-preview.png?updatedAt=1689439801374"
+                      src="https://ik.imagekit.io/ok2wgebfs/evento/evento-removebg-preview.png?updatedAt=1703920695677"
                       alt=""
-                      className="nav-logo"
-                      style={{ width: "25px", height: "25px" }}
+                      className="left-logo nav-logo"
+                      style={{ width: "35px", height: "35px" }}
                     />
+                    <h1 className="evento-logo-name nav-name">EVENTO</h1>
                   </div>
                 </Nav.Item>
                 <Nav.Item
@@ -249,6 +248,21 @@ export default function NavbarComp(props) {
                     alt=""
                     className="nav-name"
                   />
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginLeft: "-40px",
+                    marginTop: "10px",
+                  }}
+                >
+                  <img
+                    src="https://ik.imagekit.io/ok2wgebfs/evento/evento-removebg-preview.png?updatedAt=1703920695677"
+                    alt=""
+                    className="left-logo nav-logo"
+                  />
+                  <h1 className="evento-logo-name nav-name">EVENTO</h1>
                 </div>
               </Nav.Item>
               <Nav.Item
