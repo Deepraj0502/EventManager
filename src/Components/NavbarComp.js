@@ -234,24 +234,6 @@ export default function NavbarComp(props) {
                 <div
                   style={{
                     display: "flex",
-                    marginLeft: "-40px",
-                    marginTop: "10px",
-                  }}
-                >
-                  <img
-                    src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled-removebg-preview.png?updatedAt=1689439801374"
-                    alt=""
-                    className="nav-logo"
-                  />
-                  <img
-                    src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
-                    alt=""
-                    className="nav-name"
-                  />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
                     alignItems: "center",
                     marginLeft: "-40px",
                     marginTop: "10px",
