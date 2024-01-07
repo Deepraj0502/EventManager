@@ -68,12 +68,14 @@ export default function AddEventForm() {
           organizerlogo: url2,
           organizername: e.target[9].value,
           organizerinfo: e.target[10].value,
-          ticket:"",
+          ticket: "",
         });
         setSuccess(true);
       }
     }, 3000);
   };
+
+  // console.log(url);
   return (
     <div className="home-outer">
       {loading && (

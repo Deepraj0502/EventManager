@@ -12,18 +12,13 @@ import "./NavbarComp.css";
 import MediaQuery from "react-responsive";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
-import {
-  collection,
-  getDocs,
-  query,
-  getFirestore,
-} from "firebase/firestore";
+import { collection, getDocs, query, getFirestore } from "firebase/firestore";
 
 import { app } from "./FirebaseConfig";
 
 export default function NavbarComp(props) {
-  if(window.sessionStorage.getItem("login")===false){
-    window.location.href="/";
+  if (window.sessionStorage.getItem("login") === false) {
+    window.location.href = "/";
   }
   const db = getFirestore(app);
   const [expanded, setExpanded] = React.useState(false);
@@ -50,8 +45,15 @@ export default function NavbarComp(props) {
       },
     });
   };
+  const navigateToLikedEvents = () => {
+    navigate("/likedevents", {
+      state: {
+        email: location.state.email,
+      },
+    });
+  };
   const [user, setUser] = useState([]);
-  const getCategory = async() =>{
+  const getCategory = async () => {
     const q = query(collection(db, "users"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -59,10 +61,10 @@ export default function NavbarComp(props) {
         setUser(doc.data()["category"]);
       }
     });
-  }
+  };
   useEffect(() => {
     getCategory();
-  },);
+  });
   return (
     <div style={{ width: 300 }}>
       <MediaQuery maxWidth={600}>
@@ -119,12 +121,20 @@ export default function NavbarComp(props) {
                       <Nav.Item eventKey="3-1">Past Events</Nav.Item>
                       <Nav.Item eventKey="3-2">Future Events</Nav.Item>
                     </Nav.Menu>
-                    <Nav.Item eventKey="7" icon={<PlusSquare />} onClick={navigateToAddEvent}>
+                    <Nav.Item
+                      eventKey="7"
+                      icon={<PlusSquare />}
+                      onClick={navigateToAddEvent}
+                    >
                       Add Event
                     </Nav.Item>
                   </>
                 )}
-                <Nav.Item eventKey="4" icon={<HeartIcon />}>
+                <Nav.Item
+                  eventKey="4"
+                  icon={<HeartIcon />}
+                  onClick={navigateToLikedEvents}
+                >
                   Liked Events
                 </Nav.Item>
                 <Nav.Item eventKey="5" icon={<CertificateIcon />}>
@@ -190,12 +200,20 @@ export default function NavbarComp(props) {
                       <Nav.Item eventKey="3-1">Past Events</Nav.Item>
                       <Nav.Item eventKey="3-2">Future Events</Nav.Item>
                     </Nav.Menu>
-                    <Nav.Item eventKey="7" icon={<PlusSquare />} onClick={navigateToAddEvent}>
+                    <Nav.Item
+                      eventKey="7"
+                      icon={<PlusSquare />}
+                      onClick={navigateToAddEvent}
+                    >
                       Add Event
                     </Nav.Item>
                   </>
                 )}
-                <Nav.Item eventKey="4" icon={<HeartIcon />}>
+                <Nav.Item
+                  eventKey="4"
+                  icon={<HeartIcon />}
+                  onClick={navigateToLikedEvents}
+                >
                   Liked Events
                 </Nav.Item>
                 <Nav.Item eventKey="5" icon={<CertificateIcon />}>
@@ -222,15 +240,15 @@ export default function NavbarComp(props) {
                   }}
                 >
                   <img
-                      src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled-removebg-preview.png?updatedAt=1689439801374"
-                      alt=""
-                      className="nav-logo"
-                    />
-                    <img
-                      src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
-                      alt=""
-                      className="nav-name"
-                    />
+                    src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled-removebg-preview.png?updatedAt=1689439801374"
+                    alt=""
+                    className="nav-logo"
+                  />
+                  <img
+                    src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
+                    alt=""
+                    className="nav-name"
+                  />
                 </div>
               </Nav.Item>
               <Nav.Item
@@ -248,28 +266,43 @@ export default function NavbarComp(props) {
                 Profile
               </Nav.Item>
               {user === "organizer" && (
-                  <>
-                    <Nav.Menu
-                      placement="rightStart"
-                      eventKey="3"
-                      title="Your Events"
-                      icon={<MagicIcon />}
-                    >
-                      <Nav.Item eventKey="3-1">Past Events</Nav.Item>
-                      <Nav.Item eventKey="3-2">Future Events</Nav.Item>
-                    </Nav.Menu>
-                    <Nav.Item eventKey="7" icon={<PlusSquare />} onClick={navigateToAddEvent}>
-                      Add Event
-                    </Nav.Item>
-                  </>
-                )}
-              <Nav.Item eventKey="4" icon={<HeartIcon />}>
+                <>
+                  <Nav.Menu
+                    placement="rightStart"
+                    eventKey="3"
+                    title="Your Events"
+                    icon={<MagicIcon />}
+                  >
+                    <Nav.Item eventKey="3-1">Past Events</Nav.Item>
+                    <Nav.Item eventKey="3-2">Future Events</Nav.Item>
+                  </Nav.Menu>
+                  <Nav.Item
+                    eventKey="7"
+                    icon={<PlusSquare />}
+                    onClick={navigateToAddEvent}
+                  >
+                    Add Event
+                  </Nav.Item>
+                </>
+              )}
+              <Nav.Item
+                eventKey="4"
+                icon={<HeartIcon />}
+                onClick={navigateToLikedEvents}
+              >
                 Liked Events
               </Nav.Item>
               <Nav.Item eventKey="5" icon={<CertificateIcon />}>
                 Certificate
               </Nav.Item>
-              <Nav.Item eventKey="6" icon={<LogoutIcon />} onClick={()=>{ window.sessionStorage.setItem("login",false);window.location.href="/"}}>
+              <Nav.Item
+                eventKey="6"
+                icon={<LogoutIcon />}
+                onClick={() => {
+                  window.sessionStorage.setItem("login", false);
+                  window.location.href = "/";
+                }}
+              >
                 Logout
               </Nav.Item>
             </Nav>
