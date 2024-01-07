@@ -112,6 +112,7 @@ export default function LikedEvents() {
         }}
       >
         <div className="likedEvent-outer-div">
+          <h1 className="likedEvent-heading">Your Likes</h1>
           <main className="likedEvent-main-div">
             {events.length === 0 && (
               <div className="noEvent-div" style={{ color: "gray" }}>
