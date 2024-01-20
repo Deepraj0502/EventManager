@@ -89,7 +89,7 @@
   }
 
   .likedEvent-heartBtn {
-    align-items: end;
+    align-items: flex-end;
     width: 100%;
     display: flex;
     justify-content: space-between;

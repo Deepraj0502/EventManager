@@ -11,8 +11,19 @@ import { BsCalendarDate } from "react-icons/bs";
 import Heart from "react-heart";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { useNavigate } from "react-router-dom";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  getFirestore,
+  query,
+} from "firebase/firestore";
+import { app } from "./FirebaseConfig";
 
-export default function OrganiserCard() {
+export default function OrganiserCard({ organizername }) {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -31,78 +42,80 @@ export default function OrganiserCard() {
       items: 1,
     },
   };
+  const db = getFirestore(app);
   const [events, setEvents] = useState([]);
   const [likes, setLikes] = useState([]);
+  const navigate = useNavigate();
   const location = useLocation();
-  useEffect(() => {
-    fetch("http://localhost:3000/getevents", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setEvents(data);
-      });
 
-    fetch("http://localhost:3000/getlikes", {
-      method: "POST",
-      body: JSON.stringify({
+  const navigateToEventHome = (name) => {
+    navigate("/eventhome", {
+      state: {
         email: location.state.email,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response2) => response2.json())
-      .then((data2) => {
-        setLikes(data2);
-      });
-  }, [location.state.email]);
-
-  const addlike = (name, date, time, loc) => {
-    fetch("http://localhost:3000/setlike", {
-      method: "POST",
-      body: JSON.stringify({
-        email: location.state.email,
-        eventdate: date,
-        eventname: name,
-        eventtime: time,
-        eventlocation: loc,
-      }),
-      headers: {
-        "Content-Type": "application/json",
+        eventName: name,
       },
     });
-    likes.push({ eventname: name });
   };
-
-  const deletelike = (name) => {
-    fetch("http://localhost:3000/deletelike", {
-      method: "POST",
-      body: JSON.stringify({
-        email: location.state.email,
-        eventname: name,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    likes.find((item, index) => {
-      if (item.eventname === name) {
-        console.log(index);
-        likes.splice(index, 1);
+  const getLikesData = async () => {
+    const q2 = query(collection(db, "likes"));
+    const querySnapshot2 = await getDocs(q2);
+    querySnapshot2.forEach((doc2) => {
+      if (doc2.data()["user"] === location.state.email) {
+        setLikes((likes) => [...likes, doc2.data()]);
       }
-      return 0;
     });
   };
+  const getEventsData = async () => {
+    const q3 = query(collection(db, "events"));
+    const querySnapshot3 = await getDocs(q3);
+    querySnapshot3.forEach((doc3) => {
+      if (organizername === doc3.data()["organizername"]) {
+        if (location.state.eventName !== doc3.data()["eventname"]) {
+          setEvents((events) => [...events, doc3.data()]);
+        }
+      }
+    });
+  };
+  useEffect(() => {
+    getLikesData();
+    getEventsData();
+  }, []);
+
+  const addlike = async (name, date, time, loc) => {
+    addDoc(collection(db, "likes"), {
+      user: location.state.email,
+      eventName: name,
+    });
+    setLikes((likes) => [
+      ...likes,
+      {
+        eventName: name,
+        user: location.state.email,
+      },
+    ]);
+  };
+
+  const deletelike = async (name) => {
+    const querySnapshot = await getDocs(collection(db, "likes"));
+    querySnapshot.forEach((dat) => {
+      if (
+        dat.data()["eventName"] === name &&
+        dat.data()["user"] === location.state.email
+      ) {
+        const scoreRef = doc(db, "likes", dat.id);
+        deleteDoc(scoreRef);
+      }
+    });
+    setLikes(likes.filter((event) => event.eventName !== name));
+  };
+
+  console.log(events);
   return (
     <div>
       {events.length > 0 && (
         <>
           <p className="eventhome-about-head" style={{ marginTop: "40px" }}>
-            More Events By Trasol
+            MORE EVENTS BY {organizername}
           </p>
           <Carousel responsive={responsive}>
             {events
@@ -136,7 +149,7 @@ export default function OrganiserCard() {
                                 style={{ width: "18px", height: "22px" }}
                               />
                               <p className="home-card-info">
-                                {val["eventlocation"]}
+                                {val["eventaddress"]}
                               </p>
                             </div>
                             <div style={{ display: "flex", marginTop: "-5px" }}>
@@ -147,46 +160,51 @@ export default function OrganiserCard() {
                                 {val["eventdate"]}
                               </p>
                             </div>
+                            <div className="similar-btn-and-like">
+                              <button
+                                type="button"
+                                className="home-dash-button"
+                                style={{ padding: "8px" }}
+                                onClick={() => {
+                                  navigateToEventHome(val["eventname"]);
+                                }}
+                              >
+                                Know More
+                              </button>
+                              <Heart
+                                onClick={() => {
+                                  if (
+                                    likes.some(
+                                      (item) =>
+                                        item.eventName === val["eventname"]
+                                    )
+                                  ) {
+                                    deletelike(val["eventname"]);
+                                  } else {
+                                    addlike(
+                                      val["eventname"],
+                                      val["eventdate"],
+                                      val["eventtime"],
+                                      val["eventaddress"]
+                                    );
+                                  }
+                                }}
+                                animationScale={1.2}
+                                animationTrigger="both"
+                                animationDuration={0.2}
+                                className={`browseHeart ${
+                                  likes.some(
+                                    (item) =>
+                                      item.eventName === val["eventname"]
+                                  )
+                                    ? "browseHeart-active"
+                                    : ""
+                                }`}
+                              />
+                            </div>
                           </Typography>
                         </CardContent>
-                        <Heart
-                          animationScale={1.2}
-                          animationTrigger="both"
-                          animationDuration={0.2}
-                          className={`customHeart ${
-                            likes.some(
-                              (item) => item.eventname === val["eventname"]
-                            )
-                              ? "customHeart-active"
-                              : ""
-                          }`}
-                          onClick={() => {
-                            if (
-                              likes.some(
-                                (item) => item.eventname === val["eventname"]
-                              )
-                            ) {
-                              deletelike(val["eventname"]);
-                            } else {
-                              addlike(
-                                val["eventname"],
-                                val["eventdate"],
-                                val["eventtime"],
-                                val["eventlocation"]
-                              );
-                            }
-                          }}
-                        />
                       </CardActionArea>
-                      <CardActions>
-                        <Button
-                          size="small"
-                          color="primary"
-                          style={{ marginTop: "-35px" }}
-                        >
-                          Know More
-                        </Button>
-                      </CardActions>
                     </Card>
                   </div>
                 );

@@ -170,6 +170,9 @@
   z-index: 99;
 }
 .home-card-info {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   position: relative;
   top: 2px;
   left: 8px;
@@ -371,17 +374,17 @@
     font-size: 1.2rem;
   }
   .home-card-name {
-    color: white;
+    color: black;
     font-weight: 600;
   }
   .home-card-info {
-    color: white;
+    color: black;
   }
   .home-card-icon {
-    color: white;
+    color: black;
   }
   .home-card-name {
-    color: white;
+    color: black;
     font-weight: 600;
   }
   .home-card-btn {
