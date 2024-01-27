@@ -257,6 +257,10 @@
   width: 40%;
 }
 @media (max-width: 600px) {
+  .ticket-outer-div {
+    padding: 0 20px;
+  }
+
   .org-outer {
     width: 100%;
   }

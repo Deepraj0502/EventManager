@@ -17,6 +17,7 @@ export default function AddEventForm() {
   const [url, setUrl] = useState("");
   const [url2, setUrl2] = useState("");
   const [eventname, setEventName] = useState("");
+  const [eventaddress, setEventaddress] = useState("");
   const [success, setSuccess] = useState(false);
   const [upload1, setUpload1] = useState(0);
   const [upload2, setUpload2] = useState(0);
@@ -61,6 +62,7 @@ export default function AddEventForm() {
       }
       if (pass === 1) {
         setEventName(e.target[0].value);
+        setEventaddress(e.target[5].value);
         addDoc(collection(db, "events"), {
           email: location.state.email,
           eventname: e.target[0].value,
@@ -80,6 +82,8 @@ export default function AddEventForm() {
       }
     }, 3000);
   };
+
+  console.log(eventname);
 
   // console.log(url);
   return (
@@ -331,7 +335,11 @@ export default function AddEventForm() {
       )}
       {success && (
         <>
-          <TicketSelect eventname={eventname} email={location.state.email} />
+          <TicketSelect
+            eventname={eventname}
+            eventaddress={eventaddress}
+            email={location.state.email}
+          />
         </>
       )}
     </div>

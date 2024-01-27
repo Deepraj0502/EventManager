@@ -8,8 +8,9 @@ import "./SampleTicket.css";
 import * as htmlToImage from "html-to-image";
 import { saveAs } from "file-saver";
 
-export default function SampleTicket({ eventname }) {
+export default function SampleTicket(props) {
   const [loading, setLoading] = useState(true);
+  console.log(props.eventname);
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   });
@@ -22,11 +23,12 @@ export default function SampleTicket({ eventname }) {
       },
     });
   };
+
   const onCapture = (tickettype) => {
     htmlToImage
       .toPng(document.getElementById(tickettype))
       .then(function (dataUrl) {
-        saveAs(dataUrl, { eventname });
+        saveAs(dataUrl, props.eventname);
       })
       .catch(function (error) {
         console.error("oops, something went wrong!", error);
@@ -55,7 +57,16 @@ export default function SampleTicket({ eventname }) {
           flexDirection: "column",
         }}
       >
-        <h3 className="sample-head">Sample Ticket</h3>
+        <div
+          className="like-info-div sample-ticket-heading"
+          style={{
+            height: "auto",
+            justifyContent: "center",
+            borderRadius: "10px",
+          }}
+        >
+          <h3 className="likedEvent-heading ">Sample Ticket</h3>
+        </div>
         <div className="sample-outer">
           {location.state.ticket === "ticket1" && (
             <>
@@ -78,15 +89,14 @@ export default function SampleTicket({ eventname }) {
                 /> */}
                       <h1 className="ticket-evento-logo">EVENTO</h1>
 
-                      <p className="ticket-event-name">{eventname}</p>
+                      <p className="ticket-event-name">
+                        {location.state.eventName}
+                      </p>
                       <div className="ticket-data-div">
                         <h5 className="ticketData">Name:</h5>
                         <h5 className="ticketData">Mail ID:</h5>
                       </div>
-                      <p className="ticket-address">
-                        NESCO NESCO Center Western Express Highway Goregaon
-                        (East), Mumbai 400063 Mumbai, MH 400063
-                      </p>
+                      <p className="ticket-address">{props.eventaddress}</p>
                     </div>
                   </div>
                 </div>
@@ -100,37 +110,41 @@ export default function SampleTicket({ eventname }) {
               </button>
             </>
           )}
-          {location.state.ticket === "ticket3" && (
+          {location.state.ticket === "ticket2" && (
             <>
-              <div id="ticket-2">
-                <img src={ticket2} alt="" className="sample-ticket-2-image" />
-                <div className="ticket-2-outer">
-                  <div className="ticket-2-left-div">
-                    <img
-                      src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
-                      alt=""
-                      className="ticket-2-evento-logo"
-                    />
-                    <p className="ticket-2-event-name">Money Expo India 2023</p>
-                    <div className="ticket-2-data-div">
-                      <h5 className="ticket-2Data">Name:</h5>
-                      <h5 className="ticket-2Data">Mail ID:</h5>
-                    </div>
-                    <div style={{ display: "flex", width: "100%" }}>
-                      <p className="ticket-2-address">
-                        NESCO NESCO Center Western Express Highway Goregaon
-                        (East), Mumbai 400063 Mumbai, MH 400063
+              <div className="sample-inner">
+                <div id="ticket-2">
+                  <img src={ticket2} alt="" className="sample-ticket-2-image" />
+                  <div className="ticket-2-outer">
+                    <div className="ticket-2-left-div">
+                      <img
+                        src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
+                        alt=""
+                        className="ticket-2-evento-logo"
+                      />
+                      <p className="ticket-2-event-name">
+                        Money Expo India 2023
                       </p>
-                      <p className="ticket-2-date">August 12, 2023</p>
-                      <p className="ticket-2-time">12 PM</p>
+                      <div className="ticket-2-data-div">
+                        <h5 className="ticket-2Data">Name:</h5>
+                        <h5 className="ticket-2Data">Mail ID:</h5>
+                      </div>
+                      <div style={{ display: "flex", width: "100%" }}>
+                        <p className="ticket-2-address">
+                          NESCO NESCO Center Western Express Highway Goregaon
+                          (East), Mumbai 400063 Mumbai, MH 400063
+                        </p>
+                        <p className="ticket-2-date">August 12, 2023</p>
+                        <p className="ticket-2-time">12 PM</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="ticket-2-right-div">
-                    <img
-                      src="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=Sample%20ticket-2&choe=UTF-8"
-                      alt=""
-                      className="sample-ticket-2-qr"
-                    />
+                    <div className="ticket-2-right-div">
+                      <img
+                        src="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=Sample%20ticket-2&choe=UTF-8"
+                        alt=""
+                        className="sample-ticket-2-qr"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -143,52 +157,56 @@ export default function SampleTicket({ eventname }) {
               </button>
             </>
           )}
-          {location.state.ticket === "ticket2" && (
+          {location.state.ticket === "ticket3" && (
             <>
-              <div id="ticket-3">
-                <img src={ticket3} alt="" className="sample-ticket-3-image" />
-                <div className="ticket-3-outer">
-                  <div className="ticket-3-left-div">
-                    <img
-                      src="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=Sample%20ticket-3&choe=UTF-8"
-                      alt=""
-                      className="sample-ticket-3-qr"
-                    />
-                  </div>
-                  <div className="ticket-3-right-div">
-                    <img
-                      src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
-                      alt=""
-                      className="ticket-3-evento-logo"
-                    />
-                    <p className="ticket-3-event-name">Money Expo India 2023</p>
-                    <div className="ticket-3-data-div">
-                      <h5 className="ticket-3Data">Name:</h5>
-                      <h5 className="ticket-3Data">Mail ID:</h5>
+              <div className="sample-inner">
+                <div id="ticket-3">
+                  <img src={ticket3} alt="" className="sample-ticket-3-image" />
+                  <div className="ticket-3-outer">
+                    <div className="ticket-3-left-div">
+                      <img
+                        src="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=Sample%20ticket-3&choe=UTF-8"
+                        alt=""
+                        className="sample-ticket-3-qr"
+                      />
                     </div>
-                    <p className="ticket-3-address">
-                      NESCO NESCO Center Western Express Highway Goregaon
-                      (East), Mumbai 400063 Mumbai, MH 400063
-                    </p>
+                    <div className="ticket-3-right-div">
+                      <img
+                        src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
+                        alt=""
+                        className="ticket-3-evento-logo"
+                      />
+                      <p className="ticket-3-event-name">
+                        Money Expo India 2023
+                      </p>
+                      <div className="ticket-3-data-div">
+                        <h5 className="ticket-3Data">Name:</h5>
+                        <h5 className="ticket-3Data">Mail ID:</h5>
+                      </div>
+                      <p className="ticket-3-address">
+                        NESCO NESCO Center Western Express Highway Goregaon
+                        (East), Mumbai 400063 Mumbai, MH 400063
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div style={{ display: "flex", gap: "40px" }}>
-                <button
-                  type="button"
-                  className="ticket-download-button"
-                  onClick={() => onCapture("ticket-3")}
-                >
-                  Download Ticket
-                </button>
-                <button
+              {/* <div style={{ display: "flex", gap: "40px" }}> */}
+              <button
+                type="button"
+                className="ticket-download-button"
+                onClick={() => onCapture("ticket-3")}
+              >
+                Download Ticket
+              </button>
+              {/* <button
                   type="button"
                   className="ticket-dashboard-button"
                   onClick={navigateToHome}
                 >
                   Return To Dashboard
-                </button>
-              </div>
+                </button> */}
+              {/* </div> */}
             </>
           )}
         </div>

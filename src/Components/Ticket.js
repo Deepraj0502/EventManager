@@ -78,41 +78,56 @@ export default function Ticket() {
               flexDirection: "column",
             }}
           >
-            <h3 className="sample-head">Your Ticket</h3>
+            <div
+              className="like-info-div sample-ticket-heading"
+              style={{
+                height: "auto",
+                justifyContent: "center",
+                borderRadius: "10px",
+              }}
+            >
+              <h3 className="likedEvent-heading ">Your Ticket</h3>
+            </div>
             <div className="sample-outer">
               {location.state.ticket === "ticket1" && (
                 <>
-                  <div id="ticket">
-                    <img src={ticket1} alt="" className="sample-ticket-image" />
-                    <div className="ticket-outer">
-                      <div className="ticket-left-div">
-                        <img
-                          src="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=Sample%20Ticket&choe=UTF-8"
-                          alt=""
-                          className="sample-ticket-qr"
-                        />
-                      </div>
-                      <div className="ticket-right-div">
-                        <img
-                          src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
-                          alt=""
-                          className="ticket-evento-logo"
-                        />
-                        <p className="ticket-event-name">
-                          {location.state.eventName}
-                        </p>
-                        <div className="ticket-data-div">
-                          <h5 className="ticketData">Name: {userData.name}</h5>
-                          <h5 className="ticketData">
-                            Mail ID: {userData.email}
-                          </h5>
+                  <div className="sample-inner">
+                    <div id="ticket">
+                      <img
+                        src={ticket1}
+                        alt=""
+                        className="sample-ticket-image"
+                      />
+                      <div className="ticket-outer">
+                        <div className="ticket-left-div">
+                          <img
+                            src="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=Sample%20Ticket&choe=UTF-8"
+                            alt=""
+                            className="sample-ticket-qr"
+                          />
                         </div>
-                        <p className="ticket-address">
-                          {location.state.eventLoc}
-                        </p>
+                        <div className="ticket-right-div">
+                          <h1 className="ticket-evento-logo">EVENTO</h1>
+
+                          <p className="ticket-event-name">
+                            {location.state.eventName}
+                          </p>
+                          <div className="ticket-data-div">
+                            <h5 className="ticketData">
+                              Name: {userData.name}
+                            </h5>
+                            <h5 className="ticketData">
+                              Mail ID: {userData.email}
+                            </h5>
+                          </div>
+                          <p className="ticket-address">
+                            {location.state.eventLoc}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
+
                   <button
                     type="button"
                     className="ticket-download-button"
@@ -122,53 +137,53 @@ export default function Ticket() {
                   </button>
                 </>
               )}
-              {location.state.ticket === "ticket3" && (
+              {location.state.ticket === "ticket2" && (
                 <>
-                  <div id="ticket-2">
-                    <img
-                      src={ticket2}
-                      alt=""
-                      className="sample-ticket-2-image"
-                    />
-                    <div className="ticket-2-outer">
-                      <div className="ticket-2-left-div">
-                        <img
-                          src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
-                          alt=""
-                          className="ticket-2-evento-logo"
-                        />
-                        <p className="ticket-2-event-name">
-                          {location.state.eventName}
-                        </p>
-                        <div className="ticket-2-data-div">
-                          <h5 className="ticket-2Data">
-                            Name: {userData.name}
-                          </h5>
-                          <h5 className="ticket-2Data">
-                            Mail ID: {userData.email}
-                          </h5>
+                  <div className="sample-inner">
+                    <div id="ticket-2">
+                      <img
+                        src={ticket2}
+                        alt=""
+                        className="sample-ticket-2-image"
+                      />
+                      <div className="ticket-2-outer">
+                        <div className="ticket-2-left-div">
+                          <h1 className="ticket-evento-logo">EVENTO</h1>
+
+                          <p className="ticket-2-event-name">
+                            {location.state.eventName}
+                          </p>
+                          <div className="ticket-2-data-div">
+                            <h5 className="ticket-2Data">
+                              Name: {userData.name}
+                            </h5>
+                            <h5 className="ticket-2Data">
+                              Mail ID: {userData.email}
+                            </h5>
+                          </div>
+                          <div style={{ display: "flex", width: "100%" }}>
+                            <p className="ticket-2-address">
+                              {location.state.eventLoc}
+                            </p>
+                            <p className="ticket-2-date">
+                              {location.state.eventDate}
+                            </p>
+                            <p className="ticket-2-time">
+                              {location.state.eventTime}
+                            </p>
+                          </div>
                         </div>
-                        <div style={{ display: "flex", width: "100%" }}>
-                          <p className="ticket-2-address">
-                            {location.state.eventLoc}
-                          </p>
-                          <p className="ticket-2-date">
-                            {location.state.eventDate}
-                          </p>
-                          <p className="ticket-2-time">
-                            {location.state.eventTime}
-                          </p>
+                        <div className="ticket-2-right-div">
+                          <img
+                            src="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=Sample%20ticket-2&choe=UTF-8"
+                            alt=""
+                            className="sample-ticket-2-qr"
+                          />
                         </div>
-                      </div>
-                      <div className="ticket-2-right-div">
-                        <img
-                          src="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=Sample%20ticket-2&choe=UTF-8"
-                          alt=""
-                          className="sample-ticket-2-qr"
-                        />
                       </div>
                     </div>
                   </div>
+
                   <button
                     type="button"
                     className="ticket-download-button"
@@ -178,57 +193,51 @@ export default function Ticket() {
                   </button>
                 </>
               )}
-              {location.state.ticket === "ticket2" && (
+              {location.state.ticket === "ticket3" && (
                 <>
-                  <div id="ticket-3">
-                    <img
-                      src={ticket3}
-                      alt=""
-                      className="sample-ticket-3-image"
-                    />
-                    <div className="ticket-3-outer">
-                      <div className="ticket-3-left-div">
-                        <img
-                          src="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=Sample%20ticket-3&choe=UTF-8"
-                          alt=""
-                          className="sample-ticket-3-qr"
-                        />
-                      </div>
-                      <div className="ticket-3-right-div">
-                        <img
-                          src="https://ik.imagekit.io/ok2wgebfs/evento/Untitled__2_-removebg-preview.png?updatedAt=1689439802235"
-                          alt=""
-                          className="ticket-3-evento-logo"
-                        />
-                        <p className="ticket-event-name">
-                          {location.state.eventName}
-                        </p>
-                        <div className="ticket-data-div">
-                          <h5 className="ticketData">Name: {userData.name}</h5>
-                          <h5 className="ticketData">Mail ID: {userData.email}</h5>
+                  <div className="sample-inner">
+                    <div id="ticket-3">
+                      <img
+                        src={ticket3}
+                        alt=""
+                        className="sample-ticket-3-image"
+                      />
+                      <div className="ticket-3-outer">
+                        <div className="ticket-3-left-div">
+                          <img
+                            src="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=Sample%20ticket-3&choe=UTF-8"
+                            alt=""
+                            className="sample-ticket-3-qr"
+                          />
                         </div>
-                        <p className="ticket-3-address">
-                          {location.state.eventLoc}
-                        </p>
+                        <div className="ticket-3-right-div">
+                          <h1 className="ticket-evento-logo">EVENTO</h1>
+
+                          <p className="ticket-event-name">
+                            {location.state.eventName}
+                          </p>
+                          <div className="ticket-data-div">
+                            <h5 className="ticketData">
+                              Name: {userData.name}
+                            </h5>
+                            <h5 className="ticketData">
+                              Mail ID: {userData.email}
+                            </h5>
+                          </div>
+                          <p className="ticket-3-address">
+                            {location.state.eventLoc}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div style={{ display: "flex", gap: "40px" }}>
-                    <button
-                      type="button"
-                      className="ticket-download-button"
-                      onClick={() => onCapture("ticket-3")}
-                    >
-                      Download Ticket
-                    </button>
-                    <button
-                      type="button"
-                      className="ticket-dashboard-button"
-                      onClick={navigateToHome}
-                    >
-                      Return To Dashboard
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    className="ticket-download-button"
+                    onClick={() => onCapture("ticket-3")}
+                  >
+                    Download Ticket
+                  </button>
                 </>
               )}
             </div>
