@@ -53,6 +53,9 @@ export default function LikedEvents() {
       if (dat.data()["user"] === location.state.email) {
         getEventForUser(dat.data()["eventName"]);
         setLikes((likes) => [...likes, dat.data()]);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       }
     });
   };
@@ -87,9 +90,7 @@ export default function LikedEvents() {
 
   useEffect(() => {
     getLikedEvents();
-    setTimeout(() => setLoading(false), 1000);
   }, []);
-  console.log(events);
   return (
     <div className="home-outer">
       {loading && (
@@ -109,32 +110,61 @@ export default function LikedEvents() {
           display: "block",
           overflowY: "scroll",
           borderTopRightRadius: "0px",
+          padding: "30px",
         }}
       >
         <div className="likedEvent-outer-div">
-          <h1 className="likedEvent-heading">Your Likes</h1>
+          <div
+            className="like-info-div"
+            style={{
+              height: "auto",
+              justifyContent: "center",
+              borderRadius: "10px",
+            }}
+          >
+            {" "}
+            <h1 className="likedEvent-heading">LIKED EVENTS</h1>
+          </div>
           <main className="likedEvent-main-div">
-            {events.length === 0 && (
-              <div className="noEvent-div" style={{ color: "gray" }}>
-                <h1 style={{ textAlign: "center" }}>
-                  Add Your Favourite Events
-                </h1>
-                <button
-                  type="button"
-                  className="home-dash-button"
-                  style={{ padding: "8px" }}
-                  onClick={() => {
-                    navigateToHome();
-                  }}
-                >
-                  Explore Events
-                </button>
+            {events.length === 0 && !loading && (
+              <div
+                className="like-info-div"
+                style={{
+                  height: "auto",
+                  justifyContent: "center",
+                  borderRadius: "10px",
+                  width: "100%",
+                  marginTop: "50px",
+                }}
+              >
+                {" "}
+                <div className="noEvent-div" style={{ color: "gray" }}>
+                  <h1 style={{ textAlign: "center" }}>
+                    Add Your Favourite Events
+                  </h1>
+                  <button
+                    type="button"
+                    className="home-dash-button"
+                    style={{ padding: "8px" }}
+                    onClick={() => {
+                      navigateToHome();
+                    }}
+                  >
+                    Explore Events
+                  </button>
+                </div>
               </div>
             )}
             {events.map((data, key) => {
               return (
                 <>
-                  <div key={key} className="likedEvent-inner-div">
+                  <div
+                    key={key}
+                    className="likedEvent-inner-div"
+                    onClick={() => {
+                      navigateToEventHome(data["eventname"]);
+                    }}
+                  >
                     <div className="likedEvent-inner-left-div">
                       <h2 className="likedEvent-eventname">{data.eventname}</h2>
                       <p className="likedEvent-eventtime">
@@ -143,45 +173,8 @@ export default function LikedEvents() {
                       <p className="likedEvent-eventaddress">
                         {data.eventaddress}
                       </p>
-                    </div>
-                    <div className="likedEvent-img-knowBtn">
-                      <img
-                        src={data.eventposter}
-                        alt={data.eventname}
-                        className="likedEvent-poster"
-                      />
                       <div className="likedEvent-heartBtn">
-                        <div style={{ marginTop: "3px" }}>
-                          <Heart
-                            onClick={() => {
-                              if (
-                                likes.some(
-                                  (item) => item.eventName === data["eventname"]
-                                )
-                              ) {
-                                deletelike(data["eventname"]);
-                              } else {
-                                addlike(
-                                  data["eventname"],
-                                  data["eventdate"],
-                                  data["eventtime"],
-                                  data["eventaddress"]
-                                );
-                              }
-                            }}
-                            animationScale={1.2}
-                            animationTrigger="both"
-                            animationDuration={0.2}
-                            className={`browseHeart ${
-                              likes.some(
-                                (item) => item.eventName === data["eventname"]
-                              )
-                                ? "browseHeart-active"
-                                : ""
-                            }`}
-                          />
-                        </div>
-                        <button
+                        {/* <button
                           type="button"
                           className="home-dash-button"
                           style={{ padding: "8px" }}
@@ -190,7 +183,44 @@ export default function LikedEvents() {
                           }}
                         >
                           Know More
-                        </button>
+                        </button> */}
+                      </div>
+                    </div>
+                    <div className="likedEvent-img-knowBtn">
+                      <img
+                        src={data.eventposter}
+                        alt={data.eventname}
+                        className="likedEvent-poster"
+                      />
+                      <div style={{ marginTop: "3px" }} className="liked-heart">
+                        <Heart
+                          onClick={() => {
+                            if (
+                              likes.some(
+                                (item) => item.eventName === data["eventname"]
+                              )
+                            ) {
+                              deletelike(data["eventname"]);
+                            } else {
+                              addlike(
+                                data["eventname"],
+                                data["eventdate"],
+                                data["eventtime"],
+                                data["eventaddress"]
+                              );
+                            }
+                          }}
+                          animationScale={1.2}
+                          animationTrigger="both"
+                          animationDuration={0.2}
+                          className={`browseHeart ${
+                            likes.some(
+                              (item) => item.eventName === data["eventname"]
+                            )
+                              ? "browseHeart-active"
+                              : ""
+                          }`}
+                        />
                       </div>
                     </div>
                   </div>
