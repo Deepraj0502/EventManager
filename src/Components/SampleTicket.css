@@ -3,7 +3,7 @@
   font-family: sans-serif;
   text-align: center;
 }
-.ticket-download-button{
+.ticket-download-button {
   width: 200px;
   background-color: #6671ff;
   color: white;
@@ -15,7 +15,7 @@
   cursor: pointer;
   z-index: 99;
 }
-.ticket-dashboard-button{
+.ticket-dashboard-button {
   width: 200px;
   background-color: red;
   color: white;
@@ -27,12 +27,19 @@
   cursor: pointer;
   z-index: 99;
 }
-.sample-outer{
+.sample-outer {
   width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
 }
+.sample-inner {
+  padding: 15px 20px;
+  /* color: #1397e0; */
+  background: -webkit-linear-gradient(#43e2e0, #1397e0, #2e56d0);
+  border-radius: 5px;
+}
+
 /* Ticket1 */
 #ticket {
   width: 1000px;
@@ -62,18 +69,18 @@
   font-family: inherit;
   line-height: 35px;
 }
-.ticket-left-div{
+.ticket-left-div {
   position: relative;
   height: 350px;
   width: 33%;
   margin-top: 50px;
 }
-.ticket-outer{
+.ticket-outer {
   display: flex;
   width: 100%;
   margin-top: -400px;
 }
-.ticket-right-div{
+.ticket-right-div {
   position: relative;
   height: 350px;
   width: 66%;
@@ -82,40 +89,46 @@
   align-items: center;
   margin-top: 50px;
 }
-.ticket-evento-logo{
+.ticket-evento-logo {
   z-index: 2;
   position: relative;
   width: 200px;
   margin: auto;
   margin-top: 30px;
+  font-family: "Signika", sans-serif;
+  font-weight: bolder;
+  font-size: 3rem;
+  color: #1397e0;
+  text-align: center;
+  background: -webkit-linear-gradient(#43e2e0, #1397e0, #2e56d0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-.ticket-organizer-logo{
+.ticket-organizer-logo {
   width: 200px;
   margin: auto;
   margin-top: 30px;
 }
-.ticket-data-div{
+.ticket-data-div {
   width: 100%;
   height: 200px;
   padding: 20%;
   padding-top: 20px;
   padding-bottom: 0px;
 }
-.ticket-event-name{
+.ticket-event-name {
   font-size: 1.5rem;
   font-weight: 700;
   margin-top: 10px;
   color: #3d0f35;
 }
-.ticket-address{
+.ticket-address {
   position: relative;
-  top: -17px;
-  width: 80%;
+  top: -7px;
+  width: 70%;
   margin-left: 20%;
   font-family: math;
 }
-
-
 
 /* Ticket2 */
 #ticket-2 {
@@ -126,11 +139,11 @@
 }
 .sample-ticket-2-qr {
   position: relative;
-    left: 8px;
-    width: 50%;
-    margin: auto;
-    margin-top: 100px;
-    padding: 5px;
+  left: 8px;
+  width: 50%;
+  margin: auto;
+  margin-top: 100px;
+  padding: 5px;
 }
 .sample-ticket-2-image {
   width: 100%;
@@ -146,19 +159,19 @@
   font-family: inherit;
   line-height: 35px;
 }
-.ticket-2-left-div{
+.ticket-2-left-div {
   position: relative;
   height: 350px;
   width: 74%;
   margin-top: 50px;
 }
-.ticket-2-outer{
+.ticket-2-outer {
   display: flex;
   width: 1000px;
   margin-top: -400px;
   height: 330px;
 }
-.ticket-2-right-div{
+.ticket-2-right-div {
   position: relative;
   height: 350px;
   width: 32%;
@@ -167,56 +180,54 @@
   align-items: center;
   margin-top: 60px;
 }
-.ticket-2-evento-logo{
+.ticket-2-evento-logo {
   z-index: 2;
   position: relative;
   width: 200px;
   margin: auto;
   margin-top: 30px;
 }
-.ticket-2-organizer-logo{
+.ticket-2-organizer-logo {
   width: 150px;
-    margin: auto;
-    margin-top: 15px;
-    height: 50px;
-    object-fit: contain;
+  margin: auto;
+  margin-top: 15px;
+  height: 50px;
+  object-fit: contain;
 }
-.ticket-2-data-div{
+.ticket-2-data-div {
   width: 100%;
   height: 100%;
   padding: 11%;
   padding-top: 0px;
   padding-bottom: 0px;
 }
-.ticket-2-event-name{
+.ticket-2-event-name {
   font-size: 1.5rem;
   font-weight: 700;
   margin-top: 10px;
   color: #3d0f35;
   text-align: center;
 }
-.ticket-2-address{
+.ticket-2-address {
   position: relative;
   top: -240px;
   width: 47%;
   margin-left: 60px;
   font-family: math;
 }
-.ticket-2-date{
+.ticket-2-date {
   position: relative;
   top: -222px;
   margin-left: 43px;
   font-family: math;
   width: 116px;
-
 }
-.ticket-2-time{
+.ticket-2-time {
   position: relative;
   top: -222px;
   margin-left: 40px;
   font-family: math;
 }
-
 
 /* Ticket3 */
 #ticket-3 {
@@ -248,18 +259,18 @@
   font-family: inherit;
   line-height: 35px;
 }
-.ticket-3-left-div{
+.ticket-3-left-div {
   position: relative;
   height: 350px;
   width: 33%;
   margin-top: 50px;
 }
-.ticket-3-outer{
+.ticket-3-outer {
   display: flex;
   width: 100%;
   margin-top: -400px;
 }
-.ticket-3-right-div{
+.ticket-3-right-div {
   position: relative;
   height: 295px;
   width: 66%;
@@ -268,32 +279,32 @@
   align-items: center;
   margin-top: 50px;
 }
-.ticket-3-evento-logo{
+.ticket-3-evento-logo {
   z-index: 2;
   position: relative;
   width: 200px;
   margin: auto;
   margin-top: 30px;
 }
-.ticket-3-organizer-logo{
+.ticket-3-organizer-logo {
   width: 200px;
   margin: auto;
   margin-top: 30px;
 }
-.ticket-3-data-div{
+.ticket-3-data-div {
   width: 100%;
   height: 100%;
   padding: 20%;
   padding-top: 20px;
   padding-bottom: 0px;
 }
-.ticket-3-event-name{
+.ticket-3-event-name {
   font-size: 1.5rem;
   font-weight: 700;
   margin-top: 10px;
   color: #3d0f35;
 }
-.ticket-3-address{
+.ticket-3-address {
   position: relative;
   width: 80%;
   margin-left: 20%;
@@ -302,16 +313,16 @@
   margin-bottom: 0;
   height: 48px;
 }
-@media (max-width:600px) {
-  #ticket-3{
+@media (max-width: 600px) {
+  .sample-inner {
     transform: scale(0.3);
     height: auto;
   }
-  #ticket-1{
+  #ticket-1 {
     transform: scale(0.3);
     height: auto;
   }
-  #ticket-2{
+  #ticket-2 {
     transform: scale(0.3);
     height: auto;
   }
