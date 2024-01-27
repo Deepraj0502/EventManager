@@ -236,7 +236,7 @@
 .home-browse-image {
   width: 100%;
   border-radius: 5px;
-  height: 100%;
+  height: 235px;
   object-fit: cover;
 }
 .home-browse-card-left {
@@ -295,6 +295,7 @@
 }
 .home-browse-name {
   font-size: 22px;
+  height: 68px;
 }
 .mbsc-datepicker-tab-wrapper {
   margin-top: -8px;

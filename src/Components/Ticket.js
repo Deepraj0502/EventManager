@@ -17,6 +17,8 @@ export default function Ticket() {
     email: "",
     mob: "",
   });
+  const [link, setLink] = useState("");
+  const location = useLocation();
   const getUserData = async () => {
     const q = query(collection(db, "users"));
     const querySnapshot = await getDocs(q);
@@ -27,13 +29,20 @@ export default function Ticket() {
           email: doc.data()["email"],
           mob: doc.data()["mobileNo"],
         });
+        setLink(
+          "https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=" +
+            doc.data()["name"] +
+            "," +
+            doc.data()["email"] +
+            "," +
+            location.state.eventName
+        );
       }
     });
   };
   useEffect(() => {
     getUserData();
   });
-  const location = useLocation();
   const navigate = useNavigate();
   const navigateToHome = () => {
     navigate("/home", {
@@ -52,7 +61,7 @@ export default function Ticket() {
         console.error("oops, something went wrong!", error);
       });
   };
-  console.log(userData.name);
+
   return (
     <div>
       {userData.name === "" && (
@@ -100,11 +109,7 @@ export default function Ticket() {
                       />
                       <div className="ticket-outer">
                         <div className="ticket-left-div">
-                          <img
-                            src="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=Sample%20Ticket&choe=UTF-8"
-                            alt=""
-                            className="sample-ticket-qr"
-                          />
+                          <img src={link} alt="" className="sample-ticket-qr" />
                         </div>
                         <div className="ticket-right-div">
                           <h1 className="ticket-evento-logo">EVENTO</h1>
@@ -175,7 +180,7 @@ export default function Ticket() {
                         </div>
                         <div className="ticket-2-right-div">
                           <img
-                            src="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=Sample%20ticket-2&choe=UTF-8"
+                            src={link}
                             alt=""
                             className="sample-ticket-2-qr"
                           />
@@ -205,7 +210,7 @@ export default function Ticket() {
                       <div className="ticket-3-outer">
                         <div className="ticket-3-left-div">
                           <img
-                            src="https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=Sample%20ticket-3&choe=UTF-8"
+                            src={link}
                             alt=""
                             className="sample-ticket-3-qr"
                           />

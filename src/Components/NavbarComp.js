@@ -52,6 +52,14 @@ export default function NavbarComp(props) {
       },
     });
   };
+
+  const navigateToRegistered = () => {
+    navigate("/registered", {
+      state: {
+        email: location.state.email,
+      },
+    });
+  };
   const [user, setUser] = useState([]);
   const getCategory = async () => {
     const q = query(collection(db, "users"));
@@ -188,6 +196,15 @@ export default function NavbarComp(props) {
                 >
                   Profile
                 </Nav.Item>
+                {user !== "organizer" && (
+                  <Nav.Item
+                    eventKey="2"
+                    icon={<MagicIcon />}
+                    onClick={navigateToRegistered}
+                  >
+                    Registered Events
+                  </Nav.Item>
+                )}
                 {user === "organizer" && (
                   <>
                     <Nav.Menu
@@ -261,6 +278,15 @@ export default function NavbarComp(props) {
               >
                 Profile
               </Nav.Item>
+              {user !== "organizer" && (
+                <Nav.Item
+                  eventKey="2"
+                  icon={<MagicIcon />}
+                  onClick={navigateToRegistered}
+                >
+                  Registered Events
+                </Nav.Item>
+              )}
               {user === "organizer" && (
                 <>
                   <Nav.Menu
