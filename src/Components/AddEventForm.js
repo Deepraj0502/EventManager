@@ -18,22 +18,28 @@ export default function AddEventForm() {
   const [url2, setUrl2] = useState("");
   const [eventname, setEventName] = useState("");
   const [success, setSuccess] = useState(false);
+  const [upload1, setUpload1] = useState(0);
+  const [upload2, setUpload2] = useState(0);
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   });
   const handleEventPoster = (e) => {
+    setUpload1(1);
     const imageRef = ref(storage, e.target.files[0].name);
     uploadBytes(imageRef, e.target.files[0], "image").then(() => {
       getDownloadURL(imageRef).then((url6) => {
         setUrl(url6);
+        setUpload1(2);
       });
     });
   };
   const handleorganizerLogo = (e) => {
+    setUpload2(1);
     const imageRef2 = ref(storage, e.target.files[0].name);
     uploadBytes(imageRef2, e.target.files[0], "image").then(() => {
       getDownloadURL(imageRef2).then((url5) => {
         setUrl2(url5);
+        setUpload2(2);
       });
     });
   };
@@ -100,21 +106,25 @@ export default function AddEventForm() {
               borderTopRightRadius: "0px",
             }}
           >
-            <img
-              src="https://ik.imagekit.io/ok2wgebfs/evento/addevent-bg.png?updatedAt=1689659150762"
-              alt=""
-              className="add-event-bg"
-            />
-
             <div style={{ padding: "50px" }}>
-              <h1 className="details-head">Add Your Event</h1>
+              <div
+                className="like-info-div"
+                style={{
+                  height: "auto",
+                  justifyContent: "center",
+                  borderRadius: "10px",
+                }}
+              >
+                {" "}
+                <h1 className="likedEvent-heading">ADD YOUR EVENT</h1>
+              </div>
               <form
                 className="addevent-form"
                 onSubmit={handleSubmit}
                 action="addform#val='submit'"
               >
                 <div className="event-div">
-                  <h5 style={{ color: "#9973f3" }}>Event Details</h5>
+                  <h5 style={{ color: "#6671ff" }}>Event Details</h5>
                   <p className="add-form-label">
                     Event Name
                     <span>
@@ -195,10 +205,47 @@ export default function AddEventForm() {
                     className="add-form-input"
                     onChange={handleEventPoster}
                   />
+                  <div className="add-loading-box">
+                    {upload1 === 1 && (
+                      <>
+                        <div id="wrapper">
+                          <div class="profile-main-loader">
+                            <div class="loader">
+                              <svg
+                                class="circular-loader"
+                                viewBox="25 25 50 50"
+                              >
+                                <circle
+                                  class="loader-path"
+                                  cx="50"
+                                  cy="50"
+                                  r="20"
+                                  fill="none"
+                                  stroke="#6671ff"
+                                  stroke-width="2"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                        <p id="uploading">UPLOADING...</p>
+                      </>
+                    )}
+                    {upload1 === 2 && (
+                      <>
+                        <img
+                          src="https://ik.imagekit.io/ok2wgebfs/evento/Animation-1706344830331-ezgif.com-loop-count.gif?updatedAt=1706345400605"
+                          alt=""
+                          className="add-loading-suc"
+                        />
+                        <p id="uploadingsuc">UPLOADED</p>
+                      </>
+                    )}
+                  </div>
                 </div>
                 <div style={{ display: "block", width: "40%" }}>
                   <div className="organizer-div">
-                    <h5 style={{ color: "#9973f3" }}>Organiser Details</h5>
+                    <h5 style={{ color: "#6671ff" }}>Organiser Details</h5>
                     <p className="add-form-label">
                       Organizer Logo<span>*</span>
                     </p>
@@ -208,6 +255,43 @@ export default function AddEventForm() {
                       className="add-form-input"
                       onChange={handleorganizerLogo}
                     />
+                    <div className="add-loading-box">
+                      {upload2 === 1 && (
+                        <>
+                          <div id="wrapper">
+                            <div class="profile-main-loader">
+                              <div class="loader">
+                                <svg
+                                  class="circular-loader"
+                                  viewBox="25 25 50 50"
+                                >
+                                  <circle
+                                    class="loader-path"
+                                    cx="50"
+                                    cy="50"
+                                    r="20"
+                                    fill="none"
+                                    stroke="#6671ff"
+                                    stroke-width="2"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                          <p id="uploading">UPLOADING...</p>
+                        </>
+                      )}
+                      {upload2 === 2 && (
+                        <>
+                          <img
+                            src="https://ik.imagekit.io/ok2wgebfs/evento/Animation-1706344830331-ezgif.com-loop-count.gif?updatedAt=1706345400605"
+                            alt=""
+                            className="add-loading-suc"
+                          />
+                          <p id="uploadingsuc">UPLOADED</p>
+                        </>
+                      )}
+                    </div>
                     <p className="add-form-label">
                       Organiser Name<span>*</span>
                     </p>
@@ -235,7 +319,7 @@ export default function AddEventForm() {
                     />
                   </div>
                   <img
-                    src="https://img.freepik.com/free-vector/build-your-program-appointment-booking_23-2148552954.jpg?size=626&ext=jpg&ga=GA1.1.2034402480.1684136925&semt=ais"
+                    src="https://ik.imagekit.io/ok2wgebfs/evento/Online%20calendar-rafiki.png?updatedAt=1706343545111"
                     alt=""
                     className="add-event-vector"
                   />
