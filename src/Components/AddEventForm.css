@@ -13,6 +13,9 @@
   display: flex;
   position: relative;
 }
+.add-fom-outer {
+  padding: 50px;
+}
 .details-head {
   font-size: 1.7rem;
   font-family: math;
@@ -249,4 +252,28 @@
 .add-loading-suc {
   width: 50px;
   margin-top: 10px;
+}
+.org-outer {
+  width: 40%;
+}
+@media (max-width: 600px) {
+  .org-outer {
+    width: 100%;
+  }
+  .add-fom-outer {
+    padding: 20px;
+  }
+  .addevent-form {
+    flex-direction: column;
+  }
+  .event-div {
+    width: 100%;
+  }
+  .organizer-div {
+    margin-top: 30px;
+  }
+  .home-inner {
+    border-radius: 0;
+    padding: 0px !important;
+  }
 }

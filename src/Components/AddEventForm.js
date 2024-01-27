@@ -106,7 +106,7 @@ export default function AddEventForm() {
               borderTopRightRadius: "0px",
             }}
           >
-            <div style={{ padding: "50px" }}>
+            <div className="add-fom-outer">
               <div
                 className="like-info-div"
                 style={{
@@ -243,7 +243,7 @@ export default function AddEventForm() {
                     )}
                   </div>
                 </div>
-                <div style={{ display: "block", width: "40%" }}>
+                <div style={{ display: "block" }} className="org-outer">
                   <div className="organizer-div">
                     <h5 style={{ color: "#6671ff" }}>Organiser Details</h5>
                     <p className="add-form-label">
