@@ -51,7 +51,8 @@ export default function EventHome() {
   const getTicket = () => {
     addDoc(collection(db, "registered"), {
       email: location.state.email,
-      eventname: location.state.eventName,
+      name: location.state.eventName,
+      attend: false,
     });
     navigate("/ticket", {
       state: {

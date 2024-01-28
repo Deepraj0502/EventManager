@@ -40,7 +40,7 @@ export default function UserEvents() {
       if (dat.data()["email"] === location.state.email) {
         const querySnapshot1 = await getDocs(collection(db, "events"));
         querySnapshot1.forEach((e) => {
-          if (e.data()["eventname"] === dat.data()["eventname"]) {
+          if (e.data()["eventname"] === dat.data()["name"]) {
             setEvents((events) => [...events, e.data()]);
             setTimeout(() => {
               setLoading(false);
