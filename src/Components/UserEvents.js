@@ -42,13 +42,13 @@ export default function UserEvents() {
         querySnapshot1.forEach((e) => {
           if (e.data()["eventname"] === dat.data()["name"]) {
             setEvents((events) => [...events, e.data()]);
-            setTimeout(() => {
-              setLoading(false);
-            }, 1000);
           }
         });
       }
     });
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   };
 
   useEffect(() => {
