@@ -7,7 +7,11 @@ import MediaQuery from "react-responsive";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { auth, provider } from "./FirebaseConfig";
-import { signInWithPopup } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import ReactLoading from "react-loading";
 import {
   collection,
@@ -15,13 +19,15 @@ import {
   query,
   addDoc,
   getFirestore,
+  setDoc,
+  doc,
 } from "firebase/firestore";
 
 import { app } from "./FirebaseConfig";
 
 export default function Login() {
-  if(window.sessionStorage.getItem("login")===true){
-    window.location.href="/home";
+  if (window.sessionStorage.getItem("login") === true) {
+    window.location.href = "/home";
   }
   const db = getFirestore(app);
   const [login, setLogin] = useState("flex");
@@ -55,21 +61,18 @@ export default function Login() {
       return;
     }
     setLoading(true);
-    const q = query(collection(db, "users"));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      if (doc.data()["email"] === email && doc.data()["password"] === pass) {
-        window.sessionStorage.setItem("login",true);
-        navigateToHome(email);
-      } else {
-        document.getElementById("invalid").style.display = "block";
-        document.getElementById("invalid").innerHTML = "Invalid Credentials";
-        document.getElementById("invalid").style.animationName = "popup";
-        setLoading(false);
-      }
-    });
+    try {
+      await signInWithEmailAndPassword(auth, email, pass);
+      window.sessionStorage.setItem("login", true);
+      navigateToHome(email);
+    } catch (e) {
+      document.getElementById("invalid").style.display = "block";
+      document.getElementById("invalid").innerHTML = "Invalid Credentials";
+      document.getElementById("invalid").style.animationName = "popup";
+      setLoading(false);
+    }
   };
-  const putRegData = () => {
+  const putRegData = async () => {
     var name = document.getElementById("rname").value;
     var email = document.getElementById("remail").value;
     var pass = document.getElementById("rpass").value;
@@ -86,17 +89,18 @@ export default function Login() {
       return;
     }
     setRegLoading(true);
-    addDoc(collection(db, "users"), {
+    await createUserWithEmailAndPassword(auth, email, pass);
+    const user = auth.currentUser;
+    await setDoc(doc(db, "users", user.uid), {
       name: name,
       email: email,
-      password: pass,
       mobileNo: null,
       category: null,
-      profilepic:null,
+      profilepic: null,
     }).then((err) => {
       window.location.reload();
     });
-    window.sessionStorage.setItem("login",true);
+    window.sessionStorage.setItem("login", true);
     navigateToNext(name, email, pass);
   };
   const slideReg = () => {
@@ -156,58 +160,63 @@ export default function Login() {
     document.getElementById("left-box").style.width = "100%";
   };
   const googleLogin = () => {
-    var count=0;
+    var count = 0;
     signInWithPopup(auth, provider).then(async (data) => {
       const q = query(collection(db, "users"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         if (data.user.email === doc.data()["email"]) {
-          window.sessionStorage.setItem("login",true);
+          window.sessionStorage.setItem("login", true);
           navigateToHome(data.user.email);
           count++;
-        } 
+        }
       });
-      if(count===0){
+      if (count === 0) {
         addDoc(collection(db, "users"), {
           name: data.user.displayName,
           email: data.user.email,
           password: data.user.uid,
           mobileNo: null,
           category: null,
-          profilepic:null,
+          profilepic: null,
         }).then((err) => {
           window.location.reload();
         });
-        window.sessionStorage.setItem("login",true);
+        window.sessionStorage.setItem("login", true);
         navigateToNext(data.user.displayName, data.user.email, data.user.uid);
       }
     });
   };
-  document.addEventListener('DOMContentLoaded', function () {window.setTimeout(document.querySelector('svg').classList.add('animated'),1000);})
+  document.addEventListener("DOMContentLoaded", function () {
+    window.setTimeout(
+      document.querySelector("svg").classList.add("animated"),
+      1000
+    );
+  });
   const googleReg = () => {
-   var count=0;
+    var count = 0;
     signInWithPopup(auth, provider).then(async (data) => {
       const q = query(collection(db, "users"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         if (data.user.email === doc.data()["email"]) {
-          window.sessionStorage.setItem("login",true);
+          window.sessionStorage.setItem("login", true);
           navigateToHome(data.user.email);
           count++;
-        } 
+        }
       });
-      if(count===0){
+      if (count === 0) {
         addDoc(collection(db, "users"), {
           name: data.user.displayName,
           email: data.user.email,
           password: data.user.uid,
           mobileNo: null,
           category: null,
-          profilepic:null,
+          profilepic: null,
         }).then((err) => {
           window.location.reload();
         });
-        window.sessionStorage.setItem("login",true);
+        window.sessionStorage.setItem("login", true);
         navigateToNext(data.user.displayName, data.user.email, data.user.uid);
       }
     });
@@ -233,7 +242,13 @@ export default function Login() {
             style={{ display: login }}
           >
             <h1 className="login-wel-text">WELCOME TO</h1>
-            <div style={{ display: "flex",alignItems:"center" ,marginTop:"-10px"}}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginTop: "-10px",
+              }}
+            >
               <img
                 src="https://ik.imagekit.io/ok2wgebfs/evento/evento-removebg-preview.png?updatedAt=1703920695677"
                 alt=""
@@ -346,7 +361,13 @@ export default function Login() {
             style={{ display: forgot }}
           >
             <h1 className="login-wel-text">WELCOME TO</h1>
-            <div style={{ display: "flex",alignItems:"center" ,marginTop:"-10px"}}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginTop: "-10px",
+              }}
+            >
               <img
                 src="https://ik.imagekit.io/ok2wgebfs/evento/evento-removebg-preview.png?updatedAt=1703920695677"
                 alt=""
@@ -390,14 +411,20 @@ export default function Login() {
         {/* Register Box */}
         <div className="register-box" id="register-box">
           <h1 className="register-wel-text">WELCOME TO</h1>
-          <div style={{ display: "flex",alignItems:"center" ,marginTop:"-10px"}}>
-              <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/evento-removebg-preview.png?updatedAt=1703920695677"
-                alt=""
-                className="left-logo"
-              />
-              <h1 className="evento-logo-name">EVENTO</h1>
-            </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginTop: "-10px",
+            }}
+          >
+            <img
+              src="https://ik.imagekit.io/ok2wgebfs/evento/evento-removebg-preview.png?updatedAt=1703920695677"
+              alt=""
+              className="left-logo"
+            />
+            <h1 className="evento-logo-name">EVENTO</h1>
+          </div>
           <p className="register-para">
             Register here to attend your favorite events.
           </p>

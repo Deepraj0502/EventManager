@@ -14,7 +14,7 @@ import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { collection, getDocs, query, getFirestore } from "firebase/firestore";
 
-import { app } from "./FirebaseConfig";
+import { app, auth } from "./FirebaseConfig";
 
 export default function NavbarComp(props) {
   if (window.sessionStorage.getItem("login") === false) {
@@ -62,6 +62,7 @@ export default function NavbarComp(props) {
       }
     });
   };
+
   useEffect(() => {
     getCategory();
   });
@@ -294,7 +295,8 @@ export default function NavbarComp(props) {
               <Nav.Item
                 eventKey="6"
                 icon={<LogoutIcon />}
-                onClick={() => {
+                onClick={async () => {
+                  await auth.signOut();
                   window.sessionStorage.setItem("login", false);
                   window.location.href = "/";
                 }}
