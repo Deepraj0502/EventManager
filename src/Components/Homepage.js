@@ -81,8 +81,8 @@ export default function Homepage() {
     getLikesData();
     getEventsData();
     setTimeout(() => setLoading(false), 1000);
-  },[]);
-  
+  }, []);
+
   const addlike = async (name, date, time, loc) => {
     addDoc(collection(db, "likes"), {
       user: location.state.email,
@@ -108,7 +108,7 @@ export default function Homepage() {
         deleteDoc(scoreRef);
       }
     });
-      setLikes(likes.filter((event) => event.eventName !== name));
+    setLikes(likes.filter((event) => event.eventName !== name));
   };
 
   return (
@@ -169,7 +169,7 @@ export default function Homepage() {
             <CalendarComp />
           </MediaQuery>
           <p className="home-dash-text">Latest Events</p>
-          <CardComp />
+          {/* <CardComp /> */}
           <p className="home-dash-text" ref={browseRef}>
             Browse Events
           </p>
