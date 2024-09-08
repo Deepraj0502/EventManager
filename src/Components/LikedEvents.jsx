@@ -45,6 +45,7 @@ export default function LikedEvents() {
       if (e.data()["eventname"] === eName) {
         setEvents((events) => [...events, e.data()]);
       }
+      setLoading(false);
     });
   };
   const getLikedEvents = async () => {
@@ -53,12 +54,11 @@ export default function LikedEvents() {
       if (dat.data()["user"] === location.state.email) {
         getEventForUser(dat.data()["eventName"]);
         setLikes((likes) => [...likes, dat.data()]);
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
       }
     });
   };
+
+  console.log(events);
 
   const addlike = async (name, date, time, loc) => {
     addDoc(collection(db, "likes"), {
@@ -122,7 +122,6 @@ export default function LikedEvents() {
               borderRadius: "10px",
             }}
           >
-            {" "}
             <h1 className="likedEvent-heading">LIKED EVENTS</h1>
           </div>
           <main className="likedEvent-main-div">
@@ -158,13 +157,7 @@ export default function LikedEvents() {
             {events.map((data, key) => {
               return (
                 <>
-                  <div
-                    key={key}
-                    className="likedEvent-inner-div"
-                    onClick={() => {
-                      navigateToEventHome(data["eventname"]);
-                    }}
-                  >
+                  <div key={key} className="likedEvent-inner-div">
                     <div className="likedEvent-inner-left-div">
                       <h2 className="likedEvent-eventname">{data.eventname}</h2>
                       <p className="likedEvent-eventtime">
@@ -174,16 +167,16 @@ export default function LikedEvents() {
                         {data.eventaddress}
                       </p>
                       <div className="likedEvent-heartBtn">
-                        {/* <button
+                        <button
                           type="button"
                           className="home-dash-button"
                           style={{ padding: "8px" }}
                           onClick={() => {
-                            navigateToEventHome(data["eventname"]);
+                            navigateToEventHome(data.eventname);
                           }}
                         >
                           Know More
-                        </button> */}
+                        </button>
                       </div>
                     </div>
                     <div className="likedEvent-img-knowBtn">
@@ -192,7 +185,10 @@ export default function LikedEvents() {
                         alt={data.eventname}
                         className="likedEvent-poster"
                       />
-                      <div style={{ marginTop: "3px" }} className="liked-heart">
+                      <div
+                        style={{ marginTop: "3px", zIndex: "999" }}
+                        className="liked-heart"
+                      >
                         <Heart
                           onClick={() => {
                             if (

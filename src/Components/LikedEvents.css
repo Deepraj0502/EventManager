@@ -89,13 +89,13 @@
 .likedEvent-eventaddress {
   color: gray;
   font-size: 0.9rem;
-  /* -webkit-box-orient: vertical;
+  -webkit-box-orient: vertical;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
-  min-height: 30px; */
+  min-height: 30px;
 }
 
 .likedEvent-img-knowBtn {
