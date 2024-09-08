@@ -170,6 +170,9 @@
   z-index: 99;
 }
 .home-card-info {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   position: relative;
   top: 2px;
   left: 8px;
@@ -180,7 +183,12 @@
   top: 2px;
   left: 8px;
   width: 100%;
-  word-break: break-all;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 }
 .home-card-outer {
   display: flex;
@@ -228,7 +236,7 @@
 .home-browse-image {
   width: 100%;
   border-radius: 5px;
-  height: 200px;
+  height: 235px;
   object-fit: cover;
 }
 .home-browse-card-left {
@@ -287,6 +295,7 @@
 }
 .home-browse-name {
   font-size: 22px;
+  height: 68px;
 }
 .mbsc-datepicker-tab-wrapper {
   margin-top: -8px;
@@ -371,17 +380,17 @@
     font-size: 1.2rem;
   }
   .home-card-name {
-    color: white;
+    color: black;
     font-weight: 600;
   }
   .home-card-info {
-    color: white;
+    color: black;
   }
   .home-card-icon {
-    color: white;
+    color: black;
   }
   .home-card-name {
-    color: white;
+    color: black;
     font-weight: 600;
   }
   .home-card-btn {

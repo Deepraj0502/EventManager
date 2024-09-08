@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NavbarComp from "./NavbarComp";
-import { useLocation,useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./EventHome.css";
 import { BiTimeFive } from "react-icons/bi";
 import { MdLocationOn } from "react-icons/md";
@@ -18,7 +18,13 @@ import {
   MDBModalFooter,
 } from "mdb-react-ui-kit";
 import { Button } from "rsuite";
-import { collection, getDocs, getFirestore, query,addDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  addDoc,
+} from "firebase/firestore";
 import { app } from "./FirebaseConfig";
 
 export default function EventHome() {
@@ -42,22 +48,23 @@ export default function EventHome() {
     setTimeout(() => setLoading(false), 1000);
   });
   const navigate = useNavigate();
-  const getTicket = () =>{
+  const getTicket = () => {
     addDoc(collection(db, "registered"), {
       email: location.state.email,
-      eventname: location.state.eventName,
+      name: location.state.eventName,
+      attend: false,
     });
     navigate("/ticket", {
       state: {
         email: location.state.email,
         eventName: location.state.eventName,
-        eventLoc:event["eventaddress"],
-        eventDate:event['eventdate'],
-        eventTime:event['eventtime'],
-        ticket:event['ticket']
+        eventLoc: event["eventaddress"],
+        eventDate: event["eventdate"],
+        eventTime: event["eventtime"],
+        ticket: event["ticket"],
       },
     });
-  }
+  };
   return (
     <div>
       {loading && (
@@ -144,9 +151,7 @@ export default function EventHome() {
                   {/* About Event */}
                   <div className="eventhome-about-div">
                     <p className="eventhome-about-head">About Event</p>
-                    <p className="eventhome-about-para">
-                    {event["eventinfo"]}
-                    </p>
+                    <p className="eventhome-about-para">{event["eventinfo"]}</p>
                   </div>
                   {/* When and Where */}
                   <div className="eventhome-ww-div">
@@ -209,7 +214,11 @@ export default function EventHome() {
                           </p>
                         </div>
                         <a
-                          href={`https://www.google.com/maps/search/?api=1&query=${event["eventaddress"].split(' ').join('%20')}`}
+                          href={`https://www.google.com/maps/search/?api=1&query=${event[
+                            "eventaddress"
+                          ]
+                            .split("")
+                            .join("%20")}`}
                           className="show-in-map"
                           target="_blank"
                           rel="noreferrer"
@@ -234,18 +243,17 @@ export default function EventHome() {
                       alt=""
                       className="organiser-logo"
                     />
-                    <p className="organiser-para">
-                    {event["organizerinfo"]}
-                    </p>
+                    <h3 style={{ fontWeight: "700" }}>{event.organizername}</h3>
+                    <p className="organiser-para">{event["organizerinfo"]}</p>
                   </div>
                   {/* More Events */}
-                  <OrganiserCard />
+                  <OrganiserCard organizername={event.organizername} />
                   {/* Similar Events */}
                   <p
                     className="eventhome-about-head"
                     style={{ marginTop: "40px" }}
                   >
-                    Similar Events
+                    SIMILAR EVENTS
                   </p>
                   <SimilarCard />
                 </div>

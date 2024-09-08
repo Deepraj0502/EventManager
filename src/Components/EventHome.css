@@ -1,162 +1,167 @@
-.eventhome-image{
-    height: 400px;
-    object-fit: contain;
-    margin: auto;
-    position: relative;
+.eventhome-image {
+  height: 400px;
+  object-fit: contain;
+  margin: auto;
+  position: relative;
+  width: 100%;
+  margin-top: -425px;
+}
+.eventhome-image-div {
+  padding: 20px;
+  height: 450px;
+  border-top-left-radius: 20px;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  margin: -5px -10px -10px -5px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+.eventhome-map {
+  position: sticky;
+  top: 20px;
+}
+.eventhome-main {
+  width: 100%;
+  display: flex;
+  margin-top: 28px;
+}
+.eventhome-main-left {
+  width: 65%;
+  padding: 20px;
+}
+.eventhome-main-right {
+  width: 35%;
+  padding: 20px;
+}
+.eventhome-date {
+  font-weight: bold;
+  color: gray;
+  font-size: 1.3rem;
+}
+.eventhome-about-div {
+  width: 100%;
+  margin-top: 40px;
+}
+.eventhome-about-head {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.eventhome-about-para {
+  margin-top: -10px;
+}
+.eventhome-ww-div {
+  width: 100%;
+  margin-top: 40px;
+}
+.eventhome-ww-head {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.ww-inside-div {
+  display: flex;
+  width: 100%;
+}
+.eventhome-ww-info {
+  color: gray;
+  width: 100%;
+}
+.show-in-map {
+  margin-left: 93px;
+  text-decoration: none;
+  color: #6671ff;
+  font-weight: 600;
+  margin-top: 0px;
+  position: relative;
+  top: 2px;
+}
+.book-outer-div {
+  padding: 21px;
+  border-radius: 5px;
+  box-shadow: 0px 1px 4px gray;
+  width: 100%;
+}
+.reserve-head {
+  font-size: 1.5rem;
+  color: black;
+  font-weight: 700;
+}
+.reserve-button {
+  width: 100%;
+  background-color: #1274d1;
+  padding: 8px;
+  border-radius: 5px;
+  font-weight: 600;
+  color: aliceblue;
+  font-size: 18px;
+}
+.organiser-logo {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+.organiser-para {
+  margin-top: 10px;
+}
+.home-form-btn {
+  color: white;
+  height: 40px;
+  font-size: 16px;
+}
+.home-form-btn:hover {
+  color: white;
+}
+.similar-btn-and-like {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 45px;
+}
+@media (max-width: 600px) {
+  .eventhome-inner {
+    margin-left: 13%;
+    width: 87%;
+  }
+  .eventhome-outer {
+    border-top-left-radius: 0 !important;
+  }
+  .eventhome-image-div {
+    height: 200px;
+  }
+  .eventhome-image {
+    height: 300px;
+    width: 90%;
+    margin-top: -253px;
+    margin-bottom: -69px;
+  }
+  .eventhome-main-right {
+    display: block;
+  }
+  .eventhome-main-left {
     width: 100%;
-    margin-top: -425px;
-}
-.eventhome-image-div{
-    padding: 20px;
-    height: 450px;
-    border-top-left-radius: 20px;
-    filter: blur(5px);
-    -webkit-filter: blur(5px);
-    -moz-filter: blur(5px);
-    -o-filter: blur(5px);
-    -ms-filter: blur(5px);
-    margin: -5px -10px -10px -5px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    overflow: hidden;
-}
-.eventhome-map{
-    position: sticky;
-    top: 20px;
-}
-.eventhome-main{
-    width: 100%;
-    display: flex;
-    margin-top: 28px;
-}
-.eventhome-main-left{
-    width: 65%;
-    padding: 20px;
-}
-.eventhome-main-right{
-    width: 35%;
-    padding: 20px;
-}
-.eventhome-date{
-    font-weight: bold;
-    color: gray;
-    font-size: 1.3rem;
-}
-.eventhome-about-div{
-    width: 100%;
-    margin-top: 40px;
-}
-.eventhome-about-head{
-    font-weight: bold;
-    font-size: 1.5rem;
-}
-.eventhome-about-para{
-    margin-top: -10px;
-}
-.eventhome-ww-div{
-    width: 100%;
-    margin-top: 40px;
-}
-.eventhome-ww-head{
-    font-weight: bold;
-    font-size: 1.5rem;
-}
-.ww-inside-div{
-    display: flex;
-    width: 100%;
-}
-.eventhome-ww-info{
-    color: gray;
-   width: 100%;
-}
-.show-in-map{
-    margin-left: 93px;
-    text-decoration: none;
-    color: #6671ff;
-    font-weight: 600;
-    margin-top: 0px;
-    position: relative;
-    top: 2px;
-}
-.book-outer-div{
-    padding: 21px;
-    border-radius: 5px;
-    box-shadow: 0px 1px 4px gray;
-    width: 100%;
-}
-.reserve-head{
-    font-size: 1.5rem;
-    color: black;
-    font-weight: 700;
-}
-.reserve-button{
-    width: 100%;
-    background-color: #1274d1;
-    padding: 8px;
-    border-radius: 5px;
-    font-weight: 600;
-    color: aliceblue;
-    font-size: 18px;
-}
-.organiser-logo{
-    width: 150px;
-    height: 150px;
-   object-fit: cover; 
-
-}
-.organiser-para{
-    margin-top: 10px;
-}
-.home-form-btn{
-    color: white;
-    height: 40px;
-    font-size: 16px;
-}
-.home-form-btn:hover{
-    color: white;
-}
-@media (max-width:600px) {
-    .eventhome-inner{
-        margin-left: 13%;
-        width: 87%;
-    }
-    .eventhome-outer{
-        border-top-left-radius: 0 !important;
-    }
-    .eventhome-image-div{
-        height: 200px;
-    }
-    .eventhome-image{
-        height: 300px;
-        width: 90%;
-        margin-top: -253px;
-        margin-bottom: -69px;
-    }
-    .eventhome-main-right{
-        display: block;
-    }
-    .eventhome-main-left{
-        width: 100%;
-    }
-    .ww-inside-div{
-        flex-direction: column;
-    }
-    .ww-inside-left{
-        border: none !important;
-        border-bottom: 0.5px solid !important;
-        width: 100% !important;
-    }
-    .ww-inside-right{
-        width: 100% !important;
-        margin-top: 15px;
-    }
-    .ww-right-loc{
-        margin-left: 0 !important;
-        width: 100px !important;
-        height: 35px !important;
-        margin-top: 2px;
-    }
-    .show-in-map{
-        margin-left: 50px;
-    }
+  }
+  .ww-inside-div {
+    flex-direction: column;
+  }
+  .ww-inside-left {
+    border: none !important;
+    border-bottom: 0.5px solid !important;
+    width: 100% !important;
+  }
+  .ww-inside-right {
+    width: 100% !important;
+    margin-top: 15px;
+  }
+  .ww-right-loc {
+    margin-left: 0 !important;
+    width: 100px !important;
+    height: 35px !important;
+    margin-top: 2px;
+  }
+  .show-in-map {
+    margin-left: 50px;
+  }
 }

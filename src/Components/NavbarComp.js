@@ -45,6 +45,13 @@ export default function NavbarComp(props) {
       },
     });
   };
+  const navigateToLikedEvents = () => {
+    navigate("/likedevents", {
+      state: {
+        email: location.state.email,
+      },
+    });
+  };
   const [user, setUser] = useState([]);
   const getCategory = async () => {
     const q = query(collection(db, "users"));
@@ -70,76 +77,6 @@ export default function NavbarComp(props) {
               />
               <Nav activeKey={props.active}>
                 <Nav.Item>
-                <div style={{ display: "flex",alignItems:"center",marginLeft: "-40px",
-                      marginTop: "10px",}}>
-              <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/evento-removebg-preview.png?updatedAt=1703920695677"
-                alt=""
-                className="left-logo nav-logo"
-              />
-              <h1 className="evento-logo-name nav-name">EVENTO</h1>
-            </div>
-                </Nav.Item>
-                <Nav.Item
-                  eventKey="1"
-                  icon={<GroupIcon />}
-                  onClick={navigateToHome}
-                >
-                  Dashboard
-                </Nav.Item>
-                <Nav.Item
-                  eventKey="2"
-                  icon={<ProfileIcon />}
-                  onClick={navigateToProfile}
-                >
-                  Profile
-                </Nav.Item>
-                {user === "organizer" && (
-                  <>
-                    <Nav.Menu
-                      placement="rightStart"
-                      eventKey="3"
-                      title="Your Events"
-                      icon={<MagicIcon />}
-                    >
-                      <Nav.Item eventKey="3-1">Past Events</Nav.Item>
-                      <Nav.Item eventKey="3-2">Future Events</Nav.Item>
-                    </Nav.Menu>
-                    <Nav.Item
-                      eventKey="7"
-                      icon={<PlusSquare />}
-                      onClick={navigateToAddEvent}
-                    >
-                      Add Event
-                    </Nav.Item>
-                  </>
-                )}
-                <Nav.Item eventKey="4" icon={<HeartIcon />}>
-                  Liked Events
-                </Nav.Item>
-                <Nav.Item eventKey="5" icon={<CertificateIcon />}>
-                  Certificate
-                </Nav.Item>
-                <Nav.Item eventKey="6" icon={<LogoutIcon />}>
-                  Logout
-                </Nav.Item>
-              </Nav>
-            </Sidenav.Body>
-          )}
-          {!expanded && (
-            <Sidenav.Body
-              style={{
-                width: "56px",
-                animationName: "contrast",
-                animationDuration: "0.05",
-              }}
-            >
-              <Sidenav.Toggle
-                expanded={expanded}
-                onToggle={(expanded) => setExpanded(expanded)}
-              />
-              <Nav activeKey={props.active}>
-                <Nav.Item>
                   <div
                     style={{
                       display: "flex",
@@ -152,7 +89,6 @@ export default function NavbarComp(props) {
                       src="https://ik.imagekit.io/ok2wgebfs/evento/evento-removebg-preview.png?updatedAt=1703920695677"
                       alt=""
                       className="left-logo nav-logo"
-                      style={{width:"35px",height:"35px"}}
                     />
                     <h1 className="evento-logo-name nav-name">EVENTO</h1>
                   </div>
@@ -191,7 +127,92 @@ export default function NavbarComp(props) {
                     </Nav.Item>
                   </>
                 )}
-                <Nav.Item eventKey="4" icon={<HeartIcon />}>
+                <Nav.Item
+                  eventKey="4"
+                  icon={<HeartIcon />}
+                  onClick={navigateToLikedEvents}
+                >
+                  Liked Events
+                </Nav.Item>
+                <Nav.Item eventKey="5" icon={<CertificateIcon />}>
+                  Certificate
+                </Nav.Item>
+                <Nav.Item eventKey="6" icon={<LogoutIcon />}>
+                  Logout
+                </Nav.Item>
+              </Nav>
+            </Sidenav.Body>
+          )}
+          {!expanded && (
+            <Sidenav.Body
+              style={{
+                width: "56px",
+                animationName: "contrast",
+                animationDuration: "0.05",
+              }}
+            >
+              <Sidenav.Toggle
+                expanded={expanded}
+                onToggle={(expanded) => setExpanded(expanded)}
+              />
+              <Nav activeKey={props.active}>
+                <Nav.Item>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginLeft: "-40px",
+                      marginTop: "10px",
+                    }}
+                  >
+                    <img
+                      src="https://ik.imagekit.io/ok2wgebfs/evento/evento-removebg-preview.png?updatedAt=1703920695677"
+                      alt=""
+                      className="left-logo nav-logo"
+                      style={{ width: "35px", height: "35px" }}
+                    />
+                    <h1 className="evento-logo-name nav-name">EVENTO</h1>
+                  </div>
+                </Nav.Item>
+                <Nav.Item
+                  eventKey="1"
+                  icon={<GroupIcon />}
+                  onClick={navigateToHome}
+                >
+                  Dashboard
+                </Nav.Item>
+                <Nav.Item
+                  eventKey="2"
+                  icon={<ProfileIcon />}
+                  onClick={navigateToProfile}
+                >
+                  Profile
+                </Nav.Item>
+                {user === "organizer" && (
+                  <>
+                    <Nav.Menu
+                      placement="rightStart"
+                      eventKey="3"
+                      title="Your Events"
+                      icon={<MagicIcon />}
+                    >
+                      <Nav.Item eventKey="3-1">Past Events</Nav.Item>
+                      <Nav.Item eventKey="3-2">Future Events</Nav.Item>
+                    </Nav.Menu>
+                    <Nav.Item
+                      eventKey="7"
+                      icon={<PlusSquare />}
+                      onClick={navigateToAddEvent}
+                    >
+                      Add Event
+                    </Nav.Item>
+                  </>
+                )}
+                <Nav.Item
+                  eventKey="4"
+                  icon={<HeartIcon />}
+                  onClick={navigateToLikedEvents}
+                >
                   Liked Events
                 </Nav.Item>
                 <Nav.Item eventKey="5" icon={<CertificateIcon />}>
@@ -210,15 +231,21 @@ export default function NavbarComp(props) {
           <Sidenav.Body>
             <Nav activeKey={props.active}>
               <Nav.Item>
-              <div style={{ display: "flex",alignItems:"center",marginLeft: "-40px",
-                      marginTop: "10px",}}>
-              <img
-                src="https://ik.imagekit.io/ok2wgebfs/evento/evento-removebg-preview.png?updatedAt=1703920695677"
-                alt=""
-                className="left-logo nav-logo"
-              />
-              <h1 className="evento-logo-name nav-name">EVENTO</h1>
-            </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginLeft: "-40px",
+                    marginTop: "10px",
+                  }}
+                >
+                  <img
+                    src="https://ik.imagekit.io/ok2wgebfs/evento/evento-removebg-preview.png?updatedAt=1703920695677"
+                    alt=""
+                    className="left-logo nav-logo"
+                  />
+                  <h1 className="evento-logo-name nav-name">EVENTO</h1>
+                </div>
               </Nav.Item>
               <Nav.Item
                 eventKey="1"
@@ -254,7 +281,11 @@ export default function NavbarComp(props) {
                   </Nav.Item>
                 </>
               )}
-              <Nav.Item eventKey="4" icon={<HeartIcon />}>
+              <Nav.Item
+                eventKey="4"
+                icon={<HeartIcon />}
+                onClick={navigateToLikedEvents}
+              >
                 Liked Events
               </Nav.Item>
               <Nav.Item eventKey="5" icon={<CertificateIcon />}>
