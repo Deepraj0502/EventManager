@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import NavbarComp from "./NavbarComp";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -48,6 +48,7 @@ export default function LikedEvents() {
       setLoading(false);
     });
   };
+
   const getLikedEvents = async () => {
     const querySnapshot = await getDocs(collection(db, "likes"));
     querySnapshot.forEach((dat) => {
@@ -85,7 +86,8 @@ export default function LikedEvents() {
         deleteDoc(scoreRef);
       }
     });
-    setLikes(likes.filter((event) => event.eventName !== name));
+    setLikes((likes) => likes.filter((event) => event.eventName !== name));
+    setEvents((events) => events.filter((event) => event.eventname !== name)); // Remove the unliked event from the events state
   };
 
   useEffect(() => {
@@ -137,13 +139,13 @@ export default function LikedEvents() {
                 }}
               >
                 {" "}
-                <div className="noEvent-div" style={{ color: "gray" }}>
+                <div className="noEvent-div" style={{ color: "black" }}>
                   <h1 style={{ textAlign: "center" }}>
                     Add Your Favourite Events
                   </h1>
                   <button
                     type="button"
-                    className="home-dash-button"
+                    className="home-dash-button hover:scale-[1.1] transition duration-700 ease-in-out hover:transition hover:duration-700 hover:ease-in-out"
                     style={{ padding: "8px" }}
                     onClick={() => {
                       navigateToHome();

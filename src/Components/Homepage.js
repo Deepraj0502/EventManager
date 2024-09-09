@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useRef } from "react";
 import { useLocation } from "react-router-dom";
 import NavbarComp from "./NavbarComp";
@@ -111,6 +111,18 @@ export default function Homepage() {
     setLikes(likes.filter((event) => event.eventName !== name));
   };
 
+  const [searchEvent, setSearchEvent] = useState("");
+
+  const handleChange = (e) => {
+    setSearchEvent(e);
+  };
+
+  const filteredEvents = useMemo(() => {
+    return events.filter((event) =>
+      event.eventname.toLowerCase().includes(searchEvent.toLowerCase())
+    );
+  }, [events, searchEvent]);
+
   return (
     <div className="home-outer">
       {loading && (
@@ -126,19 +138,19 @@ export default function Homepage() {
       <NavbarComp active="1" />
       <div className="home-inner">
         <div className="home-main-div">
-          <form>
-            <div className="home-search-div">
-              <div className="home-search-button-div">
-                <BiSearch className="home-search-button" />
-              </div>
-              <input
-                type="text"
-                name="search"
-                placeholder="Search"
-                className="home-search-bar"
-              />
+          <div className="home-search-div">
+            <div className="home-search-button-div">
+              <BiSearch className="home-search-button" />
             </div>
-          </form>
+            <input
+              type="text"
+              name="searchEvent"
+              placeholder="Search"
+              className="home-search-bar"
+              value={searchEvent}
+              onChange={(e) => handleChange(e.target.value)}
+            />
+          </div>
           <p className="home-dash-text">Dashboard</p>
           <div className="home-dash-outer">
             <div className="home-dash-inner">
@@ -168,104 +180,131 @@ export default function Homepage() {
           <MediaQuery maxWidth={600}>
             <CalendarComp />
           </MediaQuery>
-          <p className="home-dash-text">Latest Events</p>
+          {/* <p className="home-dash-text">Latest Events</p> */}
           {/* <CardComp /> */}
           <p className="home-dash-text" ref={browseRef}>
             Browse Events
+            {searchEvent && (
+              <p className="text-lg font-normal">
+                Searching result for <b>{searchEvent}</b>
+              </p>
+            )}
           </p>
+
           <div className="home-browse-outer">
-            {events.map((val) => {
-              return (
-                <div className="home-browse-card">
-                  <div className="home-browse-card-left">
-                    <img
-                      src={val["eventposter"]}
-                      alt=""
-                      className="home-browse-image"
-                    />
-                  </div>
-                  <div className="home-browse-card-right">
-                    <p className="home-browse-name">{val["eventname"]}</p>
-                    <div style={{ display: "flex" }}>
-                      <BiTimeFive
-                        style={{
-                          width: "18px",
-                          height: "22px",
-                          position: "relative",
-                          top: "4px",
-                        }}
-                      />
-                      <p className="home-browse-info">{val["eventtime"]}</p>
+            {filteredEvents.length > 0 ? (
+              filteredEvents.map((val) => {
+                return (
+                  <>
+                    <div className="home-browse-card">
+                      <div className="home-browse-card-left">
+                        <img
+                          src={val["eventposter"]}
+                          alt=""
+                          className="home-browse-image"
+                        />
+                      </div>
+                      <div className="home-browse-card-right">
+                        <p className="home-browse-name">{val["eventname"]}</p>
+                        <div style={{ display: "flex" }}>
+                          <BiTimeFive
+                            style={{
+                              width: "18px",
+                              height: "22px",
+                              position: "relative",
+                              top: "4px",
+                            }}
+                          />
+                          <p className="home-browse-info">{val["eventtime"]}</p>
+                        </div>
+                        <div style={{ display: "flex", marginTop: "-5px" }}>
+                          <MdLocationOn
+                            style={{
+                              width: "18px",
+                              height: "22px",
+                              position: "relative",
+                              top: "4px",
+                            }}
+                          />
+                          <p className="home-browse-info">
+                            {val["eventaddress"]}
+                          </p>
+                        </div>
+                        <div style={{ display: "flex", marginTop: "-5px" }}>
+                          <BsCalendarDate
+                            style={{
+                              width: "18px",
+                              height: "22px",
+                              position: "relative",
+                              top: "4px",
+                            }}
+                          />
+                          <p className="home-browse-info">{val["eventdate"]}</p>
+                        </div>
+                        <button
+                          type="button"
+                          className="home-dash-button"
+                          style={{ padding: "8px" }}
+                          onClick={() => {
+                            navigateToEventHome(val["eventname"]);
+                          }}
+                        >
+                          Know More
+                        </button>
+                      </div>
+                      <div
+                        style={{ width: "10%", marginTop: "3px" }}
+                        className="heart-outer-div"
+                      >
+                        <Heart
+                          onClick={() => {
+                            if (
+                              likes.some(
+                                (item) => item.eventName === val["eventname"]
+                              )
+                            ) {
+                              deletelike(val["eventname"]);
+                            } else {
+                              addlike(
+                                val["eventname"],
+                                val["eventdate"],
+                                val["eventtime"],
+                                val["eventaddress"]
+                              );
+                            }
+                          }}
+                          animationScale={1.2}
+                          animationTrigger="both"
+                          animationDuration={0.2}
+                          className={`browseHeart ${
+                            likes.some(
+                              (item) => item.eventName === val["eventname"]
+                            )
+                              ? "browseHeart-active"
+                              : ""
+                          }`}
+                        />
+                      </div>
                     </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <MdLocationOn
-                        style={{
-                          width: "18px",
-                          height: "22px",
-                          position: "relative",
-                          top: "4px",
-                        }}
-                      />
-                      <p className="home-browse-info">{val["eventaddress"]}</p>
-                    </div>
-                    <div style={{ display: "flex", marginTop: "-5px" }}>
-                      <BsCalendarDate
-                        style={{
-                          width: "18px",
-                          height: "22px",
-                          position: "relative",
-                          top: "4px",
-                        }}
-                      />
-                      <p className="home-browse-info">{val["eventdate"]}</p>
-                    </div>
-                    <button
-                      type="button"
-                      className="home-dash-button"
-                      style={{ padding: "8px" }}
-                      onClick={() => {
-                        navigateToEventHome(val["eventname"]);
-                      }}
-                    >
-                      Know More
-                    </button>
-                  </div>
-                  <div
-                    style={{ width: "10%", marginTop: "3px" }}
-                    className="heart-outer-div"
+                  </>
+                );
+              })
+            ) : (
+              <>
+                <div className="flex flex-col gap-4 items-center bg-[#DBE4FA] p-4 rounded-3xl">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                    className="w-20 h-20"
                   >
-                    <Heart
-                      onClick={() => {
-                        if (
-                          likes.some(
-                            (item) => item.eventName === val["eventname"]
-                          )
-                        ) {
-                          deletelike(val["eventname"]);
-                        } else {
-                          addlike(
-                            val["eventname"],
-                            val["eventdate"],
-                            val["eventtime"],
-                            val["eventaddress"]
-                          );
-                        }
-                      }}
-                      animationScale={1.2}
-                      animationTrigger="both"
-                      animationDuration={0.2}
-                      className={`browseHeart ${
-                        likes.some(
-                          (item) => item.eventName === val["eventname"]
-                        )
-                          ? "browseHeart-active"
-                          : ""
-                      }`}
-                    />
-                  </div>
+                    <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zM174.6 384.1c-4.5 12.5-18.2 18.9-30.7 14.4s-18.9-18.2-14.4-30.7C146.9 319.4 198.9 288 256 288s109.1 31.4 126.6 79.9c4.5 12.5-2 26.2-14.4 30.7s-26.2-2-30.7-14.4C328.2 358.5 297.2 336 256 336s-72.2 22.5-81.4 48.1zM144.4 208a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                  </svg>
+                  <p className="text-xl">
+                    Sorry, we couldn't find the results for <b>{searchEvent}</b>
+                  </p>
                 </div>
-              );
-            })}
+              </>
+            )}
           </div>
         </div>
         <div className="home-side-div">
