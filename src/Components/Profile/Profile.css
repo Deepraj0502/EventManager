@@ -48,6 +48,15 @@
   background-color: #dbe4fa;
   object-fit: cover;
 }
+.pic-btn-loading {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #6671ff;
+  border-radius: 50%;
+}
 .profile-inner-info {
   width: 100%;
   height: 200px;
@@ -170,6 +179,11 @@
     width: 185px;
   }
 
+  .pic-btn-loading {
+    width: 200px;
+    height: 200px;
+  }
+
   .profile-card-div {
     display: flex;
     justify-content: center;
@@ -225,6 +239,11 @@
   .profile-upload-image {
     height: 160px;
     width: 160px;
+  }
+
+  .pic-btn-loading {
+    width: 100px;
+    height: 100px;
   }
 
   .dropdown {

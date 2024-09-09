@@ -16,7 +16,7 @@ code {
 @tailwind components;
 @tailwind utilities;
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 10px;
 }
 
@@ -25,8 +25,8 @@ code {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #494aa8;
+  background-color: #6671ff;
   border: 3px solid transparent;
   border-radius: 6px;
   background-clip: content-box;
-} */
+}
