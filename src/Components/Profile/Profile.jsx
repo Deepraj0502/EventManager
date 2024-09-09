@@ -79,20 +79,6 @@ export default function App() {
     },
   ];
 
-  const deleteProfilePic = async () => {
-    setUrl("");
-    const q = query(collection(db, "users"));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc4) => {
-      if (doc4.data()["email"] === location.state.email) {
-        const scoreRef = doc(db, "users", doc4.id);
-        updateDoc(scoreRef, {
-          profilepic: null,
-        });
-      }
-    });
-  };
-
   const [picUpload, setPicUpload] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -163,6 +149,52 @@ export default function App() {
     }
   };
 
+  const [deletedPic, setDeletedPic] = useState(null);
+  const deleteProfilePic = async () => {
+    try {
+      // Validation: Check if the profile picture URL exists
+      if (!url) {
+        setError("No profile picture to delete.");
+        document.getElementById("toast-simple").style.display = "flex";
+        setTimeout(() => {
+          document.getElementById("toast-simple").style.display = "none";
+        }, 3000);
+        setDeletedPic(false);
+        return;
+      }
+
+      // Reset error and set URL to an empty string
+      setError(null);
+      setUrl("");
+
+      // Query to find the user in Firestore
+      const q = query(collection(db, "users"));
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach(async (doc4) => {
+        if (doc4.data()["email"] === location.state.email) {
+          const scoreRef = doc(db, "users", doc4.id);
+
+          // Update the user's document to set profilepic to null
+          await updateDoc(scoreRef, {
+            profilepic: null,
+          });
+
+          // Set the deletedPic state to true indicating successful deletion
+          setDeletedPic(true);
+          document.getElementById("toast-simple3").style.display = "flex";
+          setTimeout(() => {
+            document.getElementById("toast-simple3").style.display = "none";
+          }, 3000);
+        }
+      });
+    } catch (error) {
+      console.error("Error deleting profile picture:", error);
+      setError("Failed to delete profile picture. Please try again.");
+      setDeletedPic(false); // Set deletedPic to false on error
+    }
+  };
+
   useEffect(() => {
     getInfo();
   });
@@ -212,6 +244,24 @@ export default function App() {
             <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
           </svg>
           <div class="ps-4 text-sm font-semibold text-[#52b788]">{success}</div>
+        </div>
+
+        <div
+          id="toast-simple3"
+          class="hidden fixed top-5 right-5 border-2 border-[#9B1C1C] z-[999] flex items-center w-full max-w-xs p-4 space-x-4 rtl:space-x-reverse text-gray-500 bg-white divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow dark:text-gray-400 dark:divide-gray-700 dark:bg-gray-800"
+          role="delete"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            fill="#9B1C1C"
+            className="w-6 h-6"
+          >
+            <path d="M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z" />
+          </svg>
+          <div class="ps-4 text-sm font-semibold text-[#9B1C1C]">
+            {deletedPic && <p className="mb-0">Profile picture deleted!</p>}
+          </div>
         </div>
 
         <div className="profile-inner-div">
